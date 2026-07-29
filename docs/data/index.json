@@ -1,0 +1,20 @@
+{
+  "reports": [
+    {
+      "date": "2026-07-29",
+      "trade_date": "2026-07-30",
+      "regime": "risk_off",
+      "pick_count": 10,
+      "top_names": [
+        "SK이노베이션",
+        "달바글로벌",
+        "GS"
+      ],
+      "scored": false
+    }
+  ],
+  "updated_at": "2026-07-29 16:59:19 KST",
+  "performance": {
+    "sessions": 0
+  }
+}
