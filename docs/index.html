@@ -152,6 +152,7 @@ h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 4px
   background: color-mix(in srgb, var(--up) 9%, transparent);
 }
 .pool-poor strong { color: var(--up); }
+.shadow-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
 
 .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
 .theme-btn {
@@ -472,6 +473,7 @@ function renderReport(r) {
     main.appendChild(performanceCard(indexData.performance));
   }
   main.appendChild(picksSection(r));
+  if (r.variants) main.appendChild(shadowCard(r));
   main.appendChild(methodCard(r));
 }
 
@@ -682,6 +684,73 @@ function pickCard(p) {
   body.appendChild(right);
 
   card.appendChild(body);
+  return card;
+}
+
+/* 그림자 모드 — 발행본과 대조군들을 나란히 놓는다.
+   누적 수익률만 보여주면 표본이 모자란 상태에서 순위를 믿게 되므로
+   t값과 "판단까지 남은 거래일"을 항상 함께 낸다. */
+function shadowCard(r) {
+  const card = el("div", "card");
+  card.appendChild(el("p", "card-title", "그림자 모드 — 전략 변형 비교"));
+  card.appendChild(el("p", "subtle",
+    "발행본 외 변형들도 매일 같은 데이터로 후보를 뽑아 채점합니다. " +
+    "실제 매매는 발행본 기준이며, 나머지는 어느 규칙이 맞는지 검증하기 위한 대조군입니다."));
+
+  const shadow = (indexData && indexData.shadow) || { sessions: 0, variants: {} };
+  const perf = shadow.variants || {};
+
+  const wrap = el("div", "table-wrap");
+  const table = el("table");
+  table.innerHTML = `<thead><tr>
+    <th>변형</th><th>오늘 후보</th><th>채점일</th><th>누적</th>
+    <th>일평균 초과</th><th>t값</th><th>상태</th>
+  </tr></thead>`;
+  const tbody = el("tbody");
+
+  for (const [name, info] of Object.entries(r.variants)) {
+    const p = perf[name] || {};
+    const tr = el("tr");
+    if (name === r.primary_variant) tr.style.fontWeight = "600";
+
+    const nameCell = el("td");
+    nameCell.appendChild(el("div", null, info.label));
+    const names = (info.picks || []).slice(0, 3).map(x => x.name).join(", ");
+    nameCell.appendChild(el("div", "shadow-sub", names || "후보 없음"));
+    tr.appendChild(nameCell);
+
+    tr.appendChild(el("td", null, info.skipped_today
+      ? "매매 안 함" : `${(info.picks || []).length}종목`));
+    tr.appendChild(el("td", null, p.sessions != null ? `${p.sessions}일` : "—"));
+
+    const cum = el("td", signClass(p.cumulative_pct),
+      p.cumulative_pct != null ? num(p.cumulative_pct) + "%" : "—");
+    tr.appendChild(cum);
+    tr.appendChild(el("td", signClass(p.avg_excess_pct),
+      p.avg_excess_pct != null ? num(p.avg_excess_pct) + "%" : "—"));
+    tr.appendChild(el("td", null, p.tstat != null ? plain(p.tstat, 2) : "—"));
+
+    const status = el("td");
+    status.style.textAlign = "left";
+    status.style.whiteSpace = "normal";
+    status.style.color = p.significant ? "var(--text-primary)" : "var(--text-muted)";
+    status.textContent = p.confidence_note || (shadow.sessions ? "—" : "채점 대기");
+    tr.appendChild(status);
+
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  wrap.appendChild(table);
+  card.appendChild(wrap);
+
+  card.appendChild(el("p", "subtle",
+    "초과수익 = 후보 평균 − 코스피 일중(시가→종가). 절대 수익률만 보면 " +
+    "전략이 좋았는지 시장이 좋았는지 구분되지 않습니다. " +
+    "t값 절대치가 2 미만이면 우연과 구분되지 않으며, 최소 20거래일이 쌓이기 전에는 " +
+    "유의 판정을 하지 않습니다."));
+
+  const skipped = Object.values(r.variants).find(v => v.skip_reason);
+  if (skipped) card.appendChild(el("p", "subtle", "· " + skipped.skip_reason));
   return card;
 }
 

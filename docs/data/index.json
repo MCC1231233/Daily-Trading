@@ -13,8 +13,12 @@
       "scored": false
     }
   ],
-  "updated_at": "2026-07-29 18:21:30 KST",
+  "updated_at": "2026-07-29 19:10:13 KST",
   "performance": {
     "sessions": 0
+  },
+  "shadow": {
+    "sessions": 0,
+    "variants": {}
   }
 }

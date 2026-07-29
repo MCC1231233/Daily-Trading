@@ -24,6 +24,7 @@ import yaml
 sys.path.insert(0, str(Path(__file__).parent))
 
 import factors as F
+import variants
 from datasource import NaverClient, fetch_macro, fetch_universe
 
 KST = ZoneInfo("Asia/Seoul")
@@ -194,148 +195,6 @@ def ensure_columns(frame: pd.DataFrame) -> pd.DataFrame:
     return frame
 
 
-def build_block_scores(frame: pd.DataFrame, cfg: dict) -> pd.DataFrame:
-    """각 팩터를 z-score로 표준화한 뒤 5개 블록으로 합산한다.
-
-    전략이 역추세(낙폭 반등)이므로 부호 방향이 추세 전략과 반대인 팩터가 많다.
-    수익률·이격도·RSI는 낮을수록 점수가 올라간다.
-    """
-    cfg_score = cfg["scoring"]
-    z = F.zscore
-
-    # --- 낙폭: 얼마나 눌렸는가 -----------------------------------------
-    # 단조 증가로 두지 않고 sweet spot에서 멀수록 감점하는 이유는,
-    # -70% 같은 극단 낙폭은 되돌림이 아니라 훼손일 확률이 높기 때문이다.
-    drawdown_fit = -(
-        frame["drawdown_52w"] - cfg_score["drawdown_sweet_spot"]
-    ).abs()
-    rsi_fit = -(frame["rsi14"] - cfg_score["rsi_sweet_spot"]).abs()
-    bb_fit = -(frame["bb_percent_b"] - cfg_score["bb_sweet_spot"]).abs()
-
-    frame["block_drawdown"] = (
-        0.30 * z(drawdown_fit)
-        + 0.28 * z(rsi_fit)
-        + 0.22 * z(bb_fit)
-        - 0.20 * z(frame["ma20_disparity"])   # 20일선 아래일수록 가점
-    )
-
-    # --- 반등: 팔 사람이 다 팔았다는 흔적이 있는가 ----------------------
-    # oc_after_down이 이 블록의 핵심이다. 전일 하락한 다음 날의 시가→종가
-    # 수익률로, 실제 매매 조건과 정확히 같은 상황의 과거 성적이다.
-    # 표본이 적으면 우연일 수 있어 신뢰 구간을 못 채우면 중립 처리한다.
-    reliable = frame["down_day_count"] >= cfg_score["min_down_day_samples"]
-    oc_down = frame["oc_after_down"].where(reliable)
-    oc_down_wr = frame["oc_after_down_winrate"].where(reliable)
-    capped_capitulation = frame["capitulation"].clip(
-        upper=cfg_score["capitulation_cap"]
-    )
-
-    frame["block_reversal"] = (
-        0.34 * z(oc_down)
-        + 0.22 * z(oc_down_wr)
-        + 0.18 * z(frame["lower_shadow"])
-        + 0.14 * z(capped_capitulation)
-        + 0.12 * z(frame["oc_mean"])
-    )
-
-    # --- 수급: 낙폭 구간에서도 기관·외국인이 받고 있는가 -----------------
-    # 이 전략에서 수급은 단순 선호가 아니라 검증 장치다. 빠지는 종목을
-    # 외국인·기관이 사고 있다면 시장이 저점 매집으로 보고 있다는 뜻이다.
-    frame["block_flow"] = (
-        0.40 * z(frame["foreign_net_5d_pct"])
-        + 0.30 * z(frame["organ_net_5d_pct"])
-        + 0.15 * z(frame["foreign_ratio_change"])
-        + 0.15 * z(frame["foreign_buy_days"] + frame["organ_buy_days"])
-    )
-    frame.loc[frame["dual_buying"], "block_flow"] += 0.30
-
-    # --- 밸류: 싼가 -----------------------------------------------------
-    # 추정PER이 있으면 그쪽을 쓰고, 없는 종목만 실적 PER로 메운다.
-    effective_per = frame["forward_per"].fillna(frame["per"])
-    frame["block_value"] = (
-        0.40 * z(frame["target_upside"])
-        - 0.25 * z(frame["pbr"])
-        - 0.20 * z(effective_per)
-        + 0.15 * z(frame["dividend_yield"])
-    )
-
-    # --- 퀄리티: 싼 데 이유가 없는가 ------------------------------------
-    frame["block_quality"] = (
-        0.45 * z(frame["roe"])
-        + 0.30 * z(frame["recomm_score"])
-        + 0.25 * z(frame["oc_sharpe"])   # 일중 움직임의 일관성
-    )
-
-    return frame
-
-
-def apply_factor_gates(frame: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
-    """히스토리를 받아봐야 알 수 있는 조건들 (변동성·과매수)."""
-    rules = cfg["universe"]
-    gates = cfg["quality_gates"]
-    counts = {}
-
-    # --- 낙폭 조건: 이 전략의 대상인지 ---------------------------------
-    # 결측을 통과시키지 않는다. 낙폭 여부를 확인 못 한 종목은 대상이 아니다.
-    frame = frame[frame["ret_20d"].between(rules["min_ret_20d"], rules["max_ret_20d"])]
-    counts[f"20일 수익률 {rules['min_ret_20d']}~{rules['max_ret_20d']}%"] = len(frame)
-
-    frame = frame[frame["drawdown_52w"] <= rules["max_drawdown_52w"]]
-    counts[f"52주 고점 대비 {rules['max_drawdown_52w']}% 이상 하락"] = len(frame)
-
-    low, high = rules["rsi_range"]
-    frame = frame[frame["rsi14"].between(low, high)]
-    counts[f"RSI {low}~{high} (과매도 구간)"] = len(frame)
-
-    # --- 퀄리티 게이트: falling knife 방어 -----------------------------
-    if gates["require_profitable"]:
-        frame = frame[frame["is_profitable"]]
-        counts["흑자 (EPS > 0)"] = len(frame)
-
-    if gates["require_coverage"]:
-        frame = frame[frame["has_coverage"]]
-        counts["애널리스트 커버리지 존재"] = len(frame)
-
-    frame = frame[frame["roe"] >= gates["min_roe"]]
-    counts[f"ROE {gates['min_roe']}% 이상"] = len(frame)
-
-    frame = frame[frame["pbr"] <= gates["max_pbr"]]
-    counts[f"PBR {gates['max_pbr']}배 이하"] = len(frame)
-
-    frame = frame[frame["target_upside"] >= gates["min_target_upside"]]
-    counts[f"목표주가 상승여력 {gates['min_target_upside']}% 이상"] = len(frame)
-
-    # 이 전략의 매매 조건과 같은 상황에서 과거에 어떻게 됐는지.
-    # 표본이 모자란 종목은 판단 불가로 보고 통과시킨다 — 없는 근거로
-    # 탈락시키면 신규 상장·거래 재개 종목이 영구히 배제된다.
-    threshold = gates.get("min_oc_after_down")
-    if threshold is not None:
-        enough = frame["down_day_count"] >= gates["min_oc_after_down_samples"]
-        frame = frame[~enough | (frame["oc_after_down"] >= threshold)]
-        counts[f"하락 다음날 일중수익률 {threshold}% 이상"] = len(frame)
-
-    # --- 변동성: 안전 상하한 먼저, 그다음 풀 내 상대 위치 ---------------
-    atr = frame["atr_pct"]
-    frame = frame[
-        atr.between(rules["atr_hard_min"], rules["atr_hard_max"]) | atr.isna()
-    ]
-    counts[f"ATR {rules['atr_hard_min']}~{rules['atr_hard_max']}% (안전 상하한)"] = len(frame)
-
-    # 상대 변동성 밴드는 모집단이 충분할 때만 건다. 앞선 게이트를 통과한
-    # 종목이 얼마 안 되는 날에 양 끝을 25%나 더 잘라내면, 걸러낸 이유가
-    # "위험해서"가 아니라 "그날 표본이 작아서"가 되어버린다.
-    atr = frame["atr_pct"].dropna()
-    if len(atr) >= rules["atr_band_min_pool"]:
-        low_pct, high_pct = rules["atr_pct_band"]
-        lo, hi = atr.quantile(low_pct / 100), atr.quantile(high_pct / 100)
-        frame = frame[frame["atr_pct"].between(lo, hi) | frame["atr_pct"].isna()]
-        counts[f"ATR 풀 내 {low_pct}~{high_pct}분위 ({lo:.1f}~{hi:.1f}%)"] = len(frame)
-    else:
-        counts[f"ATR 상대밴드 (풀 {len(atr)}종목 < {rules['atr_band_min_pool']}, 미적용)"] = len(frame)
-
-    return frame.reset_index(drop=True), counts
-
-
 def select_with_diversification(frame: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     """점수 순으로 뽑되 한 업종이 max_per_sector를 넘지 않게 한다.
 
@@ -409,45 +268,95 @@ def _score_one(client: NaverClient, report_date: str) -> dict | None:
     report = json.loads(report_path.read_text(encoding="utf-8"))
     trade_date = report.get("trade_date") or report["date"]
 
-    results = []
-    for pick in report.get("picks", []):
-        history = client.price_history(pick["code"], days=10)
+    # 그날 코스피 일중 흐름. 절대 수익률만 보면 전략이 좋았는지 시장이 좋았는지
+    # 구분되지 않는다. 초과수익을 함께 기록해야 변형 간 비교가 의미를 가진다.
+    benchmark = _kospi_intraday_on(client, trade_date)
+
+    # 변형 전체의 종목을 먼저 모아 한 번씩만 조회한다.
+    wanted = {p["code"] for p in report.get("picks", [])}
+    for info in (report.get("variants") or {}).values():
+        wanted.update(p["code"] for p in info.get("picks", []))
+
+    quotes: dict[str, dict] = {}
+    for code, history in client.bulk(sorted(wanted), "price_history", days=10).items():
         if history.empty:
             continue
         day = history[history["date"] == trade_date]
-        if day.empty:
+        if day.empty or not day.iloc[0]["open"]:
             continue
         row = day.iloc[0]
-        if not row["open"]:
-            continue
-        results.append(
-            {
-                "code": pick["code"],
-                "name": pick["name"],
-                "open": row["open"],
-                "close": row["close"],
-                "high": row["high"],
-                "low": row["low"],
-                "return_pct": round((row["close"] / row["open"] - 1) * 100, 2),
-                "max_gain_pct": round((row["high"] / row["open"] - 1) * 100, 2),
-                "max_loss_pct": round((row["low"] / row["open"] - 1) * 100, 2),
-            }
-        )
+        quotes[code] = {
+            "open": row["open"], "close": row["close"],
+            "high": row["high"], "low": row["low"],
+            "return_pct": round((row["close"] / row["open"] - 1) * 100, 2),
+            "max_gain_pct": round((row["high"] / row["open"] - 1) * 100, 2),
+            "max_loss_pct": round((row["low"] / row["open"] - 1) * 100, 2),
+        }
 
+    results = [
+        {"code": p["code"], "name": p["name"], **quotes[p["code"]]}
+        for p in report.get("picks", []) if p["code"] in quotes
+    ]
     if not results:
         return None
 
-    returns = [r["return_pct"] for r in results]
-    return {
+    scored = {
         "date": report_date,
         "trade_date": trade_date,
+        "benchmark_pct": benchmark,
         "results": results,
-        "avg_return_pct": round(sum(returns) / len(returns), 2),
-        "win_count": sum(1 for r in returns if r > 0),
-        "total_count": len(returns),
+        **_aggregate(results, benchmark),
         "best": max(results, key=lambda r: r["return_pct"]),
         "worst": min(results, key=lambda r: r["return_pct"]),
+        "variants": {},
     }
+
+    for name, info in (report.get("variants") or {}).items():
+        if info.get("skipped_today"):
+            # 매매하지 않기로 한 날은 수익률 0으로 기록한다. 후보를 채점해서
+            # 넣으면 실제로 하지도 않은 매매의 성과가 통계에 섞인다.
+            scored["variants"][name] = {
+                "label": info.get("label", name), "traded": False,
+                "avg_return_pct": 0.0, "excess_pct": 0.0,
+                "win_count": 0, "total_count": 0,
+            }
+            continue
+        rows = [
+            {"code": p["code"], "name": p["name"], **quotes[p["code"]]}
+            for p in info.get("picks", []) if p["code"] in quotes
+        ]
+        if not rows:
+            continue
+        scored["variants"][name] = {
+            "label": info.get("label", name), "traded": True,
+            **_aggregate(rows, benchmark),
+        }
+
+    return scored
+
+
+def _aggregate(rows: list[dict], benchmark: float | None) -> dict:
+    returns = [r["return_pct"] for r in rows]
+    average = sum(returns) / len(returns)
+    return {
+        "avg_return_pct": round(average, 2),
+        "excess_pct": round(average - benchmark, 2) if benchmark is not None else None,
+        "win_count": sum(1 for value in returns if value > 0),
+        "total_count": len(returns),
+    }
+
+
+def _kospi_intraday_on(client: NaverClient, trade_date: str) -> float | None:
+    rows = client._get("index/KOSPI/price?pageSize=20&page=1")
+    if not rows:
+        return None
+    for row in rows:
+        if str(row.get("localTradedAt", ""))[:10] != trade_date:
+            continue
+        open_price, close_price = _num(row.get("openPrice")), _num(row.get("closePrice"))
+        if open_price and close_price:
+            return round((close_price / open_price - 1) * 100, 2)
+    return None
 
 
 # --- 메인 --------------------------------------------------------------
@@ -530,19 +439,49 @@ def main() -> int:
         print("      후보 없음 — 데이터 수집 실패로 판단하고 중단")
         return 1
 
-    frame = ensure_columns(pd.DataFrame(records))
-    frame, gate_counts = apply_factor_gates(frame, cfg)
-    filter_counts.update(gate_counts)
-    frame = build_block_scores(frame, cfg)
-
+    enriched = ensure_columns(pd.DataFrame(records))
     weights = cfg["weights"][regime["regime"]]
-    frame["score"] = sum(
-        weights[block] * frame[f"block_{block}"] for block in weights
-    )
-    frame["rank_pct"] = frame["score"].rank(pct=True) * 100
 
-    picks = select_with_diversification(frame, cfg)
-    print(f"      {len(frame)}종목 스코어링 → 상위 {len(picks)}종목 선정")
+    # 그림자 모드: 변형마다 자기 게이트와 점수 규칙을 적용한다.
+    # 발행은 primary 하나만 하고, 나머지는 성과 비교용으로 후보만 기록한다.
+    market_ok, timing_note = market_timing_ok(client, today, session_complete)
+    variant_results: dict[str, dict] = {}
+    primary_picks, primary_frame, primary_counts = None, None, {}
+
+    for variant in variants.VARIANTS:
+        scoped, gate_counts = variant.gate(enriched.copy(), cfg)
+        if scoped.empty:
+            print(f"      [{variant.name}] 통과 종목 없음 — 건너뜀")
+            continue
+
+        scoped = variant.score(scoped, cfg, regime["regime"])
+        scoped["rank_pct"] = scoped["score"].rank(pct=True) * 100
+        picks = select_with_diversification(scoped, cfg)
+
+        skip_today = variant.market_timed and not market_ok
+        variant_results[variant.name] = {
+            "label": variant.label,
+            "description": variant.description,
+            "scored_count": len(scoped),
+            "skipped_today": skip_today,
+            "skip_reason": timing_note if skip_today else None,
+            "picks": [
+                {"rank": i, "code": r["code"], "name": r["name"],
+                 "market": r["market"], "score": round(float(r["score"]), 3)}
+                for i, (_, r) in enumerate(picks.iterrows(), start=1)
+            ],
+        }
+        marker = " (오늘 매매 안 함)" if skip_today else ""
+        print(f"      [{variant.name}] {len(scoped)}종목 → {len(picks)}종목{marker}")
+
+        if variant.primary:
+            primary_picks, primary_frame, primary_counts = picks, scoped, gate_counts
+
+    if primary_picks is None or primary_picks.empty:
+        print("      발행 변형에서 후보를 얻지 못함 — 중단")
+        return 1
+    filter_counts.update(primary_counts)
+    frame, picks = primary_frame, primary_picks
 
     print("[6/6] 미채점 리포트 정산")
     scored_list, skipped = score_pending_reports(client, today)
@@ -557,7 +496,7 @@ def main() -> int:
     payload = build_payload(
         today, trade_day, now, picks, frame, macro, regime, filter_counts,
         weights, cfg, client, scored_list[0] if scored_list else None,
-        session_complete,
+        session_complete, variant_results,
     )
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -569,9 +508,50 @@ def main() -> int:
     return 0
 
 
+def market_timing_ok(client: NaverClient, today: str, session_complete: bool):
+    """시장 타이밍 변형이 오늘 매매할지 판단한다.
+
+    39거래일 표본에서 코스피 전일 일중(시가→종가)이 마이너스인 날의 역추세
+    성과가 +0.995%/일, 플러스인 날이 -2.458%/일이었다. 지수 차원의 평균회귀로
+    읽히지만, 예측변수 4개 x 전략 2개를 비교한 뒤 고른 결과라 다중비교 보정
+    후에는 유의하지 않다. 검증되지 않은 가설이므로 발행본에는 적용하지 않고
+    그림자 변형으로만 돌려 실제 데이터를 쌓는다.
+    """
+    rows = client._get("index/KOSPI/price?pageSize=10&page=1")
+    if not rows:
+        return True, None
+
+    frame = pd.DataFrame({
+        "date": [str(r.get("localTradedAt", ""))[:10] for r in rows],
+        "open": [_num(r.get("openPrice")) for r in rows],
+        "close": [_num(r.get("closePrice")) for r in rows],
+    }).dropna().sort_values("date")
+
+    if not session_complete:
+        frame = frame[frame["date"] < today]
+    if frame.empty:
+        return True, None
+
+    last = frame.iloc[-1]
+    drift = (last["close"] / last["open"] - 1) * 100
+    if drift <= 0:
+        return True, None
+    return False, (
+        f"코스피 {last['date']} 일중 흐름 {drift:+.2f}% (플러스) — "
+        "이 변형의 가설상 매매하지 않는 날"
+    )
+
+
+def _num(value) -> float | None:
+    try:
+        return float(str(value).replace(",", ""))
+    except (TypeError, ValueError):
+        return None
+
+
 def build_payload(
     today, trade_day, now, picks, frame, macro, regime, filter_counts,
-    weights, cfg, client, scored, session_complete,
+    weights, cfg, client, scored, session_complete, variant_results,
 ) -> dict:
     """HTML이 그대로 읽어 쓰는 리포트 JSON."""
     asof = frame["last_date"].mode()
@@ -634,6 +614,8 @@ def build_payload(
         "data_warnings": client.failures[:20],
         "strategy": "낙폭 과다 저평가 우량주 일중 반등",
         "pool_health": pool_health(len(frame), len(picks)),
+        "primary_variant": variants.PRIMARY.name,
+        "variants": variant_results,
         "config_snapshot": {
             "min_amount_krw": cfg["universe"]["min_amount_krw"],
             "min_marcap_krw": cfg["universe"]["min_marcap_krw"],
@@ -764,8 +746,16 @@ def update_index(
         if scored:
             report["scored"] = True
             report["avg_return_pct"] = scored["avg_return_pct"]
+            report["excess_pct"] = scored.get("excess_pct")
+            report["benchmark_pct"] = scored.get("benchmark_pct")
             report["win_count"] = scored["win_count"]
             report["total_count"] = scored["total_count"]
+            report["variant_returns"] = {
+                name: {"avg": info["avg_return_pct"],
+                       "excess": info.get("excess_pct"),
+                       "traded": info.get("traded", True)}
+                for name, info in (scored.get("variants") or {}).items()
+            }
             _persist_score(scored)
         elif report["date"] in skipped:
             report["skipped"] = True
@@ -786,6 +776,7 @@ def update_index(
     index["reports"] = reports
     index["updated_at"] = payload["generated_at"]
     index["performance"] = summarize_performance(reports)
+    index["shadow"] = summarize_variants(reports, payload)
     index_path.write_text(
         json.dumps(index, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -803,6 +794,100 @@ def _persist_score(scored: dict) -> None:
         if pick["code"] in by_code:
             pick["realized"] = by_code[pick["code"]]
     path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def summarize_variants(reports: list[dict], payload: dict) -> dict:
+    """변형별 누적 성과 + 통계적 신뢰도.
+
+    t값을 함께 내는 게 핵심이다. 39거래일 백테스트에서 샤프 1.8짜리 구조의
+    t값이 0.7이었다. 누적 수익률만 보여주면 표본이 모자란 상태에서 순위를
+    믿게 되므로, 몇 거래일을 더 모아야 판단 가능한지도 같이 계산한다.
+    """
+    done = [r for r in reports if r.get("scored") and r.get("variant_returns")]
+    if not done:
+        return {"sessions": 0, "variants": {}}
+
+    labels = {
+        name: info.get("label", name)
+        for name, info in (payload.get("variants") or {}).items()
+    }
+
+    summary = {}
+    for name in {key for r in done for key in r["variant_returns"]}:
+        series = [r["variant_returns"][name] for r in done if name in r["variant_returns"]]
+        raw = [s["avg"] for s in series if s.get("avg") is not None]
+        excess = [s["excess"] for s in series if s.get("excess") is not None]
+        if not raw:
+            continue
+
+        cumulative = 1.0
+        for value in reversed(raw):
+            cumulative *= 1 + value / 100
+
+        entry = {
+            "label": labels.get(name, name),
+            "sessions": len(raw),
+            "traded_sessions": sum(1 for s in series if s.get("traded", True)),
+            "avg_daily_pct": round(sum(raw) / len(raw), 3),
+            "cumulative_pct": round((cumulative - 1) * 100, 2),
+            "win_rate_pct": round(sum(1 for v in raw if v > 0) / len(raw) * 100, 1),
+        }
+        if excess:
+            entry["avg_excess_pct"] = round(sum(excess) / len(excess), 3)
+            entry.update(_confidence(excess))
+        summary[name] = entry
+
+    return {"sessions": len(done), "variants": summary}
+
+
+# 유의성을 입에 올리기 위한 최소 표본. 이보다 적으면 t값이 아무리 커도
+# 자유도가 모자라 의미가 없다 (n=2면 |t|>12.7이어야 p<0.05다).
+MIN_SESSIONS_FOR_SIGNIFICANCE = 20
+
+
+def _confidence(values: list[float]) -> dict:
+    """초과수익 평균의 t값과, 유의성 확보에 필요한 거래일 수.
+
+    t값은 표본이 적어도 계산해 보여주되 significant는 절대 True로 만들지
+    않는다. 이 지표를 넣은 이유 자체가 표본 부족 상태에서 순위를 믿는 것을
+    막기 위해서라, 여기서 관대해지면 기능이 정반대로 작동한다.
+    """
+    n = len(values)
+    if n < 2:
+        return {"tstat": None, "significant": False, "sessions_needed": None,
+                "confidence_note": "표본 부족 — 채점 2거래일 이상 필요"}
+
+    mean = sum(values) / n
+    variance = sum((v - mean) ** 2 for v in values) / (n - 1)
+    std = variance**0.5
+    if std == 0:
+        return {"tstat": None, "significant": False, "sessions_needed": None,
+                "confidence_note": "변동이 없어 t값 계산 불가"}
+
+    tstat = mean / (std / n**0.5)
+    enough = n >= MIN_SESSIONS_FOR_SIGNIFICANCE
+    significant = bool(enough and abs(tstat) >= 2)
+
+    # |t| = 2에 도달하려면 필요한 표본 수 (현재 효과크기가 유지된다는 가정).
+    # 최소 표본 요건보다 작게 나와도 그 아래로는 내려가지 않는다.
+    needed = None
+    if mean > 0:
+        needed = max(int((2 * std / mean) ** 2) + 1, MIN_SESSIONS_FOR_SIGNIFICANCE)
+
+    if not enough:
+        note = f"표본 {n}거래일 — 판단하려면 최소 {MIN_SESSIONS_FOR_SIGNIFICANCE}거래일 필요"
+    elif significant:
+        note = "통계적으로 유의 (|t| ≥ 2)"
+    else:
+        note = (f"아직 우연과 구분 안 됨. 이 효과크기가 유지되면 "
+                f"약 {needed}거래일 필요" if needed else "아직 우연과 구분 안 됨")
+
+    return {
+        "tstat": round(tstat, 2),
+        "significant": significant,
+        "sessions_needed": needed if needed and needed > n else None,
+        "confidence_note": note,
+    }
 
 
 def summarize_performance(reports: list[dict]) -> dict:
