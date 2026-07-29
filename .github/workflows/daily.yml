@@ -79,11 +79,15 @@ jobs:
           path: build/daily-trading.html
           retention-days: 90
 
+  # 사전 조건: 저장소 Settings → Pages → Source를 "GitHub Actions"로 한 번
+  # 설정해 두어야 한다. configure-pages의 enablement 옵션으로 자동화할 수는
+  # 없다 — Pages 생성 API는 administration:write를 요구하는데 GITHUB_TOKEN은
+  # 그 스코프를 가질 수 없어 "Resource not accessible by integration"으로 막힌다.
   deploy:
     needs: screen
     runs-on: ubuntu-latest
-    # 무료 플랜 + 비공개 저장소에서는 Pages를 쓸 수 없다. 그 경우 이 잡만
-    # 경고로 남기고 스크리닝 자체는 성공으로 두려고 실패를 허용한다.
+    # Pages 설정이 빠졌거나 플랜 제약이 있어도 스크리닝 결과 커밋은 이미
+    # 끝난 상태이므로, 배포 실패로 전체 실행을 빨갛게 만들지 않는다.
     continue-on-error: true
     environment:
       name: github-pages
@@ -93,8 +97,6 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true    # Pages가 꺼져 있으면 켜고 진행
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs

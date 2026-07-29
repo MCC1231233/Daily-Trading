@@ -18,9 +18,14 @@
 날짜가 쌓이므로 과거 리포트를 그대로 넘겨볼 수 있고, 채점이 끝난 날짜에는
 그날 후보들의 실현 수익률이 함께 표시됩니다.
 
-> Pages는 저장소가 공개일 때(또는 GitHub Pro 이상) 동작합니다. 비공개로 두는
-> 경우 Actions 실행 결과의 `daily-trading-html` 아티팩트를 받아 여시면 됩니다.
-> 데이터가 전부 인라인된 단일 파일이라 그대로 열립니다.
+> **Pages 최초 설정**: Settings → Pages → Source를 `GitHub Actions`로 한 번
+> 지정해야 합니다. 워크플로에서 자동화할 수 없습니다 — Pages 생성 API가
+> `administration:write`를 요구하는데 `GITHUB_TOKEN`은 그 스코프를 가질 수
+> 없어서 `Resource not accessible by integration`으로 실패합니다.
+>
+> Pages를 쓰지 않는 경우(비공개 저장소 등)에는 Actions 실행 결과의
+> `daily-trading-html` 아티팩트를 받아 여시면 됩니다. 데이터가 전부 인라인된
+> 단일 파일이라 그대로 열립니다.
 
 ## 어떻게 뽑는가
 
