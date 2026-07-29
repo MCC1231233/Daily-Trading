@@ -14,7 +14,7 @@
 
 **https://mcc1231233.github.io/Daily-Trading/**
 
-매일 08:20 KST(장 시작 40분 전)에 자동 실행되어 갱신됩니다. 왼쪽 사이드바에
+매일 07:40 KST(장 시작 80분 전)에 자동 실행되어 갱신됩니다. 왼쪽 사이드바에
 날짜가 쌓이므로 과거 리포트를 그대로 넘겨볼 수 있고, 채점이 끝난 날짜에는
 그날 후보들의 실현 수익률이 함께 표시됩니다.
 
@@ -115,7 +115,7 @@ scripts/build_standalone.py 데이터를 인라인한 단일 HTML 빌드 (Pages 
 docs/index.html             대시보드 (정적, data/*.json을 fetch)
 docs/data/index.json        날짜 목록 + 누적 성과 (사이드바가 읽음)
 docs/data/YYYY-MM-DD.json   그날의 리포트 전문
-.github/workflows/daily.yml 08:20 KST 자동 실행 → 커밋 → Pages 배포
+.github/workflows/daily.yml 07:40 KST 자동 실행 → 커밋 → Pages 배포
 ```
 
 ## 직접 돌려보기
