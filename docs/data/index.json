@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-07-30",
+      "trade_date": "2026-07-30",
+      "regime": "risk_off",
+      "pick_count": 10,
+      "top_names": [
+        "삼성전자",
+        "티에스이",
+        "씨젠"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-07-29",
       "trade_date": "2026-07-30",
       "regime": "risk_off",
@@ -10,15 +22,82 @@
         "티에스이",
         "씨젠"
       ],
-      "scored": false
+      "scored": true,
+      "avg_return_pct": 0.66,
+      "excess_pct": null,
+      "benchmark_pct": null,
+      "win_count": 7,
+      "total_count": 10,
+      "variant_returns": {
+        "reversal": {
+          "avg": 0.66,
+          "excess": null,
+          "traded": true
+        },
+        "momentum": {
+          "avg": -0.42,
+          "excess": null,
+          "traded": true
+        },
+        "oversold": {
+          "avg": 1.62,
+          "excess": null,
+          "traded": true
+        },
+        "reversal_timed": {
+          "avg": 0.66,
+          "excess": null,
+          "traded": true
+        }
+      }
     }
   ],
-  "updated_at": "2026-07-29 19:10:13 KST",
+  "updated_at": "2026-07-30 08:37:00 KST",
   "performance": {
-    "sessions": 0
+    "sessions": 1,
+    "avg_daily_return_pct": 0.66,
+    "cumulative_return_pct": 0.66,
+    "positive_sessions": 1,
+    "session_win_rate_pct": 100.0,
+    "best_session_pct": 0.66,
+    "worst_session_pct": 0.66,
+    "pick_win_rate_pct": 70.0
   },
   "shadow": {
-    "sessions": 0,
-    "variants": {}
+    "sessions": 1,
+    "variants": {
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "sessions": 1,
+        "traded_sessions": 1,
+        "avg_daily_pct": 0.66,
+        "cumulative_pct": 0.66,
+        "win_rate_pct": 100.0
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "sessions": 1,
+        "traded_sessions": 1,
+        "avg_daily_pct": -0.42,
+        "cumulative_pct": -0.42,
+        "win_rate_pct": 0.0
+      },
+      "oversold": {
+        "label": "과매도 단일팩터",
+        "sessions": 1,
+        "traded_sessions": 1,
+        "avg_daily_pct": 1.62,
+        "cumulative_pct": 1.62,
+        "win_rate_pct": 100.0
+      },
+      "reversal": {
+        "label": "역추세 (발행본)",
+        "sessions": 1,
+        "traded_sessions": 1,
+        "avg_daily_pct": 0.66,
+        "cumulative_pct": 0.66,
+        "win_rate_pct": 100.0
+      }
+    }
   }
 }
