@@ -136,6 +136,23 @@ h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 4px
 }
 .disclaimer strong { font-weight: 700; }
 
+.strategy-line {
+  margin: 0 0 4px; font-size: 13px; font-weight: 600; color: var(--series-1);
+}
+.pool-warn {
+  display: flex; flex-direction: column; gap: 3px;
+  border-radius: 10px; padding: 11px 15px; margin-bottom: 16px;
+  font-size: 12.5px; line-height: 1.6;
+  border: 1px solid var(--border); background: var(--surface-1);
+}
+.pool-warn strong { font-size: 13px; }
+.pool-fair { border-color: var(--warn-border); background: var(--warn-bg); color: var(--warn-text); }
+.pool-poor {
+  border-color: color-mix(in srgb, var(--up) 45%, transparent);
+  background: color-mix(in srgb, var(--up) 9%, transparent);
+}
+.pool-poor strong { color: var(--up); }
+
 .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
 .theme-btn {
   border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
@@ -252,11 +269,11 @@ details.method summary { cursor: pointer; font-size: 12.5px; color: var(--text-s
 
 <script>
 const BLOCKS = [
-  ["flow",      "수급",     "var(--series-1)"],
-  ["momentum",  "모멘텀",   "var(--series-2)"],
-  ["intraday",  "일중성향", "var(--series-3)"],
-  ["technical", "기술적",   "var(--series-4)"],
-  ["quality",   "펀더멘털", "var(--series-5)"],
+  ["drawdown", "낙폭",   "var(--series-1)"],
+  ["reversal", "반등",   "var(--series-2)"],
+  ["flow",     "수급",   "var(--series-3)"],
+  ["value",    "저평가", "var(--series-4)"],
+  ["quality",  "우량성", "var(--series-5)"],
 ];
 const REGIME_LABEL = { risk_on: "위험선호", risk_off: "위험회피", neutral: "중립" };
 const BLOCK_SCALE = 3;   // z-score 합산 결과가 대체로 -3~+3에 들어온다
@@ -428,6 +445,7 @@ function renderReport(r) {
   const top = el("div", "topbar");
   const head = el("div");
   head.appendChild(el("h1", null, `${r.trade_date} 일중 매매 후보`));
+  if (r.strategy) head.appendChild(el("p", "strategy-line", r.strategy));
   head.appendChild(el("p", "subtle",
     `데이터 기준일 ${r.asof_date} 종가 · 생성 ${r.generated_at} · 09:00 시가 매수 → 15:00 종가 매도 가정`));
   top.appendChild(head);
@@ -447,6 +465,7 @@ function renderReport(r) {
     "수익률은 수수료·세금·슬리피지를 제외한 값입니다. 투자 판단과 그 결과는 전적으로 이용자 본인의 책임입니다.";
   main.appendChild(warn);
 
+  if (r.pool_health && r.pool_health.message) main.appendChild(poolWarning(r.pool_health));
   main.appendChild(regimeCard(r));
   if (r.previous_result) main.appendChild(realizedCard(r.previous_result));
   if (indexData.performance && indexData.performance.sessions) {
@@ -454,6 +473,16 @@ function renderReport(r) {
   }
   main.appendChild(picksSection(r));
   main.appendChild(methodCard(r));
+}
+
+/* 통과 종목이 적은 날에는 "상위 10개"라는 표현이 실제보다 선별적으로 읽힌다.
+   그 차이를 화면에서 숨기지 않는다. */
+function poolWarning(pool) {
+  const box = el("div", "pool-warn pool-" + pool.level);
+  box.appendChild(el("strong", null,
+    `게이트 통과 ${pool.scored}종목 중 ${pool.picked}종목 선정 (${pool.ratio}:1)`));
+  box.appendChild(el("span", null, pool.message));
+  return box;
 }
 
 function regimeCard(r) {
@@ -624,18 +653,24 @@ function pickCard(p) {
 
   const grid = el("div", "factor-grid");
   const cells = [
+    ["52주 고점대비", plain(f.drawdown_52w) + "%"],
+    ["20일 수익률", num(f.ret_20d) + "%"],
     ["RSI(14)", plain(f.rsi14, 0)],
-    ["ATR", plain(f.atr_pct) + "%"],
-    ["20일선 이격", num(f.ma20_disparity) + "%"],
-    ["5일 수익률", num(f.ret_5d) + "%"],
-    ["일중 평균", num(f.oc_mean) + "%"],
-    ["일중 승률", plain(f.oc_winrate, 0) + "%"],
+    ["볼린저 위치", f.bb_percent_b == null ? "—" : plain(f.bb_percent_b, 2)],
+    // 이 전략의 매매 조건과 같은 상황의 과거 성적. 가장 직접적인 근거라
+    // 표본 수를 함께 보여줘서 신뢰도를 스스로 판단할 수 있게 한다.
+    ["하락 다음날 일중", f.oc_after_down == null
+      ? "표본부족"
+      : `${num(f.oc_after_down)}% (${plain(f.oc_after_down_winrate, 0)}%·${f.down_day_count ?? "?"}일)`],
+    ["전일 저가회복", f.lower_shadow == null ? "—" : Math.round(f.lower_shadow * 100) + "%"],
     ["외국인 5일", num(f.foreign_net_5d_pct) + "%"],
     ["기관 5일", num(f.organ_net_5d_pct) + "%"],
-    ["PER", f.per == null ? "—" : plain(f.per) + "배"],
-    ["추정 PER", f.forward_per == null ? "—" : plain(f.forward_per) + "배"],
+    ["ROE", f.roe == null ? "—" : plain(f.roe) + "%"],
     ["PBR", f.pbr == null ? "—" : plain(f.pbr, 2) + "배"],
+    ["추정 PER", f.forward_per == null
+      ? (f.per == null ? "—" : plain(f.per) + "배") : plain(f.forward_per) + "배"],
     ["목표가 괴리", f.target_upside == null ? "—" : num(f.target_upside, 0) + "%"],
+    ["ATR", plain(f.atr_pct) + "%"],
   ];
   for (const [k, v] of cells) {
     const c = el("div", "factor");
@@ -663,10 +698,15 @@ function methodCard(r) {
     det.appendChild(row);
   }
   const cs = r.config_snapshot || {};
+  const g = cs.quality_gates || {};
   det.appendChild(el("p", "subtle",
-    `적용 규칙 — 최소 거래대금 ${eok(cs.min_amount_krw / 1e8)} · 최소 시총 ${eok(cs.min_marcap_krw / 1e8)} · ` +
-    `ATR 풀 내 ${(cs.atr_pct_band || []).join("~")}분위 (상한 ${cs.atr_hard_max}%) · RSI ${cs.max_rsi} 이하 · ` +
-    `업종당 최대 ${cs.max_per_sector}종목`));
+    `대상 조건 — 최소 거래대금 ${eok(cs.min_amount_krw / 1e8)} · 최소 시총 ${eok(cs.min_marcap_krw / 1e8)} · ` +
+    `52주 고점대비 ${cs.max_drawdown_52w}% 이상 하락 · 20일 수익률 ${cs.max_ret_20d}% 이하 · ` +
+    `RSI ${(cs.rsi_range || []).join("~")} · 업종당 최대 ${cs.max_per_sector}종목`));
+  det.appendChild(el("p", "subtle",
+    `우량성 게이트 (falling knife 방어) — 흑자 필수 · 애널리스트 커버리지 필수 · ` +
+    `ROE ${g.min_roe}% 이상 · PBR ${g.max_pbr}배 이하 · 목표주가 여력 ${g.min_target_upside}% 이상 · ` +
+    `하락 다음날 일중수익률 ${g.min_oc_after_down}% 이상(표본 ${g.min_oc_after_down_samples}일 이상인 종목에 한해)`));
   card.appendChild(det);
   return card;
 }

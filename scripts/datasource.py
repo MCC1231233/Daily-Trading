@@ -137,6 +137,10 @@ class NaverClient:
             "forward_per": _to_num(infos.get("cnsPer")),
             "pbr": _to_num(infos.get("pbr")),
             "eps": _to_num(infos.get("eps")),
+            # BPS는 ROE(=EPS/BPS) 계산용. "낙폭 과다 + 저평가"를 뽑을 때
+            # 싼 이유가 실적 훼손이면 안 되므로 수익성 지표가 반드시 필요하다.
+            "bps": _to_num(infos.get("bps")),
+            "forward_eps": _to_num(infos.get("cnsEps")),
             "dividend_yield": _to_num(infos.get("dividendYieldRatio")),
             "foreign_rate": _to_num(infos.get("foreignRate")),
             "high_52w": _to_num(infos.get("highPriceOf52Weeks")),

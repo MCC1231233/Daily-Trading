@@ -163,11 +163,17 @@ def classify_regime(macro: dict) -> dict:
 REQUIRED_FACTOR_COLUMNS = (
     "foreign_net_5d_pct", "organ_net_5d_pct", "foreign_ratio_change",
     "foreign_buy_days", "organ_buy_days", "dual_buying",
-    "ret_5d", "ret_20d", "relative_strength", "ma20_disparity",
-    "oc_mean", "oc_winrate", "oc_sharpe", "gap_follow",
+    "ret_5d", "ret_20d", "relative_strength", "ma20_disparity", "ma5_disparity",
+    "oc_mean", "oc_winrate", "oc_sharpe",
     "rsi14", "macd_hist", "bb_percent_b", "volume_surge",
     "target_upside", "recomm_score", "pbr", "per", "forward_per", "atr_pct",
+    # 낙폭 반등 전략용
+    "drawdown_52w", "lower_shadow", "down_streak", "capitulation",
+    "oc_after_down", "oc_after_down_winrate", "down_day_count",
+    "roe", "eps", "dividend_yield",
 )
+
+BOOLEAN_FACTOR_COLUMNS = ("dual_buying", "is_profitable", "has_coverage")
 
 
 def ensure_columns(frame: pd.DataFrame) -> pd.DataFrame:
@@ -178,64 +184,86 @@ def ensure_columns(frame: pd.DataFrame) -> pd.DataFrame:
     """
     for column in REQUIRED_FACTOR_COLUMNS:
         if column not in frame.columns:
-            frame[column] = False if column == "dual_buying" else float("nan")
-        elif column != "dual_buying":
+            frame[column] = float("nan")
+        else:
             frame[column] = pd.to_numeric(frame[column], errors="coerce")
-    frame["dual_buying"] = frame["dual_buying"].fillna(False).astype(bool)
+    for column in BOOLEAN_FACTOR_COLUMNS:
+        if column not in frame.columns:
+            frame[column] = False
+        frame[column] = frame[column].fillna(False).astype(bool)
     return frame
 
 
 def build_block_scores(frame: pd.DataFrame, cfg: dict) -> pd.DataFrame:
-    """각 팩터를 z-score로 표준화한 뒤 5개 블록으로 합산한다."""
-    tech_cfg = cfg["technical"]
+    """각 팩터를 z-score로 표준화한 뒤 5개 블록으로 합산한다.
+
+    전략이 역추세(낙폭 반등)이므로 부호 방향이 추세 전략과 반대인 팩터가 많다.
+    수익률·이격도·RSI는 낮을수록 점수가 올라간다.
+    """
+    cfg_score = cfg["scoring"]
     z = F.zscore
 
-    # 수급: 외국인·기관이 실제로 얼마나 사갔는지
+    # --- 낙폭: 얼마나 눌렸는가 -----------------------------------------
+    # 단조 증가로 두지 않고 sweet spot에서 멀수록 감점하는 이유는,
+    # -70% 같은 극단 낙폭은 되돌림이 아니라 훼손일 확률이 높기 때문이다.
+    drawdown_fit = -(
+        frame["drawdown_52w"] - cfg_score["drawdown_sweet_spot"]
+    ).abs()
+    rsi_fit = -(frame["rsi14"] - cfg_score["rsi_sweet_spot"]).abs()
+    bb_fit = -(frame["bb_percent_b"] - cfg_score["bb_sweet_spot"]).abs()
+
+    frame["block_drawdown"] = (
+        0.30 * z(drawdown_fit)
+        + 0.28 * z(rsi_fit)
+        + 0.22 * z(bb_fit)
+        - 0.20 * z(frame["ma20_disparity"])   # 20일선 아래일수록 가점
+    )
+
+    # --- 반등: 팔 사람이 다 팔았다는 흔적이 있는가 ----------------------
+    # oc_after_down이 이 블록의 핵심이다. 전일 하락한 다음 날의 시가→종가
+    # 수익률로, 실제 매매 조건과 정확히 같은 상황의 과거 성적이다.
+    # 표본이 적으면 우연일 수 있어 신뢰 구간을 못 채우면 중립 처리한다.
+    reliable = frame["down_day_count"] >= cfg_score["min_down_day_samples"]
+    oc_down = frame["oc_after_down"].where(reliable)
+    oc_down_wr = frame["oc_after_down_winrate"].where(reliable)
+    capped_capitulation = frame["capitulation"].clip(
+        upper=cfg_score["capitulation_cap"]
+    )
+
+    frame["block_reversal"] = (
+        0.34 * z(oc_down)
+        + 0.22 * z(oc_down_wr)
+        + 0.18 * z(frame["lower_shadow"])
+        + 0.14 * z(capped_capitulation)
+        + 0.12 * z(frame["oc_mean"])
+    )
+
+    # --- 수급: 낙폭 구간에서도 기관·외국인이 받고 있는가 -----------------
+    # 이 전략에서 수급은 단순 선호가 아니라 검증 장치다. 빠지는 종목을
+    # 외국인·기관이 사고 있다면 시장이 저점 매집으로 보고 있다는 뜻이다.
     frame["block_flow"] = (
         0.40 * z(frame["foreign_net_5d_pct"])
         + 0.30 * z(frame["organ_net_5d_pct"])
         + 0.15 * z(frame["foreign_ratio_change"])
         + 0.15 * z(frame["foreign_buy_days"] + frame["organ_buy_days"])
     )
-    frame.loc[frame["dual_buying"] == True, "block_flow"] += 0.25  # noqa: E712
+    frame.loc[frame["dual_buying"], "block_flow"] += 0.30
 
-    # 모멘텀: 최근 추세와 시장 대비 상대강도
-    frame["block_momentum"] = (
-        0.30 * z(frame["ret_5d"])
-        + 0.25 * z(frame["ret_20d"])
-        + 0.25 * z(frame["relative_strength"])
-        + 0.20 * z(frame["ma20_disparity"])
-    )
-
-    # 일중 성향: 이 전략의 보유 구간(9시~15시)에서 실제로 어떻게 움직였는가
-    frame["block_intraday"] = (
-        0.35 * z(frame["oc_mean"])
-        + 0.25 * z(frame["oc_winrate"])
-        + 0.25 * z(frame["oc_sharpe"])
-        + 0.15 * z(frame["gap_follow"])
-    )
-
-    # 기술적: 중심값에서 벗어난 정도를 감점으로 환산한다.
-    # 단순히 "RSI 높을수록 좋다"로 두면 과매수 종목만 뽑히기 때문이다.
-    rsi_fit = -(frame["rsi14"] - tech_cfg["rsi_sweet_spot"]).abs()
-    bb_fit = -(frame["bb_percent_b"] - tech_cfg["bb_sweet_spot"]).abs()
-    capped_surge = frame["volume_surge"].clip(upper=tech_cfg["volume_surge_cap"])
-    frame["block_technical"] = (
-        0.30 * z(rsi_fit)
-        + 0.30 * z(frame["macd_hist"])
-        + 0.20 * z(bb_fit)
-        + 0.20 * z(capped_surge)
-    )
-
-    # 펀더멘털: 애널리스트 컨센서스와 밸류에이션.
-    # PER/PBR은 낮을수록 좋으므로 z-score를 빼는 방향으로 넣는다.
+    # --- 밸류: 싼가 -----------------------------------------------------
     # 추정PER이 있으면 그쪽을 쓰고, 없는 종목만 실적 PER로 메운다.
     effective_per = frame["forward_per"].fillna(frame["per"])
-    frame["block_quality"] = (
+    frame["block_value"] = (
         0.40 * z(frame["target_upside"])
-        + 0.25 * z(frame["recomm_score"])
-        - 0.20 * z(frame["pbr"])
-        - 0.15 * z(effective_per)
+        - 0.25 * z(frame["pbr"])
+        - 0.20 * z(effective_per)
+        + 0.15 * z(frame["dividend_yield"])
+    )
+
+    # --- 퀄리티: 싼 데 이유가 없는가 ------------------------------------
+    frame["block_quality"] = (
+        0.45 * z(frame["roe"])
+        + 0.30 * z(frame["recomm_score"])
+        + 0.25 * z(frame["oc_sharpe"])   # 일중 움직임의 일관성
     )
 
     return frame
@@ -244,25 +272,66 @@ def build_block_scores(frame: pd.DataFrame, cfg: dict) -> pd.DataFrame:
 def apply_factor_gates(frame: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
     """히스토리를 받아봐야 알 수 있는 조건들 (변동성·과매수)."""
     rules = cfg["universe"]
+    gates = cfg["quality_gates"]
     counts = {}
 
-    # 안전 상·하한 먼저 (국면과 무관하게 적용)
+    # --- 낙폭 조건: 이 전략의 대상인지 ---------------------------------
+    # 결측을 통과시키지 않는다. 낙폭 여부를 확인 못 한 종목은 대상이 아니다.
+    frame = frame[frame["ret_20d"].between(rules["min_ret_20d"], rules["max_ret_20d"])]
+    counts[f"20일 수익률 {rules['min_ret_20d']}~{rules['max_ret_20d']}%"] = len(frame)
+
+    frame = frame[frame["drawdown_52w"] <= rules["max_drawdown_52w"]]
+    counts[f"52주 고점 대비 {rules['max_drawdown_52w']}% 이상 하락"] = len(frame)
+
+    low, high = rules["rsi_range"]
+    frame = frame[frame["rsi14"].between(low, high)]
+    counts[f"RSI {low}~{high} (과매도 구간)"] = len(frame)
+
+    # --- 퀄리티 게이트: falling knife 방어 -----------------------------
+    if gates["require_profitable"]:
+        frame = frame[frame["is_profitable"]]
+        counts["흑자 (EPS > 0)"] = len(frame)
+
+    if gates["require_coverage"]:
+        frame = frame[frame["has_coverage"]]
+        counts["애널리스트 커버리지 존재"] = len(frame)
+
+    frame = frame[frame["roe"] >= gates["min_roe"]]
+    counts[f"ROE {gates['min_roe']}% 이상"] = len(frame)
+
+    frame = frame[frame["pbr"] <= gates["max_pbr"]]
+    counts[f"PBR {gates['max_pbr']}배 이하"] = len(frame)
+
+    frame = frame[frame["target_upside"] >= gates["min_target_upside"]]
+    counts[f"목표주가 상승여력 {gates['min_target_upside']}% 이상"] = len(frame)
+
+    # 이 전략의 매매 조건과 같은 상황에서 과거에 어떻게 됐는지.
+    # 표본이 모자란 종목은 판단 불가로 보고 통과시킨다 — 없는 근거로
+    # 탈락시키면 신규 상장·거래 재개 종목이 영구히 배제된다.
+    threshold = gates.get("min_oc_after_down")
+    if threshold is not None:
+        enough = frame["down_day_count"] >= gates["min_oc_after_down_samples"]
+        frame = frame[~enough | (frame["oc_after_down"] >= threshold)]
+        counts[f"하락 다음날 일중수익률 {threshold}% 이상"] = len(frame)
+
+    # --- 변동성: 안전 상하한 먼저, 그다음 풀 내 상대 위치 ---------------
     atr = frame["atr_pct"]
     frame = frame[
         atr.between(rules["atr_hard_min"], rules["atr_hard_max"]) | atr.isna()
     ]
     counts[f"ATR {rules['atr_hard_min']}~{rules['atr_hard_max']}% (안전 상하한)"] = len(frame)
 
-    # 그다음 오늘 풀 기준 상대 위치로 양 끝을 잘라낸다
+    # 상대 변동성 밴드는 모집단이 충분할 때만 건다. 앞선 게이트를 통과한
+    # 종목이 얼마 안 되는 날에 양 끝을 25%나 더 잘라내면, 걸러낸 이유가
+    # "위험해서"가 아니라 "그날 표본이 작아서"가 되어버린다.
     atr = frame["atr_pct"].dropna()
-    if len(atr) >= 20:
+    if len(atr) >= rules["atr_band_min_pool"]:
         low_pct, high_pct = rules["atr_pct_band"]
-        low, high = atr.quantile(low_pct / 100), atr.quantile(high_pct / 100)
-        frame = frame[frame["atr_pct"].between(low, high) | frame["atr_pct"].isna()]
-        counts[f"ATR 풀 내 {low_pct}~{high_pct}분위 ({low:.1f}~{high:.1f}%)"] = len(frame)
-
-    frame = frame[(frame["rsi14"] <= rules["max_rsi"]) | frame["rsi14"].isna()]
-    counts[f"RSI {rules['max_rsi']} 이하"] = len(frame)
+        lo, hi = atr.quantile(low_pct / 100), atr.quantile(high_pct / 100)
+        frame = frame[frame["atr_pct"].between(lo, hi) | frame["atr_pct"].isna()]
+        counts[f"ATR 풀 내 {low_pct}~{high_pct}분위 ({lo:.1f}~{hi:.1f}%)"] = len(frame)
+    else:
+        counts[f"ATR 상대밴드 (풀 {len(atr)}종목 < {rules['atr_band_min_pool']}, 미적용)"] = len(frame)
 
     return frame.reset_index(drop=True), counts
 
@@ -524,11 +593,8 @@ def build_payload(
                 "marcap_bn": round(float(row["marcap"]) / 1e8, 0),
                 "amount_bn": round(float(row["amount"]) / 1e8, 0),
                 "blocks": {
-                    "flow": round(float(row["block_flow"]), 2),
-                    "momentum": round(float(row["block_momentum"]), 2),
-                    "intraday": round(float(row["block_intraday"]), 2),
-                    "technical": round(float(row["block_technical"]), 2),
-                    "quality": round(float(row["block_quality"]), 2),
+                    block: round(float(row[f"block_{block}"]), 2)
+                    for block in ("drawdown", "reversal", "flow", "value", "quality")
                 },
                 "factors": {
                     key: (None if pd.isna(row.get(key)) else row.get(key))
@@ -536,11 +602,14 @@ def build_payload(
                         "rsi14", "macd_hist", "bb_percent_b", "atr_pct",
                         "ma20_disparity", "ma5_disparity", "volume_surge",
                         "ret_5d", "ret_20d", "relative_strength",
-                        "oc_mean", "oc_winrate", "oc_sharpe", "gap_follow",
-                        "avg_range_pct", "foreign_net_5d_pct", "organ_net_5d_pct",
+                        "drawdown_52w", "lower_shadow", "down_streak",
+                        "capitulation", "oc_after_down", "oc_after_down_winrate",
+                        "down_day_count",
+                        "oc_mean", "oc_winrate", "oc_sharpe", "avg_range_pct",
+                        "foreign_net_5d_pct", "organ_net_5d_pct",
                         "foreign_buy_days", "organ_buy_days", "foreign_ratio",
                         "foreign_ratio_change", "per", "forward_per", "pbr",
-                        "dividend_yield",
+                        "roe", "eps", "dividend_yield",
                         "target_upside", "target_price", "recomm_score", "pos_52w",
                     )
                     if key in row.index
@@ -563,14 +632,51 @@ def build_payload(
         "picks": pick_list,
         "previous_result": scored,
         "data_warnings": client.failures[:20],
+        "strategy": "낙폭 과다 저평가 우량주 일중 반등",
+        "pool_health": pool_health(len(frame), len(picks)),
         "config_snapshot": {
             "min_amount_krw": cfg["universe"]["min_amount_krw"],
             "min_marcap_krw": cfg["universe"]["min_marcap_krw"],
             "atr_pct_band": cfg["universe"]["atr_pct_band"],
             "atr_hard_max": cfg["universe"]["atr_hard_max"],
-            "max_rsi": cfg["universe"]["max_rsi"],
+            "rsi_range": cfg["universe"]["rsi_range"],
+            "max_ret_20d": cfg["universe"]["max_ret_20d"],
+            "max_drawdown_52w": cfg["universe"]["max_drawdown_52w"],
+            "quality_gates": cfg["quality_gates"],
             "max_per_sector": cfg["risk"]["max_per_sector"],
         },
+    }
+
+
+def pool_health(scored: int, picked: int) -> dict:
+    """살아남은 후보가 몇 개였는지, 그래서 이 선정이 얼마나 선별적인지.
+
+    이 전략은 모든 게이트를 통과하는 종목이 시장 국면에 따라 크게 줄어든다.
+    후보가 12개인 날의 '상위 10종목'과 120개인 날의 '상위 10종목'은 의미가
+    전혀 다른데, 화면에는 똑같이 10개가 보인다. 그 차이를 숫자로 남긴다.
+    """
+    ratio = scored / picked if picked else 0
+
+    if ratio >= 5:
+        level, message = "good", None
+    elif ratio >= 2.5:
+        level, message = "fair", (
+            f"게이트를 통과한 종목이 {scored}개로 넉넉하지 않습니다. "
+            "하위권 후보는 상위권과 근거의 질이 상당히 다를 수 있습니다."
+        )
+    else:
+        level, message = "poor", (
+            f"게이트를 통과한 종목이 {scored}개뿐이라 사실상 통과 종목 대부분을 "
+            "그대로 싣고 있습니다. 순위 간 변별력이 낮고, 이 전략에 맞는 "
+            "기회가 지금 시장에 드물다는 신호로 읽는 편이 안전합니다."
+        )
+
+    return {
+        "scored": scored,
+        "picked": picked,
+        "ratio": round(ratio, 1),
+        "level": level,
+        "message": message,
     }
 
 
@@ -579,6 +685,7 @@ def explain(row) -> list[str]:
 
     점수만 보여주면 룰을 검증할 수 없다. 어떤 팩터가 기여했는지 드러내야
     사용자가 "이 근거는 납득이 안 된다"고 판단하고 걸러낼 수 있다.
+    낙폭 → 반등 근거 → 수급 검증 → 밸류/퀄리티 순으로 읽히게 배열한다.
     """
     lines = []
 
@@ -586,38 +693,54 @@ def explain(row) -> list[str]:
         value = row.get(key)
         return value is not None and not pd.isna(value)
 
+    # 얼마나 빠졌나
+    if has("drawdown_52w"):
+        lines.append(f"52주 고점 대비 {row['drawdown_52w']:.1f}%")
+    if has("ret_20d"):
+        lines.append(f"20일 수익률 {row['ret_20d']:+.1f}% · 5일 {row.get('ret_5d', float('nan')):+.1f}%")
+    if has("rsi14"):
+        lines.append(f"RSI {row['rsi14']:.0f} (과매도 구간)")
+    if has("bb_percent_b"):
+        lines.append(f"볼린저 밴드 내 위치 {row['bb_percent_b']:.2f} (0=하단)")
+
+    # 반등 근거
+    if has("oc_after_down") and has("down_day_count"):
+        lines.append(
+            f"과거 하락 다음날 시가→종가 평균 {row['oc_after_down']:+.2f}% "
+            f"(승률 {row.get('oc_after_down_winrate', float('nan')):.0f}%, 표본 {int(row['down_day_count'])}일)"
+        )
+    if has("lower_shadow") and row["lower_shadow"] > 0.5:
+        lines.append(f"전일 저가 대비 종가 회복률 {row['lower_shadow']:.0%} (장중 매수세 유입)")
+    if has("capitulation") and row["capitulation"] > 1.5:
+        lines.append(f"하락일 거래량 평소의 {row['capitulation']:.1f}배 (항복 매도 가능성)")
+    if has("down_streak") and row["down_streak"] >= 2:
+        lines.append(f"{int(row['down_streak'])}일 연속 하락 마감")
+
+    # 수급 검증
     if has("foreign_net_5d_pct") and row["foreign_net_5d_pct"] > 0:
         lines.append(
-            f"외국인 5일 순매수 (평균거래량 대비 {row['foreign_net_5d_pct']:+.1f}%, "
+            f"낙폭에도 외국인 5일 순매수 (평균거래량 대비 {row['foreign_net_5d_pct']:+.1f}%, "
             f"{int(row.get('foreign_buy_days', 0))}/5일 매수 우위)"
         )
     if has("organ_net_5d_pct") and row["organ_net_5d_pct"] > 0:
         lines.append(f"기관 5일 순매수 {row['organ_net_5d_pct']:+.1f}%")
     if row.get("dual_buying"):
-        lines.append("외국인·기관 동반 순매수")
+        lines.append("외국인·기관 동반 순매수 — 저점 매집 신호")
 
-    if has("oc_mean") and has("oc_winrate"):
-        lines.append(
-            f"최근 20일 시가→종가 평균 {row['oc_mean']:+.2f}%, "
-            f"상승 마감 {row['oc_winrate']:.0f}%"
-        )
-    if has("gap_follow") and row["gap_follow"] > 0:
-        lines.append(f"갭 상승일에도 일중 평균 {row['gap_follow']:+.2f}%로 추세 유지")
+    # 저평가·퀄리티
+    if has("target_upside"):
+        lines.append(f"컨센서스 목표주가 대비 {row['target_upside']:+.0f}% 여력")
+    if has("roe"):
+        lines.append(f"ROE {row['roe']:.1f}%")
+    if has("pbr"):
+        lines.append(f"PBR {row['pbr']:.2f}배")
+    if has("forward_per") or has("per"):
+        per = row["forward_per"] if has("forward_per") else row["per"]
+        label = "추정PER" if has("forward_per") else "PER"
+        lines.append(f"{label} {per:.1f}배")
 
-    if has("relative_strength") and row["relative_strength"] > 0:
-        lines.append(f"20일 상대강도 지수 대비 {row['relative_strength']:+.1f}%p")
-    if has("ma20_disparity"):
-        lines.append(f"20일선 이격도 {row['ma20_disparity']:+.1f}%")
-
-    if has("rsi14"):
-        lines.append(f"RSI {row['rsi14']:.0f}")
     if has("atr_pct"):
         lines.append(f"ATR {row['atr_pct']:.1f}% (기대 일중 변동폭)")
-
-    if has("target_upside") and row["target_upside"] > 0:
-        lines.append(f"컨센서스 목표주가 대비 {row['target_upside']:+.0f}% 여력")
-    if has("per") and row["per"] and row["per"] > 0:
-        lines.append(f"PER {row['per']:.1f}배")
 
     return lines
 

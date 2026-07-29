@@ -96,6 +96,89 @@ def volume_surge(volume: pd.Series, period: int = 20) -> float | None:
 # --- 일중 성향 (이 전략의 핵심 블록) -------------------------------------
 
 
+def reversal_profile(frame: pd.DataFrame, lookback: int = 20) -> dict:
+    """낙폭 반등 전략에 특화된 지표들.
+
+    "많이 빠진 종목을 산다"의 최대 위험은 하락에 실제 이유가 있는 경우다.
+    아래 지표들은 "팔 사람이 대체로 다 팔았는가"를 가늠하려는 것이지,
+    낙폭 자체를 좋게 보려는 게 아니다.
+
+    lower_shadow    전일 캔들에서 저가 대비 종가가 되돌린 비율. 1에 가까우면
+                    장중 저점에서 매수세가 받쳤다는 뜻.
+    down_streak     연속 하락 마감 일수. 길수록 되돌림 여지가 크지만
+                    동시에 추세적 악재일 가능성도 커진다.
+    capitulation    하락일에 거래량이 터졌는지 (항복 매도 신호).
+    oc_after_down   **이 전략의 핵심 검증 지표.** 전일 하락한 다음 날의
+                    시가→종가 수익률 평균. 실제 매매 조건과 정확히 같은
+                    상황에서 이 종목이 어떻게 움직였는지를 본다.
+    down_day_count  표본 수. oc_after_down의 신뢰도를 판단하는 데 쓴다.
+    """
+    if len(frame) < 25:
+        return {}
+
+    result: dict = {}
+    last = frame.iloc[-1]
+
+    span = last["high"] - last["low"]
+    if span > 0:
+        result["lower_shadow"] = _safe((last["close"] - last["low"]) / span)
+
+    # 연속 하락 마감 일수
+    changes = frame["close"].diff().tail(lookback)
+    streak = 0
+    for value in reversed(changes.tolist()):
+        if value is None or np.isnan(value) or value >= 0:
+            break
+        streak += 1
+    result["down_streak"] = streak
+
+    volumes = frame["volume"]
+    if len(volumes) >= 21:
+        baseline = volumes.iloc[-21:-1].mean()
+        if baseline:
+            ratio = volumes.iloc[-1] / baseline
+            fell = last["close"] < frame["close"].iloc[-2]
+            result["capitulation"] = _safe(ratio if fell else 0.0)
+
+    # 전일이 하락이었던 날들만 골라 그날의 시가→종가를 본다.
+    work = frame.copy()
+    work["prev_change"] = work["close"].pct_change().shift(1)
+    work["intraday"] = (work["close"] / work["open"] - 1) * 100
+    after_down = work[work["prev_change"] < 0]["intraday"].replace(
+        [np.inf, -np.inf], np.nan
+    ).dropna()
+
+    result["down_day_count"] = int(len(after_down))
+    if len(after_down) >= 5:
+        result["oc_after_down"] = _safe(after_down.mean())
+        result["oc_after_down_winrate"] = _safe((after_down > 0).mean() * 100)
+
+    return result
+
+
+def valuation_profile(snapshot: dict, last_close: float | None) -> dict:
+    """저평가·수익성 지표. '싸다'와 '망가졌다'를 구분하는 데 쓴다."""
+    result: dict = {}
+
+    eps, bps = snapshot.get("eps"), snapshot.get("bps")
+    if eps is not None and bps:
+        # ROE = EPS / BPS. 자기자본 대비 얼마나 벌고 있는지.
+        result["roe"] = _safe(eps / bps * 100)
+    result["eps"] = _safe(eps)
+    result["is_profitable"] = bool(eps is not None and eps > 0)
+
+    high_52w = snapshot.get("high_52w")
+    if high_52w and last_close:
+        # 52주 고점 대비 낙폭. 이 전략에서 '낙폭 과다'의 가장 직접적인 척도.
+        result["drawdown_52w"] = _safe((last_close / high_52w - 1) * 100)
+
+    # 애널리스트가 커버하는 종목인지. 목표주가가 있다는 건 최소한
+    # 기관이 들여다보고 있다는 뜻이라, 정보 공백 리스크가 낮다.
+    result["has_coverage"] = bool(snapshot.get("target_price"))
+
+    return result
+
+
 def intraday_profile(frame: pd.DataFrame, lookback: int = 20) -> dict:
     """과거 시가→종가 수익률의 분포.
 
@@ -207,7 +290,9 @@ def compute_all(
     }
 
     factors.update(intraday_profile(history))
+    factors.update(reversal_profile(history))
     factors.update(flow_profile(trend, avg_volume_20))
+    factors.update(valuation_profile(snapshot, factors.get("last_close")))
 
     # 지수 대비 상대강도 — 시장 전체가 오른 것과 종목이 강한 것을 구분한다.
     if index_return_20d is not None and factors.get("ret_20d") is not None:
