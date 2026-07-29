@@ -64,9 +64,23 @@ jobs:
           git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
+      # 비공개 저장소라 Pages를 못 쓰는 경우를 대비한 대안 경로.
+      # 데이터를 전부 인라인한 파일 하나라 Actions에서 받아 바로 열 수 있다.
+      - name: 단일 파일 빌드
+        run: python scripts/build_standalone.py build/daily-trading.html
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: daily-trading-html
+          path: build/daily-trading.html
+          retention-days: 90
+
   deploy:
     needs: screen
     runs-on: ubuntu-latest
+    # 무료 플랜 + 비공개 저장소에서는 Pages를 쓸 수 없다. 그 경우 이 잡만
+    # 경고로 남기고 스크리닝 자체는 성공으로 두려고 실패를 허용한다.
+    continue-on-error: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

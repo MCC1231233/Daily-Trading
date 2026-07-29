@@ -1,3 +1,5 @@
+build/
+docs/standalone-test.html
 __pycache__/
 *.py[cod]
 .venv/

@@ -12,8 +12,15 @@
 
 ## 보는 곳
 
-매일 08:20 KST에 자동 실행되어 GitHub Pages에 갱신됩니다.
-왼쪽 사이드바에서 날짜별 리포트를 넘겨볼 수 있습니다.
+**https://mcc1231233.github.io/Daily-Trading/**
+
+매일 08:20 KST(장 시작 40분 전)에 자동 실행되어 갱신됩니다. 왼쪽 사이드바에
+날짜가 쌓이므로 과거 리포트를 그대로 넘겨볼 수 있고, 채점이 끝난 날짜에는
+그날 후보들의 실현 수익률이 함께 표시됩니다.
+
+> Pages는 저장소가 공개일 때(또는 GitHub Pro 이상) 동작합니다. 비공개로 두는
+> 경우 Actions 실행 결과의 `daily-trading-html` 아티팩트를 받아 여시면 됩니다.
+> 데이터가 전부 인라인된 단일 파일이라 그대로 열립니다.
 
 ## 어떻게 뽑는가
 
@@ -104,6 +111,7 @@ config.yaml                 규칙 파라미터 — 코드 수정 없이 여기�
 scripts/datasource.py       데이터 수집 (재시도·병렬·실패 격리)
 scripts/factors.py          지표 계산 (RSI/MACD/ATR/일중 성향/수급)
 scripts/screen.py           오케스트레이션 + 채점 + JSON 출력
+scripts/build_standalone.py 데이터를 인라인한 단일 HTML 빌드 (Pages 대안)
 docs/index.html             대시보드 (정적, data/*.json을 fetch)
 docs/data/index.json        날짜 목록 + 누적 성과 (사이드바가 읽음)
 docs/data/YYYY-MM-DD.json   그날의 리포트 전문

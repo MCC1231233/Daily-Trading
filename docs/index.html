@@ -275,9 +275,20 @@ function eok(v) {
 
 let indexData = null;
 
+/* 데이터는 두 경로로 들어온다.
+   - 서버에서 열 때: data/*.json을 fetch
+   - 단일 파일 빌드(build_standalone.py): window.__EMBEDDED__에 전부 인라인
+   후자는 fetch가 막힌 환경(file://, CSP 제한)에서도 열리게 하기 위한 것이다. */
+const EMBEDDED = window.__EMBEDDED__ || null;
+
+async function loadJSON(path, key) {
+  if (EMBEDDED) return EMBEDDED[key];
+  return (await fetch(path + "?" + Date.now())).json();
+}
+
 async function boot() {
   try {
-    indexData = await (await fetch("data/index.json?" + Date.now())).json();
+    indexData = await loadJSON("data/index.json", "index");
   } catch (e) {
     document.getElementById("main").innerHTML =
       '<div class="empty">데이터를 불러오지 못했습니다.<br><small>이 페이지는 웹 서버에서 열어야 합니다 (GitHub Pages 또는 로컬 서버).</small></div>';
@@ -398,7 +409,10 @@ async function selectDate(date) {
   const main = document.getElementById("main");
   main.innerHTML = '<div class="empty">불러오는 중…</div>';
   try {
-    const report = await (await fetch(`data/${date}.json?` + Date.now())).json();
+    const report = EMBEDDED
+      ? EMBEDDED.reports[date]
+      : await (await fetch(`data/${date}.json?` + Date.now())).json();
+    if (!report) throw new Error("not found");
     renderReport(report);
     main.scrollIntoView({ block: "start" });
   } catch (e) {
