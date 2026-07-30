@@ -158,7 +158,18 @@
         "PBR 2.90배",
         "추정PER 4.5배",
         "ATR 11.6% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "005930",
+        "name": "삼성전자",
+        "open": 214000.0,
+        "close": 207000.0,
+        "high": 226000.0,
+        "low": 202000.0,
+        "return_pct": -3.27,
+        "max_gain_pct": 5.61,
+        "max_loss_pct": -5.61
+      }
     },
     {
       "rank": 2,
@@ -228,7 +239,18 @@
         "PBR 4.09배",
         "추정PER 13.0배",
         "ATR 22.2% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "131290",
+        "name": "티에스이",
+        "open": 158800.0,
+        "close": 143600.0,
+        "high": 165900.0,
+        "low": 143600.0,
+        "return_pct": -9.57,
+        "max_gain_pct": 4.47,
+        "max_loss_pct": -9.57
+      }
     },
     {
       "rank": 3,
@@ -299,7 +321,18 @@
         "PBR 1.13배",
         "PER 20.2배",
         "ATR 6.6% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "096530",
+        "name": "씨젠",
+        "open": 24800.0,
+        "close": 25150.0,
+        "high": 26650.0,
+        "low": 24800.0,
+        "return_pct": 1.41,
+        "max_gain_pct": 7.46,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 4,
@@ -370,7 +403,18 @@
         "PBR 2.27배",
         "추정PER 11.5배",
         "ATR 5.5% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "035900",
+        "name": "JYP Ent.",
+        "open": 40650.0,
+        "close": 42000.0,
+        "high": 43900.0,
+        "low": 40650.0,
+        "return_pct": 3.32,
+        "max_gain_pct": 8.0,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 5,
@@ -441,7 +485,18 @@
         "PBR 2.01배",
         "PER 16.7배",
         "ATR 8.3% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "041830",
+        "name": "인바디",
+        "open": 49400.0,
+        "close": 46650.0,
+        "high": 52300.0,
+        "low": 46500.0,
+        "return_pct": -5.57,
+        "max_gain_pct": 5.87,
+        "max_loss_pct": -5.87
+      }
     },
     {
       "rank": 6,
@@ -512,7 +567,18 @@
         "PBR 0.43배",
         "추정PER 6.1배",
         "ATR 8.9% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "005440",
+        "name": "현대지에프홀딩스",
+        "open": 10800.0,
+        "close": 11300.0,
+        "high": 11640.0,
+        "low": 10800.0,
+        "return_pct": 4.63,
+        "max_gain_pct": 7.78,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 7,
@@ -582,7 +648,18 @@
         "PBR 5.00배",
         "추정PER 15.1배",
         "ATR 6.9% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "214150",
+        "name": "클래시스",
+        "open": 36850.0,
+        "close": 37550.0,
+        "high": 41050.0,
+        "low": 36850.0,
+        "return_pct": 1.9,
+        "max_gain_pct": 11.4,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 8,
@@ -653,7 +730,18 @@
         "PBR 0.78배",
         "추정PER 12.2배",
         "ATR 6.6% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "001040",
+        "name": "CJ",
+        "open": 124500.0,
+        "close": 124200.0,
+        "high": 129200.0,
+        "low": 121300.0,
+        "return_pct": -0.24,
+        "max_gain_pct": 3.78,
+        "max_loss_pct": -2.57
+      }
     },
     {
       "rank": 9,
@@ -724,7 +812,18 @@
         "PBR 1.41배",
         "추정PER 7.9배",
         "ATR 9.1% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "060250",
+        "name": "NHN KCP",
+        "open": 10950.0,
+        "close": 11280.0,
+        "high": 11930.0,
+        "low": 10950.0,
+        "return_pct": 3.01,
+        "max_gain_pct": 8.95,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 10,
@@ -795,7 +894,18 @@
         "PBR 2.47배",
         "추정PER 16.0배",
         "ATR 6.5% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 229500.0,
+        "close": 224500.0,
+        "high": 238000.0,
+        "low": 222000.0,
+        "return_pct": -2.18,
+        "max_gain_pct": 3.7,
+        "max_loss_pct": -3.27
+      }
     }
   ],
   "previous_result": {
@@ -1327,5 +1437,182 @@
       "min_oc_after_down_samples": 10
     },
     "max_per_sector": 3
+  },
+  "realized": {
+    "date": "2026-07-30",
+    "trade_date": "2026-07-30",
+    "benchmark_pct": -1.55,
+    "results": [
+      {
+        "code": "005930",
+        "name": "삼성전자",
+        "open": 214000.0,
+        "close": 207000.0,
+        "high": 226000.0,
+        "low": 202000.0,
+        "return_pct": -3.27,
+        "max_gain_pct": 5.61,
+        "max_loss_pct": -5.61
+      },
+      {
+        "code": "131290",
+        "name": "티에스이",
+        "open": 158800.0,
+        "close": 143600.0,
+        "high": 165900.0,
+        "low": 143600.0,
+        "return_pct": -9.57,
+        "max_gain_pct": 4.47,
+        "max_loss_pct": -9.57
+      },
+      {
+        "code": "096530",
+        "name": "씨젠",
+        "open": 24800.0,
+        "close": 25150.0,
+        "high": 26650.0,
+        "low": 24800.0,
+        "return_pct": 1.41,
+        "max_gain_pct": 7.46,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "035900",
+        "name": "JYP Ent.",
+        "open": 40650.0,
+        "close": 42000.0,
+        "high": 43900.0,
+        "low": 40650.0,
+        "return_pct": 3.32,
+        "max_gain_pct": 8.0,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "041830",
+        "name": "인바디",
+        "open": 49400.0,
+        "close": 46650.0,
+        "high": 52300.0,
+        "low": 46500.0,
+        "return_pct": -5.57,
+        "max_gain_pct": 5.87,
+        "max_loss_pct": -5.87
+      },
+      {
+        "code": "005440",
+        "name": "현대지에프홀딩스",
+        "open": 10800.0,
+        "close": 11300.0,
+        "high": 11640.0,
+        "low": 10800.0,
+        "return_pct": 4.63,
+        "max_gain_pct": 7.78,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "214150",
+        "name": "클래시스",
+        "open": 36850.0,
+        "close": 37550.0,
+        "high": 41050.0,
+        "low": 36850.0,
+        "return_pct": 1.9,
+        "max_gain_pct": 11.4,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "001040",
+        "name": "CJ",
+        "open": 124500.0,
+        "close": 124200.0,
+        "high": 129200.0,
+        "low": 121300.0,
+        "return_pct": -0.24,
+        "max_gain_pct": 3.78,
+        "max_loss_pct": -2.57
+      },
+      {
+        "code": "060250",
+        "name": "NHN KCP",
+        "open": 10950.0,
+        "close": 11280.0,
+        "high": 11930.0,
+        "low": 10950.0,
+        "return_pct": 3.01,
+        "max_gain_pct": 8.95,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 229500.0,
+        "close": 224500.0,
+        "high": 238000.0,
+        "low": 222000.0,
+        "return_pct": -2.18,
+        "max_gain_pct": 3.7,
+        "max_loss_pct": -3.27
+      }
+    ],
+    "avg_return_pct": -0.66,
+    "excess_pct": 0.89,
+    "win_count": 5,
+    "total_count": 10,
+    "best": {
+      "code": "005440",
+      "name": "현대지에프홀딩스",
+      "open": 10800.0,
+      "close": 11300.0,
+      "high": 11640.0,
+      "low": 10800.0,
+      "return_pct": 4.63,
+      "max_gain_pct": 7.78,
+      "max_loss_pct": 0.0
+    },
+    "worst": {
+      "code": "131290",
+      "name": "티에스이",
+      "open": 158800.0,
+      "close": 143600.0,
+      "high": 165900.0,
+      "low": 143600.0,
+      "return_pct": -9.57,
+      "max_gain_pct": 4.47,
+      "max_loss_pct": -9.57
+    },
+    "variants": {
+      "reversal": {
+        "label": "역추세 (발행본)",
+        "traded": true,
+        "avg_return_pct": -0.66,
+        "excess_pct": 0.89,
+        "win_count": 5,
+        "total_count": 10
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "traded": true,
+        "avg_return_pct": -2.75,
+        "excess_pct": -1.2,
+        "win_count": 4,
+        "total_count": 10
+      },
+      "oversold": {
+        "label": "과매도 단일팩터",
+        "traded": true,
+        "avg_return_pct": 1.62,
+        "excess_pct": 3.17,
+        "win_count": 6,
+        "total_count": 10
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "traded": true,
+        "avg_return_pct": -0.66,
+        "excess_pct": 0.89,
+        "win_count": 5,
+        "total_count": 10
+      }
+    }
   }
 }
