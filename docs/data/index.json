@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-08-03",
+      "trade_date": "2026-08-03",
+      "regime": "risk_off",
+      "pick_count": 10,
+      "top_names": [
+        "코스메카코리아",
+        "씨젠",
+        "실리콘투"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-07-31",
       "trade_date": "2026-07-31",
       "regime": "risk_off",
@@ -10,7 +22,34 @@
         "삼성전자",
         "JYP Ent."
       ],
-      "scored": false
+      "scored": true,
+      "avg_return_pct": 2.64,
+      "excess_pct": -13.93,
+      "benchmark_pct": 16.57,
+      "win_count": 10,
+      "total_count": 10,
+      "variant_returns": {
+        "reversal": {
+          "avg": 2.64,
+          "excess": -13.93,
+          "traded": true
+        },
+        "momentum": {
+          "avg": -1.02,
+          "excess": -17.58,
+          "traded": true
+        },
+        "oversold": {
+          "avg": 6.89,
+          "excess": -9.68,
+          "traded": true
+        },
+        "reversal_timed": {
+          "avg": 2.64,
+          "excess": -13.93,
+          "traded": true
+        }
+      }
     },
     {
       "date": "2026-07-30",
@@ -91,71 +130,71 @@
       }
     }
   ],
-  "updated_at": "2026-07-31 08:36:08 KST",
+  "updated_at": "2026-08-03 08:34:08 KST",
   "performance": {
-    "sessions": 2,
-    "avg_daily_return_pct": 0.0,
-    "cumulative_return_pct": -0.0,
-    "positive_sessions": 1,
-    "session_win_rate_pct": 50.0,
-    "best_session_pct": 0.66,
+    "sessions": 3,
+    "avg_daily_return_pct": 0.88,
+    "cumulative_return_pct": 2.64,
+    "positive_sessions": 2,
+    "session_win_rate_pct": 66.7,
+    "best_session_pct": 2.64,
     "worst_session_pct": -0.66,
-    "pick_win_rate_pct": 60.0
+    "pick_win_rate_pct": 73.3
   },
   "shadow": {
-    "sessions": 2,
+    "sessions": 3,
     "variants": {
       "momentum": {
         "label": "추세추종 (대조군)",
-        "sessions": 2,
-        "traded_sessions": 2,
-        "avg_daily_pct": -1.585,
-        "cumulative_pct": -3.16,
+        "sessions": 3,
+        "traded_sessions": 3,
+        "avg_daily_pct": -1.397,
+        "cumulative_pct": -4.15,
         "win_rate_pct": 0.0,
-        "avg_excess_pct": -1.2,
-        "tstat": null,
+        "avg_excess_pct": -9.39,
+        "tstat": -1.15,
         "significant": false,
         "sessions_needed": null,
-        "confidence_note": "표본 부족 — 채점 2거래일 이상 필요"
+        "confidence_note": "표본 2거래일 — 판단하려면 최소 20거래일 필요"
       },
       "reversal": {
         "label": "역추세 (발행본)",
-        "sessions": 2,
-        "traded_sessions": 2,
-        "avg_daily_pct": 0.0,
-        "cumulative_pct": -0.0,
-        "win_rate_pct": 50.0,
-        "avg_excess_pct": 0.89,
-        "tstat": null,
+        "sessions": 3,
+        "traded_sessions": 3,
+        "avg_daily_pct": 0.88,
+        "cumulative_pct": 2.64,
+        "win_rate_pct": 66.7,
+        "avg_excess_pct": -6.52,
+        "tstat": -0.88,
         "significant": false,
         "sessions_needed": null,
-        "confidence_note": "표본 부족 — 채점 2거래일 이상 필요"
+        "confidence_note": "표본 2거래일 — 판단하려면 최소 20거래일 필요"
       },
       "oversold": {
         "label": "과매도 단일팩터",
-        "sessions": 2,
-        "traded_sessions": 2,
-        "avg_daily_pct": 1.62,
-        "cumulative_pct": 3.27,
+        "sessions": 3,
+        "traded_sessions": 3,
+        "avg_daily_pct": 3.377,
+        "cumulative_pct": 10.38,
         "win_rate_pct": 100.0,
-        "avg_excess_pct": 3.17,
-        "tstat": null,
+        "avg_excess_pct": -3.255,
+        "tstat": -0.51,
         "significant": false,
         "sessions_needed": null,
-        "confidence_note": "표본 부족 — 채점 2거래일 이상 필요"
+        "confidence_note": "표본 2거래일 — 판단하려면 최소 20거래일 필요"
       },
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
-        "sessions": 2,
-        "traded_sessions": 2,
-        "avg_daily_pct": 0.0,
-        "cumulative_pct": -0.0,
-        "win_rate_pct": 50.0,
-        "avg_excess_pct": 0.89,
-        "tstat": null,
+        "sessions": 3,
+        "traded_sessions": 3,
+        "avg_daily_pct": 0.88,
+        "cumulative_pct": 2.64,
+        "win_rate_pct": 66.7,
+        "avg_excess_pct": -6.52,
+        "tstat": -0.88,
         "significant": false,
         "sessions_needed": null,
-        "confidence_note": "표본 부족 — 채점 2거래일 이상 필요"
+        "confidence_note": "표본 2거래일 — 판단하려면 최소 20거래일 필요"
       }
     }
   }
