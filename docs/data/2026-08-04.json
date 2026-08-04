@@ -157,7 +157,18 @@
         "PBR 3.34배",
         "추정PER 12.3배",
         "ATR 9.1% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "241710",
+        "name": "코스메카코리아",
+        "open": 79500.0,
+        "close": 86000.0,
+        "high": 87400.0,
+        "low": 79400.0,
+        "return_pct": 8.18,
+        "max_gain_pct": 9.94,
+        "max_loss_pct": -0.13
+      }
     },
     {
       "rank": 2,
@@ -227,7 +238,18 @@
         "PBR 1.19배",
         "PER 21.2배",
         "ATR 6.3% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "096530",
+        "name": "씨젠",
+        "open": 26750.0,
+        "close": 27950.0,
+        "high": 28200.0,
+        "low": 26750.0,
+        "return_pct": 4.49,
+        "max_gain_pct": 5.42,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 3,
@@ -297,7 +319,18 @@
         "PBR 1.28배",
         "추정PER 7.2배",
         "ATR 6.8% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "069620",
+        "name": "대웅제약",
+        "open": 113100.0,
+        "close": 123600.0,
+        "high": 124400.0,
+        "low": 113100.0,
+        "return_pct": 9.28,
+        "max_gain_pct": 9.99,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 4,
@@ -368,7 +401,18 @@
         "PBR 1.15배",
         "추정PER 8.5배",
         "ATR 4.7% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "081660",
+        "name": "미스토홀딩스",
+        "open": 41850.0,
+        "close": 44400.0,
+        "high": 45500.0,
+        "low": 41850.0,
+        "return_pct": 6.09,
+        "max_gain_pct": 8.72,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 5,
@@ -437,7 +481,18 @@
         "PBR 4.93배",
         "추정PER 15.7배",
         "ATR 16.3% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "131290",
+        "name": "티에스이",
+        "open": 198800.0,
+        "close": 196900.0,
+        "high": 206500.0,
+        "low": 186000.0,
+        "return_pct": -0.96,
+        "max_gain_pct": 3.87,
+        "max_loss_pct": -6.44
+      }
     },
     {
       "rank": 6,
@@ -507,7 +562,18 @@
         "PBR 2.35배",
         "추정PER 11.9배",
         "ATR 5.4% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "035900",
+        "name": "JYP Ent.",
+        "open": 44150.0,
+        "close": 46250.0,
+        "high": 46350.0,
+        "low": 44150.0,
+        "return_pct": 4.76,
+        "max_gain_pct": 4.98,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 7,
@@ -576,7 +642,18 @@
         "PBR 4.59배",
         "추정PER 10.0배",
         "ATR 7.1% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "257720",
+        "name": "실리콘투",
+        "open": 35050.0,
+        "close": 37350.0,
+        "high": 38950.0,
+        "low": 34950.0,
+        "return_pct": 6.56,
+        "max_gain_pct": 11.13,
+        "max_loss_pct": -0.29
+      }
     },
     {
       "rank": 8,
@@ -645,7 +722,18 @@
         "PBR 4.10배",
         "추정PER 15.4배",
         "ATR 18.4% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "031980",
+        "name": "피에스케이홀딩스",
+        "open": 99500.0,
+        "close": 103000.0,
+        "high": 105500.0,
+        "low": 96300.0,
+        "return_pct": 3.52,
+        "max_gain_pct": 6.03,
+        "max_loss_pct": -3.22
+      }
     },
     {
       "rank": 9,
@@ -715,7 +803,18 @@
         "PBR 4.25배",
         "추정PER 12.4배",
         "ATR 14.1% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "067310",
+        "name": "하나마이크론",
+        "open": 30800.0,
+        "close": 31000.0,
+        "high": 32600.0,
+        "low": 29550.0,
+        "return_pct": 0.65,
+        "max_gain_pct": 5.84,
+        "max_loss_pct": -4.06
+      }
     },
     {
       "rank": 10,
@@ -785,7 +884,18 @@
         "PBR 0.82배",
         "추정PER 12.1배",
         "ATR 5.7% (기대 일중 변동폭)"
-      ]
+      ],
+      "realized": {
+        "code": "001040",
+        "name": "CJ",
+        "open": 129800.0,
+        "close": 132000.0,
+        "high": 133600.0,
+        "low": 128900.0,
+        "return_pct": 1.69,
+        "max_gain_pct": 2.93,
+        "max_loss_pct": -0.69
+      }
     }
   ],
   "previous_result": {
@@ -1317,5 +1427,182 @@
       "min_oc_after_down_samples": 10
     },
     "max_per_sector": 3
+  },
+  "realized": {
+    "date": "2026-08-04",
+    "trade_date": "2026-08-04",
+    "benchmark_pct": 0.12,
+    "results": [
+      {
+        "code": "241710",
+        "name": "코스메카코리아",
+        "open": 79500.0,
+        "close": 86000.0,
+        "high": 87400.0,
+        "low": 79400.0,
+        "return_pct": 8.18,
+        "max_gain_pct": 9.94,
+        "max_loss_pct": -0.13
+      },
+      {
+        "code": "096530",
+        "name": "씨젠",
+        "open": 26750.0,
+        "close": 27950.0,
+        "high": 28200.0,
+        "low": 26750.0,
+        "return_pct": 4.49,
+        "max_gain_pct": 5.42,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "069620",
+        "name": "대웅제약",
+        "open": 113100.0,
+        "close": 123600.0,
+        "high": 124400.0,
+        "low": 113100.0,
+        "return_pct": 9.28,
+        "max_gain_pct": 9.99,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "081660",
+        "name": "미스토홀딩스",
+        "open": 41850.0,
+        "close": 44400.0,
+        "high": 45500.0,
+        "low": 41850.0,
+        "return_pct": 6.09,
+        "max_gain_pct": 8.72,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "131290",
+        "name": "티에스이",
+        "open": 198800.0,
+        "close": 196900.0,
+        "high": 206500.0,
+        "low": 186000.0,
+        "return_pct": -0.96,
+        "max_gain_pct": 3.87,
+        "max_loss_pct": -6.44
+      },
+      {
+        "code": "035900",
+        "name": "JYP Ent.",
+        "open": 44150.0,
+        "close": 46250.0,
+        "high": 46350.0,
+        "low": 44150.0,
+        "return_pct": 4.76,
+        "max_gain_pct": 4.98,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "257720",
+        "name": "실리콘투",
+        "open": 35050.0,
+        "close": 37350.0,
+        "high": 38950.0,
+        "low": 34950.0,
+        "return_pct": 6.56,
+        "max_gain_pct": 11.13,
+        "max_loss_pct": -0.29
+      },
+      {
+        "code": "031980",
+        "name": "피에스케이홀딩스",
+        "open": 99500.0,
+        "close": 103000.0,
+        "high": 105500.0,
+        "low": 96300.0,
+        "return_pct": 3.52,
+        "max_gain_pct": 6.03,
+        "max_loss_pct": -3.22
+      },
+      {
+        "code": "067310",
+        "name": "하나마이크론",
+        "open": 30800.0,
+        "close": 31000.0,
+        "high": 32600.0,
+        "low": 29550.0,
+        "return_pct": 0.65,
+        "max_gain_pct": 5.84,
+        "max_loss_pct": -4.06
+      },
+      {
+        "code": "001040",
+        "name": "CJ",
+        "open": 129800.0,
+        "close": 132000.0,
+        "high": 133600.0,
+        "low": 128900.0,
+        "return_pct": 1.69,
+        "max_gain_pct": 2.93,
+        "max_loss_pct": -0.69
+      }
+    ],
+    "avg_return_pct": 4.43,
+    "excess_pct": 4.31,
+    "win_count": 9,
+    "total_count": 10,
+    "best": {
+      "code": "069620",
+      "name": "대웅제약",
+      "open": 113100.0,
+      "close": 123600.0,
+      "high": 124400.0,
+      "low": 113100.0,
+      "return_pct": 9.28,
+      "max_gain_pct": 9.99,
+      "max_loss_pct": 0.0
+    },
+    "worst": {
+      "code": "131290",
+      "name": "티에스이",
+      "open": 198800.0,
+      "close": 196900.0,
+      "high": 206500.0,
+      "low": 186000.0,
+      "return_pct": -0.96,
+      "max_gain_pct": 3.87,
+      "max_loss_pct": -6.44
+    },
+    "variants": {
+      "reversal": {
+        "label": "역추세 (발행본)",
+        "traded": true,
+        "avg_return_pct": 4.43,
+        "excess_pct": 4.31,
+        "win_count": 9,
+        "total_count": 10
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "traded": true,
+        "avg_return_pct": 4.26,
+        "excess_pct": 4.14,
+        "win_count": 10,
+        "total_count": 10
+      },
+      "oversold": {
+        "label": "과매도 단일팩터",
+        "traded": true,
+        "avg_return_pct": 6.87,
+        "excess_pct": 6.75,
+        "win_count": 10,
+        "total_count": 10
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "traded": true,
+        "avg_return_pct": 4.43,
+        "excess_pct": 4.31,
+        "win_count": 9,
+        "total_count": 10
+      }
+    }
   }
 }
