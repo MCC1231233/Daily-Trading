@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-08-14",
+      "trade_date": "2026-08-14",
+      "regime": "risk_on",
+      "pick_count": 10,
+      "top_names": [
+        "F&F",
+        "미스토홀딩스",
+        "펄어비스"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-08-13",
       "trade_date": "2026-08-13",
       "regime": "risk_on",
@@ -10,7 +22,34 @@
         "영원무역",
         "JYP Ent."
       ],
-      "scored": false
+      "scored": true,
+      "avg_return_pct": -1.16,
+      "excess_pct": -1.74,
+      "benchmark_pct": 0.58,
+      "win_count": 3,
+      "total_count": 10,
+      "variant_returns": {
+        "reversal": {
+          "avg": -1.16,
+          "excess": -1.74,
+          "traded": true
+        },
+        "momentum": {
+          "avg": -0.22,
+          "excess": -0.8,
+          "traded": true
+        },
+        "oversold": {
+          "avg": 2.7,
+          "excess": 2.12,
+          "traded": true
+        },
+        "reversal_timed": {
+          "avg": 0.0,
+          "excess": 0.0,
+          "traded": false
+        }
+      }
     },
     {
       "date": "2026-08-12",
@@ -403,71 +442,71 @@
       }
     }
   ],
-  "updated_at": "2026-08-13 08:20:05 KST",
+  "updated_at": "2026-08-14 08:21:55 KST",
   "performance": {
-    "sessions": 10,
-    "avg_daily_return_pct": 1.491,
-    "cumulative_return_pct": 15.82,
+    "sessions": 11,
+    "avg_daily_return_pct": 1.25,
+    "cumulative_return_pct": 14.48,
     "positive_sessions": 8,
-    "session_win_rate_pct": 80.0,
+    "session_win_rate_pct": 72.7,
     "best_session_pct": 4.43,
-    "worst_session_pct": -0.66,
-    "pick_win_rate_pct": 71.0
+    "worst_session_pct": -1.16,
+    "pick_win_rate_pct": 67.3
   },
   "shadow": {
-    "sessions": 10,
+    "sessions": 11,
     "variants": {
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
-        "sessions": 10,
+        "sessions": 11,
         "traded_sessions": 7,
-        "avg_daily_pct": 1.094,
+        "avg_daily_pct": 0.995,
         "cumulative_pct": 11.37,
-        "win_rate_pct": 60.0,
-        "avg_excess_pct": -0.403,
+        "win_rate_pct": 54.5,
+        "avg_excess_pct": -0.363,
         "tstat": -0.22,
         "significant": false,
         "sessions_needed": null,
-        "confidence_note": "표본 9거래일 — 판단하려면 최소 20거래일 필요"
-      },
-      "reversal": {
-        "label": "역추세 (발행본)",
-        "sessions": 10,
-        "traded_sessions": 10,
-        "avg_daily_pct": 1.491,
-        "cumulative_pct": 15.82,
-        "win_rate_pct": 80.0,
-        "avg_excess_pct": -0.019,
-        "tstat": -0.01,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "표본 9거래일 — 판단하려면 최소 20거래일 필요"
-      },
-      "oversold": {
-        "label": "과매도 단일팩터",
-        "sessions": 10,
-        "traded_sessions": 10,
-        "avg_daily_pct": 2.277,
-        "cumulative_pct": 24.77,
-        "win_rate_pct": 80.0,
-        "avg_excess_pct": 0.748,
-        "tstat": 0.44,
-        "significant": false,
-        "sessions_needed": 189,
-        "confidence_note": "표본 9거래일 — 판단하려면 최소 20거래일 필요"
+        "confidence_note": "표본 10거래일 — 판단하려면 최소 20거래일 필요"
       },
       "momentum": {
         "label": "추세추종 (대조군)",
-        "sessions": 10,
-        "traded_sessions": 10,
-        "avg_daily_pct": 0.417,
-        "cumulative_pct": 3.98,
-        "win_rate_pct": 40.0,
-        "avg_excess_pct": -1.091,
-        "tstat": -0.49,
+        "sessions": 11,
+        "traded_sessions": 11,
+        "avg_daily_pct": 0.359,
+        "cumulative_pct": 3.75,
+        "win_rate_pct": 36.4,
+        "avg_excess_pct": -1.062,
+        "tstat": -0.53,
         "significant": false,
         "sessions_needed": null,
-        "confidence_note": "표본 9거래일 — 판단하려면 최소 20거래일 필요"
+        "confidence_note": "표본 10거래일 — 판단하려면 최소 20거래일 필요"
+      },
+      "reversal": {
+        "label": "역추세 (발행본)",
+        "sessions": 11,
+        "traded_sessions": 11,
+        "avg_daily_pct": 1.25,
+        "cumulative_pct": 14.48,
+        "win_rate_pct": 72.7,
+        "avg_excess_pct": -0.191,
+        "tstat": -0.11,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "표본 10거래일 — 판단하려면 최소 20거래일 필요"
+      },
+      "oversold": {
+        "label": "과매도 단일팩터",
+        "sessions": 11,
+        "traded_sessions": 11,
+        "avg_daily_pct": 2.315,
+        "cumulative_pct": 28.14,
+        "win_rate_pct": 81.8,
+        "avg_excess_pct": 0.885,
+        "tstat": 0.58,
+        "significant": false,
+        "sessions_needed": 121,
+        "confidence_note": "표본 10거래일 — 판단하려면 최소 20거래일 필요"
       }
     }
   }
