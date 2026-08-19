@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-08-20",
+      "trade_date": "2026-08-20",
+      "regime": "risk_on",
+      "pick_count": 10,
+      "top_names": [
+        "CJ",
+        "NH투자증권",
+        "펄어비스"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-08-19",
       "trade_date": "2026-08-19",
       "regime": "risk_on",
@@ -10,7 +22,34 @@
         "CJ",
         "펄어비스"
       ],
-      "scored": false
+      "scored": true,
+      "avg_return_pct": 0.0,
+      "excess_pct": 0.88,
+      "benchmark_pct": -0.88,
+      "win_count": 0,
+      "total_count": 10,
+      "variant_returns": {
+        "reversal": {
+          "avg": 0.0,
+          "excess": 0.88,
+          "traded": true
+        },
+        "momentum": {
+          "avg": 1.63,
+          "excess": 2.51,
+          "traded": true
+        },
+        "oversold": {
+          "avg": 0.0,
+          "excess": 0.88,
+          "traded": true
+        },
+        "reversal_timed": {
+          "avg": 0.0,
+          "excess": 0.88,
+          "traded": true
+        }
+      }
     },
     {
       "date": "2026-08-18",
@@ -520,71 +559,71 @@
       }
     }
   ],
-  "updated_at": "2026-08-19 07:55:13 KST",
+  "updated_at": "2026-08-20 07:55:18 KST",
   "performance": {
-    "sessions": 13,
-    "avg_daily_return_pct": 1.025,
+    "sessions": 14,
+    "avg_daily_return_pct": 0.951,
     "cumulative_return_pct": 13.99,
     "positive_sessions": 8,
-    "session_win_rate_pct": 61.5,
+    "session_win_rate_pct": 57.1,
     "best_session_pct": 4.43,
     "worst_session_pct": -1.16,
-    "pick_win_rate_pct": 56.9
+    "pick_win_rate_pct": 52.9
   },
   "shadow": {
-    "sessions": 13,
+    "sessions": 14,
     "variants": {
-      "reversal_timed": {
-        "label": "역추세 + 시장 타이밍",
-        "sessions": 13,
-        "traded_sessions": 8,
-        "avg_daily_pct": 0.819,
-        "cumulative_pct": 11.05,
-        "win_rate_pct": 46.2,
-        "avg_excess_pct": -0.025,
-        "tstat": -0.02,
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "sessions": 14,
+        "traded_sessions": 14,
+        "avg_daily_pct": 0.286,
+        "cumulative_pct": 3.78,
+        "win_rate_pct": 42.9,
+        "avg_excess_pct": -0.447,
+        "tstat": -0.29,
         "significant": false,
         "sessions_needed": null,
-        "confidence_note": "표본 12거래일 — 판단하려면 최소 20거래일 필요"
+        "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
       },
       "oversold": {
         "label": "과매도 단일팩터",
-        "sessions": 13,
-        "traded_sessions": 13,
-        "avg_daily_pct": 1.959,
+        "sessions": 14,
+        "traded_sessions": 14,
+        "avg_daily_pct": 1.819,
         "cumulative_pct": 28.14,
-        "win_rate_pct": 69.2,
-        "avg_excess_pct": 1.06,
-        "tstat": 0.82,
+        "win_rate_pct": 64.3,
+        "avg_excess_pct": 1.046,
+        "tstat": 0.88,
         "significant": false,
-        "sessions_needed": 72,
-        "confidence_note": "표본 12거래일 — 판단하려면 최소 20거래일 필요"
-      },
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "sessions": 13,
-        "traded_sessions": 13,
-        "avg_daily_pct": 0.183,
-        "cumulative_pct": 2.12,
-        "win_rate_pct": 38.5,
-        "avg_excess_pct": -0.693,
-        "tstat": -0.41,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "표본 12거래일 — 판단하려면 최소 20거래일 필요"
+        "sessions_needed": 68,
+        "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
       },
       "reversal": {
         "label": "역추세 (발행본)",
-        "sessions": 13,
-        "traded_sessions": 13,
-        "avg_daily_pct": 1.025,
+        "sessions": 14,
+        "traded_sessions": 14,
+        "avg_daily_pct": 0.951,
         "cumulative_pct": 13.99,
-        "win_rate_pct": 61.5,
-        "avg_excess_pct": 0.128,
-        "tstat": 0.09,
+        "win_rate_pct": 57.1,
+        "avg_excess_pct": 0.185,
+        "tstat": 0.14,
         "significant": false,
-        "sessions_needed": 6010,
-        "confidence_note": "표본 12거래일 — 판단하려면 최소 20거래일 필요"
+        "sessions_needed": 2611,
+        "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "sessions": 14,
+        "traded_sessions": 9,
+        "avg_daily_pct": 0.761,
+        "cumulative_pct": 11.05,
+        "win_rate_pct": 42.9,
+        "avg_excess_pct": 0.045,
+        "tstat": 0.04,
+        "significant": false,
+        "sessions_needed": 41818,
+        "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
       }
     }
   }
