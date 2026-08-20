@@ -572,10 +572,7 @@ def build_payload(
                 "last_close": row.get("last_close"),
                 "marcap_bn": round(float(row["marcap"]) / 1e8, 0),
                 "amount_bn": round(float(row["amount"]) / 1e8, 0),
-                "blocks": {
-                    block: round(float(row[f"block_{block}"]), 2)
-                    for block in ("drawdown", "reversal", "flow", "value", "quality")
-                },
+                **_blocks_of(row),
                 "factors": {
                     key: (None if pd.isna(row.get(key)) else row.get(key))
                     for key in (
@@ -594,7 +591,7 @@ def build_payload(
                     )
                     if key in row.index
                 },
-                "rationale": explain(row),
+                "rationale": explain(row, variants.PRIMARY),
             }
         )
 
@@ -612,7 +609,9 @@ def build_payload(
         "picks": pick_list,
         "previous_result": scored,
         "data_warnings": client.failures[:20],
-        "strategy": "낙폭 과다 저평가 우량주 일중 반등",
+        "strategy": variants.PRIMARY.label.replace(" (발행본)", ""),
+        "strategy_detail": variants.PRIMARY.description,
+        "single_factor": variants.PRIMARY.single_factor,
         "pool_health": pool_health(len(frame), len(picks)),
         "primary_variant": variants.PRIMARY.name,
         "variants": variant_results,
@@ -628,6 +627,20 @@ def build_payload(
             "max_per_sector": cfg["risk"]["max_per_sector"],
         },
     }
+
+
+BLOCK_NAMES = ("drawdown", "reversal", "flow", "value", "quality")
+
+
+def _blocks_of(row) -> dict:
+    """5블록 분해가 있으면 담고, 단일팩터 변형이면 빈 dict.
+
+    발행 전략이 팩터 하나로 순위를 매기면 분해할 블록이 애초에 없다.
+    억지로 0을 채우면 화면에 "모든 블록이 0"인 막대가 그려져 오해를 부른다.
+    """
+    if f"block_{BLOCK_NAMES[0]}" not in row.index:
+        return {}
+    return {"blocks": {b: round(float(row[f"block_{b}"]), 2) for b in BLOCK_NAMES}}
 
 
 def pool_health(scored: int, picked: int) -> dict:
@@ -662,13 +675,59 @@ def pool_health(scored: int, picked: int) -> dict:
     }
 
 
-def explain(row) -> list[str]:
+def _explain_single_factor(row) -> list[str]:
+    """RSI 하나로 뽑았다는 사실을 흐리지 않는 서술.
+
+    첫 줄이 선정 근거이고 나머지는 전부 '참고'라고 못박는다. 참고 지표를
+    빼지 않는 이유는 사용자가 후보를 걸러낼 재료가 필요하기 때문이지,
+    그것들이 점수에 들어갔기 때문이 아니다.
+    """
+    def val(key):
+        v = row.get(key)
+        return None if v is None or pd.isna(v) else v
+
+    lines = []
+    rsi = val("rsi14")
+    if rsi is not None:
+        lines.append(f"선정 근거: RSI(14) {rsi:.0f} — 후보군 내 과매도 상위")
+    lines.append("순위는 RSI 하나로만 매겨졌습니다 — 다른 팩터는 점수에 미반영")
+
+    atr = val("atr_pct")
+    if atr is not None:
+        lines.append(f"[참고] ATR {atr:.1f}% — 변동성 상위 20%는 사전 배제됨")
+    if (bb := val("bb_percent_b")) is not None:
+        lines.append(f"[참고] 볼린저 밴드 내 위치 {bb:.2f} (0=하단)")
+    if (r5 := val("ret_5d")) is not None:
+        r20 = val("ret_20d")
+        tail = f" · 20일 {r20:+.1f}%" if r20 is not None else ""
+        lines.append(f"[참고] 5일 수익률 {r5:+.1f}%{tail}")
+    if (dd := val("drawdown_52w")) is not None:
+        lines.append(f"[참고] 52주 고점 대비 {dd:.1f}%")
+    if (f5 := val("foreign_net_5d_pct")) is not None:
+        o5 = val("organ_net_5d_pct")
+        tail = f" · 기관 {o5:+.1f}%" if o5 is not None else ""
+        lines.append(f"[참고] 외국인 5일 순매수 {f5:+.1f}%{tail}")
+    if (up := val("target_upside")) is not None:
+        lines.append(f"[참고] 컨센서스 목표주가 대비 {up:+.0f}%")
+    if (roe := val("roe")) is not None:
+        lines.append(f"[참고] ROE {roe:.1f}%")
+
+    lines.append("참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다.")
+    return lines
+
+
+def explain(row, variant=None) -> list[str]:
     """왜 이 종목이 올라왔는지 사람이 읽는 문장으로.
 
     점수만 보여주면 룰을 검증할 수 없다. 어떤 팩터가 기여했는지 드러내야
     사용자가 "이 근거는 납득이 안 된다"고 판단하고 걸러낼 수 있다.
-    낙폭 → 반등 근거 → 수급 검증 → 밸류/퀄리티 순으로 읽히게 배열한다.
+
+    단일팩터 전략에서는 서술이 달라야 한다. 순위를 만든 것은 RSI 하나인데
+    낙폭·수급·밸류를 나란히 늘어놓으면 그것들이 선정에 기여한 것처럼 읽힌다.
+    그래서 선정 근거와 참고 지표를 명시적으로 분리한다.
     """
+    if variant is not None and getattr(variant, "single_factor", False):
+        return _explain_single_factor(row)
     lines = []
 
     def has(key):

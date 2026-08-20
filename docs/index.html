@@ -152,6 +152,16 @@ h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 4px
   background: color-mix(in srgb, var(--up) 9%, transparent);
 }
 .pool-poor strong { color: var(--up); }
+.gauge { display: flex; flex-direction: column; gap: 5px; }
+.gauge-label { font-size: 11.5px; font-weight: 600; color: var(--text-secondary); }
+.gauge-track { position: relative; height: 18px; background: var(--grid); border-radius: 4px; overflow: visible; }
+.gauge-fill { position: absolute; left: 0; top: 2px; bottom: 2px; border-radius: 4px; background: var(--series-1); opacity: .55; }
+.gauge-dot { position: absolute; top: -2px; width: 3px; height: 22px; border-radius: 2px; background: var(--series-1); transform: translateX(-1.5px); }
+.gauge-tick { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--baseline); }
+.gauge-scale { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--text-muted); }
+.gauge-stat { font-size: 12.5px; color: var(--text-secondary); font-variant-numeric: tabular-nums; margin-top: 3px; }
+.gauge-stat b { color: var(--text-primary); }
+.gauge-note { font-size: 11px; color: var(--text-muted); }
 .shadow-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
 
 .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
@@ -292,6 +302,7 @@ function eok(v) {
 }
 
 let indexData = null;
+let currentReport = null;
 
 /* 데이터는 두 경로로 들어온다.
    - 서버에서 열 때: data/*.json을 fetch
@@ -439,6 +450,7 @@ async function selectDate(date) {
 }
 
 function renderReport(r) {
+  currentReport = r;
   const main = document.getElementById("main");
   main.innerHTML = "";
 
@@ -514,7 +526,7 @@ function regimeCard(r) {
   card.appendChild(chips);
 
   const w = r.weights;
-  card.appendChild(el("p", "subtle",
+  if (!r.single_factor) card.appendChild(el("p", "subtle",
     `이 국면의 가중치 — ${BLOCKS.map(([k, label]) => `${label} ${Math.round(w[k] * 100)}%`).join(" · ")}`));
 
   if (r.data_warnings && r.data_warnings.length) {
@@ -587,6 +599,13 @@ function picksSection(r) {
   wrap.appendChild(h);
 
   const legend = el("div", "legend");
+  if (r.single_factor) {
+    legend.appendChild(el("div", "legend-item",
+      "점수는 RSI(14) 하나로만 계산됩니다. 카드의 나머지 지표는 참고용입니다."));
+    wrap.appendChild(legend);
+    for (const p of r.picks) wrap.appendChild(pickCard(p));
+    return wrap;
+  }
   for (const [, label, color] of BLOCKS) {
     const item = el("div", "legend-item");
     const sw = el("span", "legend-swatch");
@@ -600,6 +619,51 @@ function picksSection(r) {
 
   for (const p of r.picks) wrap.appendChild(pickCard(p));
   return wrap;
+}
+
+/* 단일팩터 전략의 선정 근거 표시.
+   막대 하나에 RSI 위치와 후보군 내 백분위만 보여준다 — 점수를 만든 것이
+   그 하나뿐이라는 사실을 화면이 그대로 말하게 한다. */
+function singleFactorGauge(p) {
+  const f = p.factors || {};
+  const box = el("div", "gauge");
+  box.appendChild(el("div", "gauge-label", "선정 근거 — RSI(14) 단일"));
+
+  const rsi = f.rsi14;
+  const track = el("div", "gauge-track");
+  track.title = rsi == null ? "RSI 없음" : `RSI ${rsi.toFixed(0)}`;
+  // 0~100 스케일. 30/70 눈금으로 과매도·과매수 구간을 표시한다.
+  for (const mark of [30, 70]) {
+    const tick = el("div", "gauge-tick");
+    tick.style.left = mark + "%";
+    track.appendChild(tick);
+  }
+  if (rsi != null) {
+    const fill = el("div", "gauge-fill");
+    fill.style.width = Math.max(Math.min(rsi, 100), 0) + "%";
+    track.appendChild(fill);
+    const dot = el("div", "gauge-dot");
+    dot.style.left = Math.max(Math.min(rsi, 100), 0) + "%";
+    track.appendChild(dot);
+  }
+  box.appendChild(track);
+
+  const scale = el("div", "gauge-scale");
+  scale.appendChild(el("span", null, "0"));
+  scale.appendChild(el("span", null, "30 과매도"));
+  scale.appendChild(el("span", null, "70 과매수"));
+  scale.appendChild(el("span", null, "100"));
+  box.appendChild(scale);
+
+  const stat = el("div", "gauge-stat");
+  const pool = currentReport && currentReport.scored_count;
+  stat.innerHTML = `RSI <b>${rsi == null ? "—" : rsi.toFixed(0)}</b>` +
+    ` · 후보 ${pool ? pool + "종목" : ""} 중 <b>${p.rank}위</b>` +
+    ` · 점수 <b>${num(p.score, 3)}</b>`;
+  box.appendChild(stat);
+  box.appendChild(el("div", "gauge-note",
+    "아래 지표는 참고용이며 선정에 사용되지 않았습니다."));
+  return box;
 }
 
 function pickCard(p) {
@@ -623,7 +687,11 @@ function pickCard(p) {
 
   const body = el("div", "pick-body");
 
-  // 블록 막대
+  // 발행 전략이 단일팩터면 분해할 블록이 없다. 0으로 채운 막대를 그리면
+  // "모든 블록이 0"으로 읽혀 오해를 부르므로 게이지로 대체한다.
+  if (!p.blocks) {
+    body.appendChild(singleFactorGauge(p));
+  } else {
   const blocks = el("div", "blocks");
   for (const [key, label, color] of BLOCKS) {
     const v = p.blocks[key] ?? 0;
@@ -646,6 +714,7 @@ function pickCard(p) {
     blocks.appendChild(row);
   }
   body.appendChild(blocks);
+  }
 
   // 근거 + 팩터
   const right = el("div");

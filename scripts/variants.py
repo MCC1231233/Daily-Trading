@@ -185,16 +185,47 @@ def momentum_score(frame: pd.DataFrame, cfg: dict, regime: str) -> pd.DataFrame:
 
 
 def oversold_gate(frame: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
-    """유동성 외에는 거의 아무것도 안 거른다.
+    """유동성 공통 게이트 + 두 가지만 얹는다.
 
-    백테스트에서 RSI 하나만 쓴 버전이 5블록 모델과 거의 같은 성과를 냈다.
-    정교함이 실제로 값을 하는지 확인하려면 이 단순 기준선이 있어야 한다.
+    이 전략의 정의는 "점수를 RSI 하나로만 매긴다"이지 "아무것도 안 거른다"가
+    아니다. 발행 전략이 된 이상 최소한의 안전 게이트는 필요하고, 아래 둘은
+    점수가 아니라 탈락 조건이므로 단일팩터 원칙을 깨지 않는다.
+
+    1) RSI 하한 — 극단 과매도는 되돌림이 아니라 추세적 붕괴인 경우가 많다.
+       12년 패널에서 모멘텀 십분위가 역U자였다(D1 -7.3 / D5 +6.9 / D10 -5.5).
+    2) 변동성 최상위 분위 배제 — 12년 생존편향 제거 패널에서 적대적 검증
+       3개 렌즈를 모두 통과한 유일한 양성 규칙(유니버스 EW 대비 연 +3.60%p,
+       NW t=4.76). 수익을 늘리는 규칙이 아니라 재앙을 피하는 규칙이다.
     """
+    rules = cfg.get("oversold", {})
     frame, counts = _liquidity_gate(frame, cfg)
+
+    floor = rules.get("rsi_floor")
+    if floor is not None:
+        frame = frame[frame["rsi14"] >= floor]
+        counts[f"RSI {floor} 이상 (추세적 붕괴 제외)"] = len(frame)
+
+    # 변동성 상위 분위 배제. 절대 임계가 아니라 그날 풀 안에서의 상대 위치로
+    # 건다 — 시장 전체 변동성이 국면에 따라 몇 배씩 달라지기 때문이다.
+    top_pct = rules.get("exclude_top_vol_pct")
+    atr = frame["atr_pct"].dropna()
+    if top_pct and len(atr) >= rules.get("vol_screen_min_pool", 40):
+        cutoff = atr.quantile(1 - top_pct / 100)
+        frame = frame[(frame["atr_pct"] <= cutoff) | frame["atr_pct"].isna()]
+        counts[f"ATR 상위 {top_pct}% 배제 (>{cutoff:.1f}%)"] = len(frame)
+    elif top_pct:
+        counts[f"ATR 상위 배제 (풀 {len(atr)}종목 부족, 미적용)"] = len(frame)
+
     return frame.reset_index(drop=True), counts
 
 
 def oversold_score(frame: pd.DataFrame, cfg: dict, regime: str) -> pd.DataFrame:
+    """RSI(14) 하나. 국면별 가중치도 없고 블록도 없다.
+
+    팩터를 더하지 않는 것이 이 전략의 정의다. 5블록 모델이 단일 RSI를
+    이기지 못했다는 관찰이 전환의 근거이므로, 여기에 무언가를 얹는 순간
+    검증하려던 가설 자체가 사라진다.
+    """
     frame["score"] = -z(frame["rsi14"])
     return frame
 
@@ -227,15 +258,18 @@ class Variant:
     primary: bool = False
     # 시장 상태에 따라 그날 매매를 건너뛰는 변형인지
     market_timed: bool = False
+    # 점수를 팩터 하나로만 매기는 변형인지. True면 5블록 분해가 없으므로
+    # 리포트·대시보드가 블록 막대 대신 단일팩터 표시로 전환한다.
+    single_factor: bool = False
     tags: list[str] = field(default_factory=list)
 
 
 VARIANTS: list[Variant] = [
     Variant(
         name="reversal",
-        label="역추세 (발행본)",
-        description="낙폭 과다 + 저평가 + 우량성 5블록, 국면별 가중치",
-        gate=reversal_gate, score=reversal_score, primary=True,
+        label="역추세 (대조군)",
+        description="낙폭 과다 + 저평가 + 우량성 5블록, 국면별 가중치. 2026-08-20까지 발행본이었다",
+        gate=reversal_gate, score=reversal_score,
     ),
     Variant(
         name="momentum",
@@ -245,9 +279,9 @@ VARIANTS: list[Variant] = [
     ),
     Variant(
         name="oversold",
-        label="과매도 단일팩터",
-        description="RSI만 보고 가장 낮은 종목. 정교함이 값을 하는지 확인하는 기준선",
-        gate=oversold_gate, score=oversold_score,
+        label="과매도 단일팩터 (발행본)",
+        description="RSI(14)만으로 순위. 유동성 게이트 + RSI 하한 + 변동성 상위 20% 배제",
+        gate=oversold_gate, score=oversold_score, primary=True, single_factor=True,
     ),
     Variant(
         name="reversal_timed",

@@ -2,13 +2,13 @@
   "reports": [
     {
       "date": "2026-08-20",
-      "trade_date": "2026-08-20",
+      "trade_date": "2026-08-21",
       "regime": "risk_on",
       "pick_count": 10,
       "top_names": [
-        "CJ",
-        "NH투자증권",
-        "펄어비스"
+        "현대백화점",
+        "클래시스",
+        "롯데쇼핑"
       ],
       "scored": false
     },
@@ -559,7 +559,7 @@
       }
     }
   ],
-  "updated_at": "2026-08-20 07:55:18 KST",
+  "updated_at": "2026-08-20 16:57:40 KST",
   "performance": {
     "sessions": 14,
     "avg_daily_return_pct": 0.951,
@@ -573,6 +573,19 @@
   "shadow": {
     "sessions": 14,
     "variants": {
+      "oversold": {
+        "label": "과매도 단일팩터 (발행본)",
+        "sessions": 14,
+        "traded_sessions": 14,
+        "avg_daily_pct": 1.819,
+        "cumulative_pct": 28.14,
+        "win_rate_pct": 64.3,
+        "avg_excess_pct": 1.046,
+        "tstat": 0.88,
+        "significant": false,
+        "sessions_needed": 68,
+        "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
+      },
       "momentum": {
         "label": "추세추종 (대조군)",
         "sessions": 14,
@@ -586,32 +599,6 @@
         "sessions_needed": null,
         "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
       },
-      "oversold": {
-        "label": "과매도 단일팩터",
-        "sessions": 14,
-        "traded_sessions": 14,
-        "avg_daily_pct": 1.819,
-        "cumulative_pct": 28.14,
-        "win_rate_pct": 64.3,
-        "avg_excess_pct": 1.046,
-        "tstat": 0.88,
-        "significant": false,
-        "sessions_needed": 68,
-        "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
-      },
-      "reversal": {
-        "label": "역추세 (발행본)",
-        "sessions": 14,
-        "traded_sessions": 14,
-        "avg_daily_pct": 0.951,
-        "cumulative_pct": 13.99,
-        "win_rate_pct": 57.1,
-        "avg_excess_pct": 0.185,
-        "tstat": 0.14,
-        "significant": false,
-        "sessions_needed": 2611,
-        "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
-      },
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
         "sessions": 14,
@@ -623,6 +610,19 @@
         "tstat": 0.04,
         "significant": false,
         "sessions_needed": 41818,
+        "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
+      },
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "sessions": 14,
+        "traded_sessions": 14,
+        "avg_daily_pct": 0.951,
+        "cumulative_pct": 13.99,
+        "win_rate_pct": 57.1,
+        "avg_excess_pct": 0.185,
+        "tstat": 0.14,
+        "significant": false,
+        "sessions_needed": 2611,
         "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
       }
     }
