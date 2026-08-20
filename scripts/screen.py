@@ -172,9 +172,15 @@ REQUIRED_FACTOR_COLUMNS = (
     "drawdown_52w", "lower_shadow", "down_streak", "capitulation",
     "oc_after_down", "oc_after_down_winrate", "down_day_count",
     "roe", "eps", "dividend_yield",
+    # 1단계 기업 선별 (quality_oversold). roe_source는 문자열이라 여기 넣으면
+    # pd.to_numeric이 날려버린다 — payload에 직접 담는다.
+    "roe_reported", "roe_ttm", "roe_annual",
+    "rev_cagr", "rev_cagr_years", "rev_yoy", "op_yoy",
+    "op_margin", "debt_ratio", "op_positive_years", "fin_years",
+    "cons_op_growth", "eps_growth_fwd",
 )
 
-BOOLEAN_FACTOR_COLUMNS = ("dual_buying", "is_profitable", "has_coverage")
+BOOLEAN_FACTOR_COLUMNS = ("dual_buying", "is_profitable", "has_coverage", "fin_has_data")
 
 
 def ensure_columns(frame: pd.DataFrame) -> pd.DataFrame:
@@ -396,6 +402,12 @@ def main() -> int:
     histories = client.bulk(codes, "price_history", days=60)
     trends = client.bulk(codes, "investor_trend", days=20)
     snapshots = client.bulk(codes, "snapshot")
+    # 재무 2종 추가. 8스레드 271종목 기준 +3.4초로 기존 파이프라인의 +20%다.
+    # RSI로 먼저 좁힌 뒤 부르는 최적화는 쓰지 않는다 — scored_count가 더 이상
+    # '전 게이트 통과 종목 수'가 아니게 되어 pool_health 정의가 붕괴하고,
+    # 업종 분산 제약이 순위를 내려가므로 완전한 랭킹 프레임이 필요하다.
+    annuals = client.bulk(codes, "finance_annual")
+    quarters = client.bulk(codes, "finance_quarter")
 
     # 지수 20일 수익률 — 상대강도 계산 기준
     index_return_20d = None
@@ -419,7 +431,11 @@ def main() -> int:
         )
         snapshot = snapshots.get(code) or {}
 
-        computed = F.compute_all(history, trend, snapshot, index_return_20d)
+        computed = F.compute_all(
+            history, trend, snapshot, index_return_20d,
+            annual=annuals.get(code) or {},
+            quarter=quarters.get(code) or {},
+        )
         if not computed:
             continue
 
@@ -496,7 +512,7 @@ def main() -> int:
     payload = build_payload(
         today, trade_day, now, picks, frame, macro, regime, filter_counts,
         weights, cfg, client, scored_list[0] if scored_list else None,
-        session_complete, variant_results,
+        session_complete, variant_results, pool,
     )
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -552,6 +568,7 @@ def _num(value) -> float | None:
 def build_payload(
     today, trade_day, now, picks, frame, macro, regime, filter_counts,
     weights, cfg, client, scored, session_complete, variant_results,
+    prefiltered,
 ) -> dict:
     """HTML이 그대로 읽어 쓰는 리포트 JSON."""
     asof = frame["last_date"].mode()
@@ -567,6 +584,8 @@ def build_payload(
                 "name": row["name"],
                 "market": row["market"],
                 "industry": client.industry_name(row.get("industry_code")),
+                "roe_source": (None if pd.isna(row.get("roe_source"))
+                               else row.get("roe_source")) if "roe_source" in row.index else None,
                 "score": round(float(row["score"]), 3),
                 "percentile": round(float(row["rank_pct"]), 1),
                 "last_close": row.get("last_close"),
@@ -587,6 +606,10 @@ def build_payload(
                         "foreign_buy_days", "organ_buy_days", "foreign_ratio",
                         "foreign_ratio_change", "per", "forward_per", "pbr",
                         "roe", "eps", "dividend_yield",
+                        "roe_reported", "roe_ttm", "roe_annual",
+                        "rev_cagr", "rev_cagr_years", "rev_yoy", "op_yoy",
+                        "op_margin", "debt_ratio", "op_positive_years",
+                        "cons_op_growth", "eps_growth_fwd",
                         "target_upside", "target_price", "recomm_score", "pos_52w",
                     )
                     if key in row.index
@@ -608,13 +631,21 @@ def build_payload(
         "scored_count": len(frame),
         "picks": pick_list,
         "previous_result": scored,
-        "data_warnings": client.failures[:20],
+        "data_warnings": (
+            client.failures[:20] + _bias_warnings(gate_bias(prefiltered, frame))
+        ),
         "strategy": variants.PRIMARY.label.replace(" (발행본)", ""),
         "strategy_detail": variants.PRIMARY.description,
         "single_factor": variants.PRIMARY.single_factor,
-        "pool_health": pool_health(len(frame), len(picks)),
+        "pool_health": pool_health(
+            len(frame), len(picks),
+            cfg.get("quality_growth", {}).get("min_pool_warn")
+            if variants.PRIMARY.name == "quality_oversold" else None,
+        ),
+        "gate_bias": gate_bias(prefiltered, frame),
         "primary_variant": variants.PRIMARY.name,
         "variants": variant_results,
+        "quality_growth": cfg.get("quality_growth", {}),
         "config_snapshot": {
             "min_amount_krw": cfg["universe"]["min_amount_krw"],
             "min_marcap_krw": cfg["universe"]["min_marcap_krw"],
@@ -643,7 +674,67 @@ def _blocks_of(row) -> dict:
     return {"blocks": {b: round(float(row[f"block_{b}"]), 2) for b in BLOCK_NAMES}}
 
 
-def pool_health(scored: int, picked: int) -> dict:
+def _bias_warnings(bias: dict) -> list[str]:
+    """게이트가 규모·유동성 축으로 과하게 기울면 경고를 띄운다.
+
+    임계는 선행연구에서 유의하게 해롭다고 판정된 규칙의 강도에서 왔다 —
+    저유동 배제 -4.98%p(t=-6.41), 저가주 배제 -4.48%p(t=-6.18)가 모두
+    '하위 20% 배제'급이었다. 유동성 축을 더 엄격히 보는 이유는 그 축이
+    직접 반증된 축이기 때문이다.
+    """
+    limits = {"amount": 0.15, "marcap": 0.20, "price": 0.15}
+    messages = []
+    for name, limit in limits.items():
+        entry = bias.get(name)
+        if entry and entry.get("q_equiv", 0) > limit:
+            messages.append(
+                f"게이트 편향 경고: {name} q_equiv={entry['q_equiv']:+.3f} > {limit} "
+                f"(중앙값비 {entry['median_ratio']:+.0%}) — 선행연구가 유의하게 "
+                f"해롭다고 판정한 '하위 20% 배제'급에 근접합니다"
+            )
+    return messages
+
+
+def gate_bias(pool: pd.DataFrame, passed: pd.DataFrame) -> dict:
+    """펀더멘털 게이트가 사이즈·유동성 축으로 얼마나 기울었는지 매일 기록한다.
+
+    이 전략은 point-in-time 재무가 없어 백테스트가 불가능하다. 그래서 게이트가
+    의도한 것(수익성)을 고르는지, 아니면 몰래 규모를 고르는지 매일 측정해
+    리포트에 싣는다. 그러지 않으면 몇 달 뒤 같은 검증을 처음부터 다시 해야 한다.
+
+    q_equiv = 2 x (통과군의 풀 내 백분위 평균) - 1
+            = '하위 q% 배제'와 동등한 강도.
+    선행연구가 유의하게 해롭다고 판정한 규칙이 q=0.20급이었다
+    (저유동 배제 -4.98%p t=-6.41 / 저가주 배제 -4.48%p t=-6.18).
+    권고 2축 게이트의 60거래일 실측 기준선: 거래대금 6.7% / 시총 10.4% / 주가 7.9%.
+    """
+    try:
+        from scipy import stats
+    except ImportError:
+        return {}
+
+    keep = pool["code"].isin(set(passed["code"]))
+    out: dict = {}
+    for column, name in (("marcap", "marcap"), ("amount", "amount"),
+                         ("last_close", "price")):
+        if column not in pool.columns:
+            continue
+        pct = pool[column].rank(pct=True)
+        a = pool.loc[keep, column].dropna()
+        b = pool.loc[~keep, column].dropna()
+        if len(a) < 5 or len(b) < 5:
+            continue
+        u, p_value = stats.mannwhitneyu(a, b, alternative="two-sided")
+        out[name] = {
+            "rb": round(2 * u / (len(a) * len(b)) - 1, 3),
+            "p": round(float(p_value), 4),
+            "q_equiv": round(float(2 * pct[keep].mean() - 1), 3),
+            "median_ratio": round(float(a.median() / b.median() - 1), 3),
+        }
+    return out
+
+
+def pool_health(scored: int, picked: int, min_pool: int | None = None) -> dict:
     """살아남은 후보가 몇 개였는지, 그래서 이 선정이 얼마나 선별적인지.
 
     이 전략은 모든 게이트를 통과하는 종목이 시장 국면에 따라 크게 줄어든다.
@@ -651,6 +742,17 @@ def pool_health(scored: int, picked: int) -> dict:
     전혀 다른데, 화면에는 똑같이 10개가 보인다. 그 차이를 숫자로 남긴다.
     """
     ratio = scored / picked if picked else 0
+
+    if min_pool and scored < min_pool:
+        return {
+            "scored": scored, "picked": picked, "ratio": round(ratio, 1),
+            "level": "poor",
+            "message": (
+                f"게이트 통과가 {scored}개로 기준({min_pool})을 밑돕니다. "
+                "임계를 낮추지 말고 후보를 적게 발행하십시오 — 국면에 따라 규칙이 "
+                "바뀌면 변형 간 비교가 무효가 됩니다."
+            ),
+        }
 
     if ratio >= 5:
         level, message = "good", None

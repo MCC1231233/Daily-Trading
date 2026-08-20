@@ -74,16 +74,14 @@ def reversal_gate(frame: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
     if gates["require_profitable"]:
         frame = frame[frame["is_profitable"]]
         counts["흑자 (EPS > 0)"] = len(frame)
-    if gates["require_coverage"]:
-        frame = frame[frame["has_coverage"]]
-        counts["애널리스트 커버리지 존재"] = len(frame)
+    # require_coverage 제거 — 목표주가 커버리지가 시총 Q1 0.4% -> Q5 69.2%로
+    # 퀄리티가 아니라 규모 필터로 작동한다.
 
     frame = frame[frame["roe"] >= gates["min_roe"]]
     counts[f"ROE {gates['min_roe']}% 이상"] = len(frame)
     frame = frame[frame["pbr"] <= gates["max_pbr"]]
     counts[f"PBR {gates['max_pbr']}배 이하"] = len(frame)
-    frame = frame[frame["target_upside"] >= gates["min_target_upside"]]
-    counts[f"목표주가 상승여력 {gates['min_target_upside']}% 이상"] = len(frame)
+    # min_target_upside 제거 — 217종목 중 187개(86.2%)를 통과시켜 무변별이었다.
 
     threshold = gates.get("min_oc_after_down")
     if threshold is not None:
@@ -248,6 +246,53 @@ def reversal_timed_score(frame: pd.DataFrame, cfg: dict, regime: str) -> pd.Data
     return reversal_score(frame, cfg, regime)
 
 
+# --- 5. 우량 과매도 2단계 (발행본) --------------------------------------
+
+
+def quality_oversold_gate(frame: pd.DataFrame, cfg: dict) -> tuple[pd.DataFrame, dict]:
+    """oversold_gate를 **직접 호출**한 뒤 펀더멘털만 얹는다.
+
+    ■ 복사해서 다시 쓰면 안 된다. 이 스펙에서 가장 틀리기 쉬운 지점이다.
+      oversold_gate의 마지막 단계 'ATR 상위 20% 배제'는 절대 임계가 아니라
+      그날 풀 안에서의 상대 분위다. 펀더멘털을 먼저 걸면 남은 풀의 변동성
+      분포가 달라져(우량주는 저변동 편향) 컷오프 자체가 이동하고, 그러면 두
+      변형의 차이가 '펀더멘털'이 아니라 '펀더멘털 + 서로 다른 변동성 컷'이
+      되어 그림자 비교가 무효화된다.
+      순서를 지키면 컷이 양쪽 모두 동일하고, quality_oversold 통과 종목은
+      항상 oversold 풀의 부분집합이 된다.
+    """
+    frame, counts = oversold_gate(frame, cfg)
+    rules = cfg.get("quality_growth", {})
+
+    # (0) 데이터 가용성 가드. 네이버 재무 장애 시 3종목짜리 리스트를 발행하지
+    #     않기 위해, 수집률이 낮으면 펀더멘털 게이트를 통째로 건너뛴다.
+    have = frame["fin_has_data"]
+    coverage = float(have.mean()) if len(frame) else 0.0
+    floor = rules.get("min_data_coverage", 0.80)
+    if coverage < floor:
+        counts[f"재무 수집률 {coverage:.0%} < {floor:.0%} — 펀더멘털 게이트 미적용"] = len(frame)
+        return frame.reset_index(drop=True), counts
+
+    frame = frame[have]
+    counts["재무제표 수집 성공"] = len(frame)
+
+    # (1) 수익성. 결측=탈락 (커버리지 100%라 비용이 사실상 0이다).
+    #     NaN 비교는 False가 되어 자동으로 탈락한다.
+    min_roe = rules.get("min_roe_reported")
+    if min_roe is not None:
+        frame = frame[frame["roe_reported"] >= min_roe]
+        counts[f"보고 ROE {min_roe}% 이상 (TTM 우선)"] = len(frame)
+
+    # (2) 성장. 결측=탈락. 결측 종목은 최근 분할·재상장이라 성장을 평가할
+    #     이력이 실제로 없으므로 탈락이 옳다.
+    min_cagr = rules.get("min_rev_cagr")
+    if min_cagr is not None:
+        frame = frame[frame["rev_cagr"] >= min_cagr]
+        counts[f"매출 CAGR {min_cagr}% 이상 (실적 3개 연도, 2년 환산)"] = len(frame)
+
+    return frame.reset_index(drop=True), counts
+
+
 @dataclass
 class Variant:
     name: str
@@ -279,9 +324,21 @@ VARIANTS: list[Variant] = [
     ),
     Variant(
         name="oversold",
-        label="과매도 단일팩터 (발행본)",
-        description="RSI(14)만으로 순위. 유동성 게이트 + RSI 하한 + 변동성 상위 20% 배제",
-        gate=oversold_gate, score=oversold_score, primary=True, single_factor=True,
+        label="과매도 단일팩터 (대조군)",
+        description="RSI(14)만으로 순위. 펀더멘털 게이트 없음 — quality_oversold의 순수 대조군",
+        gate=oversold_gate, score=oversold_score, single_factor=True,
+    ),
+    Variant(
+        name="quality_oversold",
+        label="우량 과매도 (2단계, 발행본)",
+        description=(
+            "1단계 펀더멘털 게이트(보고 ROE 5% 이상 · 매출 CAGR 0% 이상)로 기업을 "
+            "거른 뒤, 2단계로 RSI(14) 단일 순위. 점수 규칙은 oversold와 완전히 "
+            "동일하고 차이는 게이트뿐이다. 이 게이트에는 검증된 수익 근거가 없다 "
+            "— 12년 패널 대용 검정에서 10종목 기준 증분 -2.16bp/일(t=-1.39)"
+        ),
+        gate=quality_oversold_gate, score=oversold_score,
+        primary=True, single_factor=True,
     ),
     Variant(
         name="reversal_timed",

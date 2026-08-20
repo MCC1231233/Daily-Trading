@@ -257,11 +257,93 @@ def flow_profile(trend: pd.DataFrame, avg_volume: float | None) -> dict:
 # --- 종합 --------------------------------------------------------------
 
 
+def growth_profile(annual: dict, quarter: dict, snapshot: dict) -> dict:
+    """1단계(기업 선별) 팩터.
+
+    게이트에 쓰는 것은 roe_reported, rev_cagr 둘뿐이고 나머지는 전부 화면
+    표시 전용이다. 설계 원칙 셋:
+
+      1) 실적과 컨센서스를 절대 한 계열로 잇지 않는다. 실적으로만 추세를
+         만들고 컨센서스는 별도 컬럼으로 표시만 한다. 컨센서스 보유 여부가
+         퀄리티가 아니라 시총 그 자체이기 때문이다(시총 Q1 보유율 0.8% vs
+         Q5 65.8%, rank-biserial +0.771).
+      2) 비율 팩터는 분모가 0 근방에서 폭발한다. 실측 컨센 영업이익 성장률
+         최대 +3,150%(NC, 직전 영업이익 ~0). 전부 ±300% 클리핑하고 분모가
+         양수일 때만 계산한다 — 적자→흑자 전환은 비율로 표현할 수 없다.
+      3) 기존 roe(=EPS/BPS) 컬럼을 절대 덮어쓰지 않는다. reversal 변형이
+         게이트 입력으로 쓰고 있어 덮어쓰면 대조군 계열이 끊긴다.
+    """
+    result: dict = {"fin_has_data": False}
+    if not annual:
+        return result
+    result["fin_has_data"] = True
+
+    def last(values):
+        for value in reversed(values or []):
+            if value is not None:
+                return value
+        return None
+
+    def clip(x):
+        return None if x is None else _safe(max(min(x, 300.0), -300.0))
+
+    revenue = [v for v in (annual.get("revenue_actual") or []) if v is not None]
+    op = annual.get("op_actual") or []
+    op_clean = [v for v in op if v is not None]
+
+    # --- 성장: 매출 ---
+    # 실적 연도가 항상 3개뿐이라 CAGR 지수는 2다. 화면에 '3년'이라고 적으면
+    # 거짓이 되므로 rev_cagr_years를 함께 내보낸다.
+    if len(revenue) >= 2 and revenue[0] > 0:
+        years = len(revenue) - 1
+        result["rev_cagr"] = _safe(((revenue[-1] / revenue[0]) ** (1 / years) - 1) * 100)
+        result["rev_cagr_years"] = int(years)
+    if len(revenue) >= 2 and revenue[-2] > 0:
+        result["rev_yoy"] = _safe((revenue[-1] / revenue[-2] - 1) * 100)
+
+    # --- 성장: 영업이익 (표시 전용) ---
+    if len(op_clean) >= 2 and op_clean[-2] > 0:
+        result["op_yoy"] = clip((op_clean[-1] / op_clean[-2] - 1) * 100)
+    result["op_positive_years"] = int(sum(1 for v in op if v is not None and v > 0))
+    result["fin_years"] = int(annual.get("n_actual") or 0)
+
+    # --- 수익성 ---
+    # TTM(분기표) 우선, 없으면 연간표로 폴백. 어느 쪽을 썼는지 반드시 남긴다.
+    roe_annual = last(annual.get("roe_actual"))
+    roe_ttm = last((quarter or {}).get("roe_actual"))
+    result["roe_annual"] = _safe(roe_annual)
+    result["roe_ttm"] = _safe(roe_ttm)
+    result["roe_reported"] = _safe(roe_ttm if roe_ttm is not None else roe_annual)
+    result["roe_source"] = (
+        "TTM" if roe_ttm is not None
+        else ("연간" if roe_annual is not None else None)
+    )
+
+    result["op_margin"] = _safe(last(annual.get("op_margin_actual")))
+    # 부채비율은 표시 전용이다. 200% 컷은 금융계열을 통째로 배제한다
+    # (금융 부채비율 중앙 1,029% vs 비금융 79%) — 업종 배제로 작동한다.
+    result["debt_ratio"] = _safe(last(annual.get("debt_ratio_actual")))
+
+    # --- 이익 개선 방향 (표시 전용, 게이트 금지) ---
+    op_cons = last(annual.get("op_consensus"))
+    op_last = last(op)
+    if op_cons is not None and op_last is not None and op_last > 0:
+        result["cons_op_growth"] = clip((op_cons / op_last - 1) * 100)
+
+    eps, forward_eps = snapshot.get("eps"), snapshot.get("forward_eps")
+    if eps and forward_eps and eps > 0:
+        result["eps_growth_fwd"] = clip((forward_eps / eps - 1) * 100)
+
+    return result
+
+
 def compute_all(
     history: pd.DataFrame,
     trend: pd.DataFrame,
     snapshot: dict,
     index_return_20d: float | None = None,
+    annual: dict | None = None,
+    quarter: dict | None = None,
 ) -> dict:
     """한 종목의 전체 팩터 딕셔너리."""
     if history.empty or len(history) < 25:
@@ -293,6 +375,7 @@ def compute_all(
     factors.update(reversal_profile(history))
     factors.update(flow_profile(trend, avg_volume_20))
     factors.update(valuation_profile(snapshot, factors.get("last_close")))
+    factors.update(growth_profile(annual or {}, quarter or {}, snapshot))
 
     # 지수 대비 상대강도 — 시장 전체가 오른 것과 종목이 강한 것을 구분한다.
     if index_return_20d is not None and factors.get("ret_20d") is not None:

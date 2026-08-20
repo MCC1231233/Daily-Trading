@@ -162,6 +162,14 @@ h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 4px
 .gauge-stat { font-size: 12.5px; color: var(--text-secondary); font-variant-numeric: tabular-nums; margin-top: 3px; }
 .gauge-stat b { color: var(--text-primary); }
 .gauge-note { font-size: 11px; color: var(--text-muted); }
+.gauge-pass { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.gauge-pass b { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.bias-box { margin-top: 12px; padding: 10px 13px; border: 1px solid var(--border); border-radius: 9px; background: var(--page); }
+.bias-title { font-size: 11.5px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+.bias-rows { display: grid; gap: 3px; }
+.bias-row { display: grid; grid-template-columns: 72px 1fr 1fr 70px; gap: 8px; font-size: 12px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.bias-p { color: var(--text-muted); text-align: right; }
+.bias-note { font-size: 11px; color: var(--text-muted); margin-top: 7px; line-height: 1.55; }
 .shadow-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
 
 .topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
@@ -661,8 +669,20 @@ function singleFactorGauge(p) {
     ` · 후보 ${pool ? pool + "종목" : ""} 중 <b>${p.rank}위</b>` +
     ` · 점수 <b>${num(p.score, 3)}</b>`;
   box.appendChild(stat);
+  // 2단계 전략이면 1단계를 통과했다는 사실을 함께 보여준다. 순위를 만든 것은
+  // RSI지만, 애초에 이 종목이 후보가 된 것은 펀더멘털 게이트를 통과했기 때문이다.
+  const q = currentReport && currentReport.quality_growth;
+  if (q && (q.min_roe_reported != null || q.min_rev_cagr != null)) {
+    const pass = el("div", "gauge-pass");
+    const roe = f.roe_reported, cagr = f.rev_cagr;
+    pass.innerHTML =
+      `1단계 통과 — ROE <b>${roe == null ? "—" : roe.toFixed(1) + "%"}</b>` +
+      `${p.roe_source ? ` (${p.roe_source})` : ""}` +
+      ` · 매출 ${f.rev_cagr_years || 2}년 CAGR <b>${cagr == null ? "—" : num(cagr, 1) + "%"}</b>`;
+    box.appendChild(pass);
+  }
   box.appendChild(el("div", "gauge-note",
-    "아래 지표는 참고용이며 선정에 사용되지 않았습니다."));
+    "순위는 RSI 하나로만 매겨졌습니다. 펀더멘털은 후보 자격 조건이며 점수에 들어가지 않습니다."));
   return box;
 }
 
@@ -736,7 +756,12 @@ function pickCard(p) {
     ["전일 저가회복", f.lower_shadow == null ? "—" : Math.round(f.lower_shadow * 100) + "%"],
     ["외국인 5일", num(f.foreign_net_5d_pct) + "%"],
     ["기관 5일", num(f.organ_net_5d_pct) + "%"],
-    ["ROE", f.roe == null ? "—" : plain(f.roe) + "%"],
+    ["보고 ROE", f.roe_reported == null ? "—" : plain(f.roe_reported) + "%"],
+    [`매출 ${f.rev_cagr_years || 2}년CAGR`, f.rev_cagr == null ? "—" : num(f.rev_cagr, 1) + "%"],
+    ["영업이익 YoY", f.op_yoy == null ? "—" : num(f.op_yoy, 0) + "%"],
+    ["영업이익률", f.op_margin == null ? "—" : plain(f.op_margin) + "%"],
+    ["컨센 영익성장", f.cons_op_growth == null ? "—" : num(f.cons_op_growth, 0) + "%"],
+    ["ROE(EPS/BPS)", f.roe == null ? "—" : plain(f.roe) + "%"],
     ["PBR", f.pbr == null ? "—" : plain(f.pbr, 2) + "배"],
     ["추정 PER", f.forward_per == null
       ? (f.per == null ? "—" : plain(f.per) + "배") : plain(f.forward_per) + "배"],
@@ -835,6 +860,33 @@ function methodCard(r) {
     row.appendChild(el("span", null, count.toLocaleString("ko-KR") + "종목"));
     det.appendChild(row);
   }
+  // 백테스트가 불가능한 게이트이므로 편향을 매일 측정해 보여준다.
+  const gb = r.gate_bias;
+  if (gb && Object.keys(gb).length) {
+    const bias = el("div", "bias-box");
+    bias.appendChild(el("div", "bias-title", "펀더멘털 게이트 편향 감시"));
+    const rows = el("div", "bias-rows");
+    const LABEL = { marcap: "시가총액", amount: "거래대금", price: "주가" };
+    const LIMIT = { marcap: 0.20, amount: 0.15, price: 0.15 };
+    for (const [k, v] of Object.entries(gb)) {
+      const row = el("div", "bias-row");
+      const over = v.q_equiv > (LIMIT[k] ?? 0.2);
+      row.innerHTML =
+        `<span>${LABEL[k] || k}</span>` +
+        `<span class="${over ? "up" : ""}">등가 하위배제 ${(v.q_equiv * 100).toFixed(1)}%</span>` +
+        `<span>중앙값비 ${v.median_ratio >= 0 ? "+" : ""}${(v.median_ratio * 100).toFixed(0)}%</span>` +
+        `<span class="bias-p">${v.p < 0.001 ? "p&lt;0.001" : "p=" + v.p}</span>`;
+      rows.appendChild(row);
+    }
+    bias.appendChild(rows);
+    bias.appendChild(el("div", "bias-note",
+      "게이트가 의도한 수익성이 아니라 규모를 고르고 있지 않은지 매일 측정합니다. " +
+      "선행 검증에서 '하위 20% 배제'급 규칙(저유동 배제 −4.98%p, t=−6.41)이 " +
+      "유의하게 해롭다고 판정됐습니다. 이 전략은 시점별 재무가 없어 백테스트가 " +
+      "불가능하므로, 이 지표가 유일한 상시 감시 장치입니다."));
+    card.appendChild(bias);
+  }
+
   const cs = r.config_snapshot || {};
   const g = cs.quality_gates || {};
   det.appendChild(el("p", "subtle",

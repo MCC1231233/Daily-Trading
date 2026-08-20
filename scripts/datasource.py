@@ -52,6 +52,31 @@ def _to_num(value: Any) -> float | None:
     return float(match.group()) if match else None
 
 
+def _fin_num(value) -> float | None:
+    """재무 표의 셀 값을 float으로.
+
+    _to_num과 분리하는 이유가 둘 있다.
+      1) 선행 부호를 반드시 살려야 한다. 적자 기업의 '-1,234'를 양수로 읽으면
+         흑자·성장 게이트가 정반대로 작동한다.
+      2) 결측 표기 '-'와 음수 부호를 구분해야 한다.
+    실측 확인된 표기: 천단위 쉼표('3,336,059'), 마이너스 접두('-91,124'),
+    결측 단일 하이픈('-'), 퍼센트('13.07'). 괄호음수·△는 관측되지 않았으나
+    방어 코드를 둔다.
+    """
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    text = str(value).strip().replace(",", "").replace("%", "")
+    if text in ("", "-", "--", "N/A"):
+        return None
+    if text.startswith("(") and text.endswith(")"):
+        text = "-" + text[1:-1]
+    text = text.replace("△", "-")
+    match = re.match(r"^[+-]?\d*\.?\d+", text)
+    return float(match.group()) if match else None
+
+
 class NaverClient:
     """네이버 금융 모바일 API 클라이언트. 세션 재사용 + 지수 백오프 재시도."""
 
@@ -179,6 +204,79 @@ class NaverClient:
 
         self._industry_cache[industry_code] = name
         return name
+
+
+    # --- 재무제표 -------------------------------------------------------
+
+    # 네이버 재무표의 한글 행 제목 → 내부 키. 12종목 전수 대조에서 annual과
+    # quarter 모두 16개 행이 고정 스키마로 왔고, 그중 쓰는 것만 담는다.
+    _FIN_ROWS = {
+        "매출액": "revenue",
+        "영업이익": "op",
+        "ROE": "roe",
+        "영업이익률": "op_margin",
+        "부채비율": "debt_ratio",
+    }
+
+    @staticmethod
+    def _parse_finance(payload: dict) -> dict:
+        """finance/annual · finance/quarter 공통 파서.
+
+        실측으로 확인한 함정 셋을 전부 여기서 처리한다.
+          1) trTitleList의 key 순서와 rowList의 columns 키 순서가 둘 다 정렬돼
+             있지 않다(삼성전자 columns 순서 = 202512, 202612, 202312, 202412).
+             반드시 직접 sort한다.
+          2) isConsensus는 'Y'/'N' 문자열이다. 실적과 절대 섞지 않는다.
+          3) 결산월이 12월이 아닌 종목이 있다(950210 = 6월 결산). 연도 키를
+             그대로 쓰지 않고 정렬된 리스트로 평탄화해 비교 가능하게 만든다.
+        존재하지 않는 종목코드도 HTTP 200에 빈 financeInfo를 돌려주므로
+        상태코드가 아니라 trTitleList/rowList 유무로 판정한다.
+        """
+        info = (payload or {}).get("financeInfo") or {}
+        titles = info.get("trTitleList") or []
+        rows = info.get("rowList") or []
+        if not titles or not rows:
+            return {}
+
+        actual, consensus = [], []
+        for title in titles:
+            key = title.get("key")
+            if not key:
+                continue
+            bucket = (consensus if str(title.get("isConsensus", "N")).upper() == "Y"
+                      else actual)
+            bucket.append(key)
+        actual.sort()
+        consensus.sort()
+
+        by_title = {r.get("title"): (r.get("columns") or {}) for r in rows}
+
+        def series(korean: str, keys: list[str]) -> list:
+            columns = by_title.get(korean) or {}
+            return [_fin_num((columns.get(k) or {}).get("value")) for k in keys]
+
+        result = {"n_actual": len(actual), "n_consensus": len(consensus)}
+        for korean, key in NaverClient._FIN_ROWS.items():
+            result[f"{key}_actual"] = series(korean, actual)
+            result[f"{key}_consensus"] = series(korean, consensus)
+        return result
+
+    def finance_annual(self, code: str) -> dict:
+        """연간 재무제표 3개 연도 + 컨센서스 1개 연도.
+
+        실측 커버리지: 후보풀 271종목 HTTP+파싱 성공 100.0%, 3개 연도 보유
+        99.3%, 매출+영업이익 둘 다 보유 100.0%. 8스레드 271종목 0.9초.
+        """
+        return self._parse_finance(self._get(f"stock/{code}/finance/annual"))
+
+    def finance_quarter(self, code: str) -> dict:
+        """분기 재무제표 5개 분기 + 컨센서스 1개 분기.
+
+        연간표만 쓰면 최신 실적이 8개월 묵는다. 분기표의 ROE 칼럼은 TTM 값이라
+        훨씬 신선하고, 어느 쪽을 쓰느냐가 ROE>=5 판정을 217중 23종목(11%)에서
+        뒤집는다(S-Oil 2.01→10.35, 펄어비스 -1.05→16.85). 수집 비용 +2.5초.
+        """
+        return self._parse_finance(self._get(f"stock/{code}/finance/quarter"))
 
     # --- 병렬 수집 ------------------------------------------------------
 
