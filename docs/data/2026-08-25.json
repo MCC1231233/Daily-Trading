@@ -160,13 +160,13 @@
       "realized": {
         "code": "069960",
         "name": "현대백화점",
-        "open": 93100.0,
+        "open": 93000.0,
         "close": 93100.0,
         "high": 94200.0,
         "low": 91000.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.18,
-        "max_loss_pct": -2.26
+        "return_pct": 0.11,
+        "max_gain_pct": 1.29,
+        "max_loss_pct": -2.15
       }
     },
     {
@@ -245,13 +245,13 @@
       "realized": {
         "code": "214150",
         "name": "클래시스",
-        "open": 32500.0,
+        "open": 32900.0,
         "close": 32500.0,
         "high": 33200.0,
         "low": 31750.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 2.15,
-        "max_loss_pct": -2.31
+        "return_pct": -1.22,
+        "max_gain_pct": 0.91,
+        "max_loss_pct": -3.5
       }
     },
     {
@@ -330,13 +330,13 @@
       "realized": {
         "code": "138930",
         "name": "BNK금융지주",
-        "open": 14840.0,
+        "open": 14370.0,
         "close": 14840.0,
         "high": 14910.0,
         "low": 14270.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.47,
-        "max_loss_pct": -3.84
+        "return_pct": 3.27,
+        "max_gain_pct": 3.76,
+        "max_loss_pct": -0.7
       }
     },
     {
@@ -415,13 +415,13 @@
       "realized": {
         "code": "035900",
         "name": "JYP Ent.",
-        "open": 39350.0,
+        "open": 38900.0,
         "close": 39350.0,
         "high": 39400.0,
         "low": 38500.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.13,
-        "max_loss_pct": -2.16
+        "return_pct": 1.16,
+        "max_gain_pct": 1.29,
+        "max_loss_pct": -1.03
       }
     },
     {
@@ -500,13 +500,13 @@
       "realized": {
         "code": "015760",
         "name": "한국전력",
-        "open": 32700.0,
+        "open": 32150.0,
         "close": 32700.0,
         "high": 33200.0,
         "low": 31400.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.53,
-        "max_loss_pct": -3.98
+        "return_pct": 1.71,
+        "max_gain_pct": 3.27,
+        "max_loss_pct": -2.33
       }
     },
     {
@@ -585,13 +585,13 @@
       "realized": {
         "code": "005940",
         "name": "NH투자증권",
-        "open": 26600.0,
+        "open": 25700.0,
         "close": 26600.0,
         "high": 26600.0,
         "low": 25450.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.0,
-        "max_loss_pct": -4.32
+        "return_pct": 3.5,
+        "max_gain_pct": 3.5,
+        "max_loss_pct": -0.97
       }
     },
     {
@@ -670,13 +670,13 @@
       "realized": {
         "code": "010140",
         "name": "삼성중공업",
-        "open": 20450.0,
+        "open": 19980.0,
         "close": 20450.0,
         "high": 20450.0,
         "low": 19600.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.0,
-        "max_loss_pct": -4.16
+        "return_pct": 2.35,
+        "max_gain_pct": 2.35,
+        "max_loss_pct": -1.9
       }
     },
     {
@@ -755,13 +755,13 @@
       "realized": {
         "code": "329180",
         "name": "HD현대중공업",
-        "open": 464500.0,
+        "open": 451500.0,
         "close": 464500.0,
         "high": 465000.0,
         "low": 441000.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.11,
-        "max_loss_pct": -5.06
+        "return_pct": 2.88,
+        "max_gain_pct": 2.99,
+        "max_loss_pct": -2.33
       }
     },
     {
@@ -840,13 +840,13 @@
       "realized": {
         "code": "016360",
         "name": "삼성증권",
-        "open": 88400.0,
+        "open": 85400.0,
         "close": 88400.0,
         "high": 88400.0,
         "low": 84100.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.0,
-        "max_loss_pct": -4.86
+        "return_pct": 3.51,
+        "max_gain_pct": 3.51,
+        "max_loss_pct": -1.52
       }
     },
     {
@@ -925,13 +925,13 @@
       "realized": {
         "code": "014680",
         "name": "한솔케미칼",
-        "open": 205000.0,
+        "open": 205500.0,
         "close": 205000.0,
         "high": 206000.0,
         "low": 194600.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.49,
-        "max_loss_pct": -5.07
+        "return_pct": -0.24,
+        "max_gain_pct": 0.24,
+        "max_loss_pct": -5.3
       }
     }
   ],
@@ -1567,181 +1567,182 @@
       {
         "code": "069960",
         "name": "현대백화점",
-        "open": 93100.0,
+        "open": 93000.0,
         "close": 93100.0,
         "high": 94200.0,
         "low": 91000.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.18,
-        "max_loss_pct": -2.26
+        "return_pct": 0.11,
+        "max_gain_pct": 1.29,
+        "max_loss_pct": -2.15
       },
       {
         "code": "214150",
         "name": "클래시스",
-        "open": 32500.0,
+        "open": 32900.0,
         "close": 32500.0,
         "high": 33200.0,
         "low": 31750.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 2.15,
-        "max_loss_pct": -2.31
+        "return_pct": -1.22,
+        "max_gain_pct": 0.91,
+        "max_loss_pct": -3.5
       },
       {
         "code": "138930",
         "name": "BNK금융지주",
-        "open": 14840.0,
+        "open": 14370.0,
         "close": 14840.0,
         "high": 14910.0,
         "low": 14270.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.47,
-        "max_loss_pct": -3.84
+        "return_pct": 3.27,
+        "max_gain_pct": 3.76,
+        "max_loss_pct": -0.7
       },
       {
         "code": "035900",
         "name": "JYP Ent.",
-        "open": 39350.0,
+        "open": 38900.0,
         "close": 39350.0,
         "high": 39400.0,
         "low": 38500.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.13,
-        "max_loss_pct": -2.16
+        "return_pct": 1.16,
+        "max_gain_pct": 1.29,
+        "max_loss_pct": -1.03
       },
       {
         "code": "015760",
         "name": "한국전력",
-        "open": 32700.0,
+        "open": 32150.0,
         "close": 32700.0,
         "high": 33200.0,
         "low": 31400.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.53,
-        "max_loss_pct": -3.98
+        "return_pct": 1.71,
+        "max_gain_pct": 3.27,
+        "max_loss_pct": -2.33
       },
       {
         "code": "005940",
         "name": "NH투자증권",
-        "open": 26600.0,
+        "open": 25700.0,
         "close": 26600.0,
         "high": 26600.0,
         "low": 25450.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.0,
-        "max_loss_pct": -4.32
+        "return_pct": 3.5,
+        "max_gain_pct": 3.5,
+        "max_loss_pct": -0.97
       },
       {
         "code": "010140",
         "name": "삼성중공업",
-        "open": 20450.0,
+        "open": 19980.0,
         "close": 20450.0,
         "high": 20450.0,
         "low": 19600.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.0,
-        "max_loss_pct": -4.16
+        "return_pct": 2.35,
+        "max_gain_pct": 2.35,
+        "max_loss_pct": -1.9
       },
       {
         "code": "329180",
         "name": "HD현대중공업",
-        "open": 464500.0,
+        "open": 451500.0,
         "close": 464500.0,
         "high": 465000.0,
         "low": 441000.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.11,
-        "max_loss_pct": -5.06
+        "return_pct": 2.88,
+        "max_gain_pct": 2.99,
+        "max_loss_pct": -2.33
       },
       {
         "code": "016360",
         "name": "삼성증권",
-        "open": 88400.0,
+        "open": 85400.0,
         "close": 88400.0,
         "high": 88400.0,
         "low": 84100.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.0,
-        "max_loss_pct": -4.86
+        "return_pct": 3.51,
+        "max_gain_pct": 3.51,
+        "max_loss_pct": -1.52
       },
       {
         "code": "014680",
         "name": "한솔케미칼",
-        "open": 205000.0,
+        "open": 205500.0,
         "close": 205000.0,
         "high": 206000.0,
         "low": 194600.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.49,
-        "max_loss_pct": -5.07
+        "return_pct": -0.24,
+        "max_gain_pct": 0.24,
+        "max_loss_pct": -5.3
       }
     ],
-    "avg_return_pct": 0.0,
-    "excess_pct": -3.16,
-    "win_count": 0,
+    "avg_return_pct": 1.7,
+    "excess_pct": -1.46,
+    "win_count": 8,
     "total_count": 10,
     "best": {
-      "code": "069960",
-      "name": "현대백화점",
-      "open": 93100.0,
-      "close": 93100.0,
-      "high": 94200.0,
-      "low": 91000.0,
-      "return_pct": 0.0,
-      "max_gain_pct": 1.18,
-      "max_loss_pct": -2.26
+      "code": "016360",
+      "name": "삼성증권",
+      "open": 85400.0,
+      "close": 88400.0,
+      "high": 88400.0,
+      "low": 84100.0,
+      "return_pct": 3.51,
+      "max_gain_pct": 3.51,
+      "max_loss_pct": -1.52
     },
     "worst": {
-      "code": "069960",
-      "name": "현대백화점",
-      "open": 93100.0,
-      "close": 93100.0,
-      "high": 94200.0,
-      "low": 91000.0,
-      "return_pct": 0.0,
-      "max_gain_pct": 1.18,
-      "max_loss_pct": -2.26
+      "code": "214150",
+      "name": "클래시스",
+      "open": 32900.0,
+      "close": 32500.0,
+      "high": 33200.0,
+      "low": 31750.0,
+      "return_pct": -1.22,
+      "max_gain_pct": 0.91,
+      "max_loss_pct": -3.5
     },
     "variants": {
       "reversal": {
         "label": "역추세 (대조군)",
         "traded": true,
-        "avg_return_pct": 0.38,
-        "excess_pct": -2.78,
-        "win_count": 2,
+        "avg_return_pct": 2.49,
+        "excess_pct": -0.67,
+        "win_count": 8,
         "total_count": 10
       },
       "momentum": {
         "label": "추세추종 (대조군)",
         "traded": true,
-        "avg_return_pct": 5.4,
-        "excess_pct": 2.24,
-        "win_count": 5,
+        "avg_return_pct": 6.12,
+        "excess_pct": 2.96,
+        "win_count": 8,
         "total_count": 10
       },
       "oversold": {
         "label": "과매도 단일팩터 (대조군)",
         "traded": true,
-        "avg_return_pct": 0.13,
-        "excess_pct": -3.03,
-        "win_count": 1,
+        "avg_return_pct": 1.57,
+        "excess_pct": -1.59,
+        "win_count": 9,
         "total_count": 10
       },
       "quality_oversold": {
         "label": "우량 과매도 (2단계, 발행본)",
         "traded": true,
-        "avg_return_pct": 0.0,
-        "excess_pct": -3.16,
-        "win_count": 0,
+        "avg_return_pct": 1.7,
+        "excess_pct": -1.46,
+        "win_count": 8,
         "total_count": 10
       },
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
         "traded": true,
-        "avg_return_pct": 0.38,
-        "excess_pct": -2.78,
-        "win_count": 2,
+        "avg_return_pct": 2.49,
+        "excess_pct": -0.67,
+        "win_count": 8,
         "total_count": 10
       }
-    }
+    },
+    "stale_open_dropped": 0
   }
 }

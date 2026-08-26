@@ -23,35 +23,35 @@
         "BNK금융지주"
       ],
       "scored": true,
-      "avg_return_pct": 0.0,
-      "excess_pct": -3.16,
+      "avg_return_pct": 1.7,
+      "excess_pct": -1.46,
       "benchmark_pct": 3.16,
-      "win_count": 0,
+      "win_count": 8,
       "total_count": 10,
       "variant_returns": {
         "reversal": {
-          "avg": 0.38,
-          "excess": -2.78,
+          "avg": 2.49,
+          "excess": -0.67,
           "traded": true
         },
         "momentum": {
-          "avg": 5.4,
-          "excess": 2.24,
+          "avg": 6.12,
+          "excess": 2.96,
           "traded": true
         },
         "oversold": {
-          "avg": 0.13,
-          "excess": -3.03,
+          "avg": 1.57,
+          "excess": -1.59,
           "traded": true
         },
         "quality_oversold": {
-          "avg": 0.0,
-          "excess": -3.16,
+          "avg": 1.7,
+          "excess": -1.46,
           "traded": true
         },
         "reversal_timed": {
-          "avg": 0.38,
-          "excess": -2.78,
+          "avg": 2.49,
+          "excess": -0.67,
           "traded": true
         }
       }
@@ -67,30 +67,30 @@
         "JYP Ent."
       ],
       "scored": true,
-      "avg_return_pct": 0.0,
-      "excess_pct": 2.68,
+      "avg_return_pct": 0.76,
+      "excess_pct": 3.44,
       "benchmark_pct": -2.68,
-      "win_count": 0,
+      "win_count": 6,
       "total_count": 10,
       "variant_returns": {
         "reversal": {
-          "avg": 0.11,
-          "excess": 2.78,
+          "avg": 1.86,
+          "excess": 4.54,
           "traded": true
         },
         "momentum": {
-          "avg": -1.3,
-          "excess": 1.38,
+          "avg": 2.52,
+          "excess": 5.2,
           "traded": true
         },
         "oversold": {
-          "avg": 0.0,
-          "excess": 2.68,
+          "avg": 2.38,
+          "excess": 5.06,
           "traded": true
         },
         "quality_oversold": {
-          "avg": 0.0,
-          "excess": 2.68,
+          "avg": 0.76,
+          "excess": 3.44,
           "traded": true
         },
         "reversal_timed": {
@@ -111,30 +111,30 @@
         "더블유게임즈"
       ],
       "scored": true,
-      "avg_return_pct": 0.0,
-      "excess_pct": -2.26,
+      "avg_return_pct": 1.06,
+      "excess_pct": -1.2,
       "benchmark_pct": 2.26,
-      "win_count": 0,
+      "win_count": 8,
       "total_count": 10,
       "variant_returns": {
         "reversal": {
-          "avg": 0.0,
-          "excess": -2.26,
+          "avg": 0.55,
+          "excess": -1.71,
           "traded": true
         },
         "momentum": {
-          "avg": -0.8,
-          "excess": -3.06,
+          "avg": -2.26,
+          "excess": -4.52,
           "traded": true
         },
         "oversold": {
-          "avg": 0.0,
-          "excess": -2.26,
+          "avg": 0.63,
+          "excess": -1.63,
           "traded": true
         },
         "quality_oversold": {
-          "avg": 0.0,
-          "excess": -2.26,
+          "avg": 1.06,
+          "excess": -1.2,
           "traded": true
         },
         "reversal_timed": {
@@ -155,30 +155,30 @@
         "더블유게임즈"
       ],
       "scored": true,
-      "avg_return_pct": 0.0,
-      "excess_pct": -2.26,
+      "avg_return_pct": 1.06,
+      "excess_pct": -1.2,
       "benchmark_pct": 2.26,
-      "win_count": 0,
+      "win_count": 8,
       "total_count": 10,
       "variant_returns": {
         "reversal": {
-          "avg": -0.39,
-          "excess": -2.65,
+          "avg": 0.06,
+          "excess": -2.19,
           "traded": true
         },
         "momentum": {
-          "avg": -1.02,
-          "excess": -3.28,
+          "avg": -2.36,
+          "excess": -4.62,
           "traded": true
         },
         "oversold": {
-          "avg": 0.0,
-          "excess": -2.26,
+          "avg": 0.63,
+          "excess": -1.63,
           "traded": true
         },
         "quality_oversold": {
-          "avg": 0.0,
-          "excess": -2.26,
+          "avg": 1.06,
+          "excess": -1.2,
           "traded": true
         },
         "reversal_timed": {
@@ -199,30 +199,30 @@
         "펄어비스"
       ],
       "scored": true,
-      "avg_return_pct": 0.0,
-      "excess_pct": 0.88,
+      "avg_return_pct": -0.5,
+      "excess_pct": 0.38,
       "benchmark_pct": -0.88,
-      "win_count": 0,
-      "total_count": 10,
+      "win_count": 3,
+      "total_count": 9,
       "variant_returns": {
         "reversal": {
-          "avg": 0.0,
-          "excess": 0.88,
+          "avg": -0.5,
+          "excess": 0.38,
           "traded": true
         },
         "momentum": {
-          "avg": 1.63,
-          "excess": 2.51,
+          "avg": 5.6,
+          "excess": 6.48,
           "traded": true
         },
         "oversold": {
-          "avg": 0.0,
-          "excess": 0.88,
+          "avg": -1.04,
+          "excess": -0.16,
           "traded": true
         },
         "reversal_timed": {
-          "avg": 0.0,
-          "excess": 0.88,
+          "avg": -0.5,
+          "excess": 0.38,
           "traded": true
         }
       }
@@ -238,30 +238,30 @@
         "JYP Ent."
       ],
       "scored": true,
-      "avg_return_pct": -0.29,
-      "excess_pct": 3.33,
+      "avg_return_pct": -3.98,
+      "excess_pct": -0.36,
       "benchmark_pct": -3.62,
-      "win_count": 0,
+      "win_count": 1,
       "total_count": 10,
       "variant_returns": {
         "reversal": {
-          "avg": -0.29,
-          "excess": 3.33,
+          "avg": -3.98,
+          "excess": -0.36,
           "traded": true
         },
         "momentum": {
-          "avg": -2.05,
-          "excess": 1.57,
+          "avg": -4.43,
+          "excess": -0.81,
           "traded": true
         },
         "oversold": {
-          "avg": 0.0,
-          "excess": 3.62,
+          "avg": -3.59,
+          "excess": 0.03,
           "traded": true
         },
         "reversal_timed": {
-          "avg": -0.29,
-          "excess": 3.33,
+          "avg": -3.98,
+          "excess": -0.36,
           "traded": true
         }
       }
@@ -277,25 +277,25 @@
         "펄어비스"
       ],
       "scored": true,
-      "avg_return_pct": -0.14,
-      "excess_pct": 0.11,
+      "avg_return_pct": -0.48,
+      "excess_pct": -0.22,
       "benchmark_pct": -0.25,
-      "win_count": 0,
+      "win_count": 5,
       "total_count": 10,
       "variant_returns": {
         "reversal": {
-          "avg": -0.14,
-          "excess": 0.11,
+          "avg": -0.48,
+          "excess": -0.22,
           "traded": true
         },
         "momentum": {
-          "avg": 0.48,
-          "excess": 0.73,
+          "avg": 1.26,
+          "excess": 1.51,
           "traded": true
         },
         "oversold": {
-          "avg": 0.0,
-          "excess": 0.25,
+          "avg": 0.17,
+          "excess": 0.42,
           "traded": true
         },
         "reversal_timed": {
@@ -738,13 +738,13 @@
   "updated_at": "2026-08-26 07:58:34 KST",
   "performance": {
     "sessions": 18,
-    "avg_daily_return_pct": 0.74,
-    "cumulative_return_pct": 13.99,
-    "positive_sessions": 8,
-    "session_win_rate_pct": 44.4,
+    "avg_daily_return_pct": 0.743,
+    "cumulative_return_pct": 13.92,
+    "positive_sessions": 12,
+    "session_win_rate_pct": 66.7,
     "best_session_pct": 4.43,
-    "worst_session_pct": -1.16,
-    "pick_win_rate_pct": 41.1
+    "worst_session_pct": -3.98,
+    "pick_win_rate_pct": 63.1
   },
   "shadow": {
     "sessions": 18,
@@ -753,11 +753,11 @@
         "label": "역추세 (대조군)",
         "sessions": 18,
         "traded_sessions": 18,
-        "avg_daily_pct": 0.746,
-        "cumulative_pct": 14.1,
-        "win_rate_pct": 55.6,
-        "avg_excess_pct": -0.147,
-        "tstat": -0.14,
+        "avg_daily_pct": 0.764,
+        "cumulative_pct": 14.33,
+        "win_rate_pct": 66.7,
+        "avg_excess_pct": -0.126,
+        "tstat": -0.12,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "표본 17거래일 — 판단하려면 최소 20거래일 필요"
@@ -766,11 +766,11 @@
         "label": "역추세 + 시장 타이밍",
         "sessions": 18,
         "traded_sessions": 10,
-        "avg_daily_pct": 0.613,
-        "cumulative_pct": 11.47,
+        "avg_daily_pct": 0.497,
+        "cumulative_pct": 9.05,
         "win_rate_pct": 38.9,
-        "avg_excess_pct": -0.129,
-        "tstat": -0.13,
+        "avg_excess_pct": -0.252,
+        "tstat": -0.27,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "표본 17거래일 — 판단하려면 최소 20거래일 필요"
@@ -779,40 +779,40 @@
         "label": "과매도 단일팩터 (대조군)",
         "sessions": 18,
         "traded_sessions": 18,
-        "avg_daily_pct": 1.422,
-        "cumulative_pct": 28.3,
-        "win_rate_pct": 55.6,
-        "avg_excess_pct": 0.514,
-        "tstat": 0.53,
+        "avg_daily_pct": 1.457,
+        "cumulative_pct": 28.95,
+        "win_rate_pct": 77.8,
+        "avg_excess_pct": 0.55,
+        "tstat": 0.57,
         "significant": false,
-        "sessions_needed": 244,
-        "confidence_note": "표본 17거래일 — 판단하려면 최소 20거래일 필요"
-      },
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "sessions": 18,
-        "traded_sessions": 18,
-        "avg_daily_pct": 0.349,
-        "cumulative_pct": 6.01,
-        "win_rate_pct": 38.9,
-        "avg_excess_pct": -0.502,
-        "tstat": -0.41,
-        "significant": false,
-        "sessions_needed": null,
+        "sessions_needed": 206,
         "confidence_note": "표본 17거래일 — 판단하려면 최소 20거래일 필요"
       },
       "quality_oversold": {
         "label": "우량 과매도 (2단계, 발행본)",
         "sessions": 4,
         "traded_sessions": 4,
-        "avg_daily_pct": 0.0,
-        "cumulative_pct": 0.0,
-        "win_rate_pct": 0.0,
-        "avg_excess_pct": -1.25,
-        "tstat": -0.94,
+        "avg_daily_pct": 1.145,
+        "cumulative_pct": 4.66,
+        "win_rate_pct": 100.0,
+        "avg_excess_pct": -0.105,
+        "tstat": -0.09,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "표본 4거래일 — 판단하려면 최소 20거래일 필요"
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "sessions": 18,
+        "traded_sessions": 18,
+        "avg_daily_pct": 0.578,
+        "cumulative_pct": 10.09,
+        "win_rate_pct": 44.4,
+        "avg_excess_pct": -0.26,
+        "tstat": -0.19,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "표본 17거래일 — 판단하려면 최소 20거래일 필요"
       }
     }
   }

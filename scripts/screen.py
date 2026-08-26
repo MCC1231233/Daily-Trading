@@ -227,19 +227,26 @@ def select_with_diversification(frame: pd.DataFrame, cfg: dict) -> pd.DataFrame:
 # --- 5단계: 직전 리포트 채점 --------------------------------------------
 
 
-def score_pending_reports(client: NaverClient, today: str) -> tuple[list[dict], list[str]]:
+def score_pending_reports(
+    client: NaverClient, today: str
+) -> tuple[list[dict], list[str], list[str]]:
     """아직 채점 안 된 리포트를 모두 채점한다.
 
     한 건만 처리하면, 휴장으로 채점 불가한 리포트가 큐 앞을 막아 그 뒤 것들이
-    영원히 안 채점된다. 그래서 전부 훑고, 매매일이 3일 넘게 지났는데도
-    시세가 없는 건은 휴장으로 보고 skipped 처리해 큐에서 뺀다.
+    영원히 안 채점된다. 그래서 전부 훑고, 매매일이 지났는데도 시세가 아예
+    없는 건은 휴장으로 보고 skipped 처리해 큐에서 뺀다.
+
+    시가 미확정('stale_open')은 휴장과 엄격히 구분한다. 데이터가 없는 게 아니라
+    아직 확정되지 않은 것이라 다음 실행에서 재시도하면 정상값이 온다. 이걸
+    휴장으로 오인해 skipped 처리하면 멀쩡한 성과가 통계에서 영구히 빠진다.
+    그래서 stale_open은 age를 세지 않고 무한 재시도한다.
     """
     index_path = DATA_DIR / "index.json"
     if not index_path.exists():
-        return [], []
+        return [], [], []
 
     entries = json.loads(index_path.read_text(encoding="utf-8")).get("reports", [])
-    scored, skipped = [], []
+    scored, skipped, deferred = [], [], []
 
     for entry in entries:
         if entry.get("scored") or entry.get("skipped"):
@@ -247,9 +254,13 @@ def score_pending_reports(client: NaverClient, today: str) -> tuple[list[dict], 
         if entry["date"] == today:
             continue
 
-        result = _score_one(client, entry["date"])
+        result, reason = _score_one(client, entry["date"])
         if result:
             scored.append(result)
+            continue
+
+        if reason == "stale_open":
+            deferred.append(entry["date"])
             continue
 
         trade_date = entry.get("trade_date") or entry["date"]
@@ -258,7 +269,7 @@ def score_pending_reports(client: NaverClient, today: str) -> tuple[list[dict], 
         if age >= 3:
             skipped.append(entry["date"])
 
-    return scored, skipped
+    return scored, skipped, deferred
 
 
 def _score_one(client: NaverClient, report_date: str) -> dict | None:
@@ -269,7 +280,7 @@ def _score_one(client: NaverClient, report_date: str) -> dict | None:
     """
     report_path = DATA_DIR / f"{report_date}.json"
     if not report_path.exists():
-        return None
+        return None, "no_report"
 
     report = json.loads(report_path.read_text(encoding="utf-8"))
     trade_date = report.get("trade_date") or report["date"]
@@ -284,6 +295,7 @@ def _score_one(client: NaverClient, report_date: str) -> dict | None:
         wanted.update(p["code"] for p in info.get("picks", []))
 
     quotes: dict[str, dict] = {}
+    stale = 0
     for code, history in client.bulk(sorted(wanted), "price_history", days=10).items():
         if history.empty:
             continue
@@ -291,6 +303,20 @@ def _score_one(client: NaverClient, report_date: str) -> dict | None:
         if day.empty or not day.iloc[0]["open"]:
             continue
         row = day.iloc[0]
+        # 시가 미확정 봉을 걸러낸다.
+        #
+        # 2026-08-14부터 네이버 API가 장 시작 전(07:40 실행 시점)에 직전 세션의
+        # openPrice를 closePrice 값으로 돌려주는 일이 생겼다. 다음 세션이 열리면
+        # 정상값으로 고쳐진다. 이걸 그대로 채점하면 수익률이 전부 정확히 0.00%가
+        # 되어 전략이 아무 성과도 못 낸 것처럼 기록된다 — 실제로 08-25 발행본은
+        # +1.70%(8/10 상승)였는데 0.00%(0/10)로 적혔다.
+        #
+        # 시가와 종가가 같은데 고가와 저가가 다르면 미확정으로 본다. 종목 하나
+        # 단위로는 정상일 수도 있는 패턴이라(실제로 08-12에 1건 있었다) 여기서는
+        # 세지만 하고, 유예 판단은 리포트 단위 비율로 한다.
+        if row["open"] == row["close"] and row["high"] != row["low"]:
+            stale += 1
+            continue
         quotes[code] = {
             "open": row["open"], "close": row["close"],
             "high": row["high"], "low": row["low"],
@@ -299,12 +325,18 @@ def _score_one(client: NaverClient, report_date: str) -> dict | None:
             "max_loss_pct": round((row["low"] / row["open"] - 1) * 100, 2),
         }
 
+    published = report.get("picks", [])
     results = [
         {"code": p["code"], "name": p["name"], **quotes[p["code"]]}
-        for p in report.get("picks", []) if p["code"] in quotes
+        for p in published if p["code"] in quotes
     ]
+
+    # 발행 후보의 30% 이상이 미확정 봉이면 채점을 미룬다. 다음 실행에서
+    # 재시도하며, 그때는 세션이 하나 더 지나 시가가 확정돼 있다.
+    if published and stale / max(len(published), 1) >= 0.30:
+        return None, "stale_open"
     if not results:
-        return None
+        return None, "no_data"
 
     scored = {
         "date": report_date,
@@ -315,6 +347,7 @@ def _score_one(client: NaverClient, report_date: str) -> dict | None:
         "best": max(results, key=lambda r: r["return_pct"]),
         "worst": min(results, key=lambda r: r["return_pct"]),
         "variants": {},
+        "stale_open_dropped": stale,
     }
 
     for name, info in (report.get("variants") or {}).items():
@@ -338,7 +371,7 @@ def _score_one(client: NaverClient, report_date: str) -> dict | None:
             **_aggregate(rows, benchmark),
         }
 
-    return scored
+    return scored, "ok"
 
 
 def _aggregate(rows: list[dict], benchmark: float | None) -> dict:
@@ -500,19 +533,21 @@ def main() -> int:
     frame, picks = primary_frame, primary_picks
 
     print("[6/6] 미채점 리포트 정산")
-    scored_list, skipped = score_pending_reports(client, today)
+    scored_list, skipped, deferred = score_pending_reports(client, today)
     for item in scored_list:
         print(f"      {item['date']} 후보 평균 {item['avg_return_pct']:+.2f}% "
               f"({item['win_count']}/{item['total_count']} 상승)")
     for skip in skipped:
         print(f"      {skip} 채점 불가 (휴장 추정) — 통계에서 제외")
-    if not scored_list and not skipped:
+    for defer in deferred:
+        print(f"      {defer} 시가 미확정 — 채점 유예, 다음 실행에서 재시도")
+    if not scored_list and not skipped and not deferred:
         print("      정산 대상 없음")
 
     payload = build_payload(
         today, trade_day, now, picks, frame, macro, regime, filter_counts,
         weights, cfg, client, scored_list[0] if scored_list else None,
-        session_complete, variant_results, pool,
+        session_complete, variant_results, pool, deferred,
     )
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -568,7 +603,7 @@ def _num(value) -> float | None:
 def build_payload(
     today, trade_day, now, picks, frame, macro, regime, filter_counts,
     weights, cfg, client, scored, session_complete, variant_results,
-    prefiltered,
+    prefiltered, deferred,
 ) -> dict:
     """HTML이 그대로 읽어 쓰는 리포트 JSON."""
     asof = frame["last_date"].mode()
@@ -633,6 +668,8 @@ def build_payload(
         "previous_result": scored,
         "data_warnings": (
             client.failures[:20] + _bias_warnings(gate_bias(prefiltered, frame))
+            + ([f"채점 유예 {len(deferred)}건 (시가 미확정) — 다음 실행에서 재시도: "
+                + ", ".join(deferred)] if deferred else [])
         ),
         "strategy": variants.PRIMARY.label.replace(" (발행본)", ""),
         "strategy_detail": variants.PRIMARY.description,

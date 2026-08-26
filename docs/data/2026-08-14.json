@@ -161,13 +161,13 @@
       "realized": {
         "code": "383220",
         "name": "F&F",
-        "open": 67000.0,
+        "open": 68200.0,
         "close": 67000.0,
         "high": 69600.0,
         "low": 66200.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 3.88,
-        "max_loss_pct": -1.19
+        "return_pct": -1.76,
+        "max_gain_pct": 2.05,
+        "max_loss_pct": -2.93
       }
     },
     {
@@ -241,13 +241,13 @@
       "realized": {
         "code": "081660",
         "name": "미스토홀딩스",
-        "open": 42500.0,
+        "open": 42300.0,
         "close": 42500.0,
         "high": 43100.0,
         "low": 41950.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.41,
-        "max_loss_pct": -1.29
+        "return_pct": 0.47,
+        "max_gain_pct": 1.89,
+        "max_loss_pct": -0.83
       }
     },
     {
@@ -324,13 +324,13 @@
       "realized": {
         "code": "263750",
         "name": "펄어비스",
-        "open": 31250.0,
+        "open": 31100.0,
         "close": 31250.0,
         "high": 32100.0,
         "low": 30950.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 2.72,
-        "max_loss_pct": -0.96
+        "return_pct": 0.48,
+        "max_gain_pct": 3.22,
+        "max_loss_pct": -0.48
       }
     },
     {
@@ -406,13 +406,13 @@
       "realized": {
         "code": "035900",
         "name": "JYP Ent.",
-        "open": 41050.0,
+        "open": 41100.0,
         "close": 41050.0,
         "high": 41800.0,
         "low": 40700.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.83,
-        "max_loss_pct": -0.85
+        "return_pct": -0.12,
+        "max_gain_pct": 1.7,
+        "max_loss_pct": -0.97
       }
     },
     {
@@ -488,13 +488,13 @@
       "realized": {
         "code": "111770",
         "name": "영원무역",
-        "open": 85900.0,
+        "open": 83700.0,
         "close": 85900.0,
         "high": 86200.0,
         "low": 82200.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.35,
-        "max_loss_pct": -4.31
+        "return_pct": 2.63,
+        "max_gain_pct": 2.99,
+        "max_loss_pct": -1.79
       }
     },
     {
@@ -570,13 +570,13 @@
       "realized": {
         "code": "067160",
         "name": "SOOP",
-        "open": 41500.0,
+        "open": 42000.0,
         "close": 41500.0,
         "high": 42950.0,
         "low": 41450.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 3.49,
-        "max_loss_pct": -0.12
+        "return_pct": -1.19,
+        "max_gain_pct": 2.26,
+        "max_loss_pct": -1.31
       }
     },
     {
@@ -652,13 +652,13 @@
       "realized": {
         "code": "214150",
         "name": "클래시스",
-        "open": 37500.0,
+        "open": 39750.0,
         "close": 37500.0,
         "high": 39950.0,
         "low": 37100.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 6.53,
-        "max_loss_pct": -1.07
+        "return_pct": -5.66,
+        "max_gain_pct": 0.5,
+        "max_loss_pct": -6.67
       }
     },
     {
@@ -812,13 +812,13 @@
       "realized": {
         "code": "001040",
         "name": "CJ",
-        "open": 138100.0,
+        "open": 137700.0,
         "close": 138100.0,
         "high": 139500.0,
         "low": 133400.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.01,
-        "max_loss_pct": -3.4
+        "return_pct": 0.29,
+        "max_gain_pct": 1.31,
+        "max_loss_pct": -3.12
       }
     },
     {
@@ -893,13 +893,13 @@
       "realized": {
         "code": "259960",
         "name": "크래프톤",
-        "open": 238000.0,
+        "open": 234500.0,
         "close": 238000.0,
         "high": 239000.0,
         "low": 234000.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.42,
-        "max_loss_pct": -1.68
+        "return_pct": 1.49,
+        "max_gain_pct": 1.92,
+        "max_loss_pct": -0.21
       }
     }
   ],
@@ -1441,79 +1441,79 @@
       {
         "code": "383220",
         "name": "F&F",
-        "open": 67000.0,
+        "open": 68200.0,
         "close": 67000.0,
         "high": 69600.0,
         "low": 66200.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 3.88,
-        "max_loss_pct": -1.19
+        "return_pct": -1.76,
+        "max_gain_pct": 2.05,
+        "max_loss_pct": -2.93
       },
       {
         "code": "081660",
         "name": "미스토홀딩스",
-        "open": 42500.0,
+        "open": 42300.0,
         "close": 42500.0,
         "high": 43100.0,
         "low": 41950.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.41,
-        "max_loss_pct": -1.29
+        "return_pct": 0.47,
+        "max_gain_pct": 1.89,
+        "max_loss_pct": -0.83
       },
       {
         "code": "263750",
         "name": "펄어비스",
-        "open": 31250.0,
+        "open": 31100.0,
         "close": 31250.0,
         "high": 32100.0,
         "low": 30950.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 2.72,
-        "max_loss_pct": -0.96
+        "return_pct": 0.48,
+        "max_gain_pct": 3.22,
+        "max_loss_pct": -0.48
       },
       {
         "code": "035900",
         "name": "JYP Ent.",
-        "open": 41050.0,
+        "open": 41100.0,
         "close": 41050.0,
         "high": 41800.0,
         "low": 40700.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.83,
-        "max_loss_pct": -0.85
+        "return_pct": -0.12,
+        "max_gain_pct": 1.7,
+        "max_loss_pct": -0.97
       },
       {
         "code": "111770",
         "name": "영원무역",
-        "open": 85900.0,
+        "open": 83700.0,
         "close": 85900.0,
         "high": 86200.0,
         "low": 82200.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.35,
-        "max_loss_pct": -4.31
+        "return_pct": 2.63,
+        "max_gain_pct": 2.99,
+        "max_loss_pct": -1.79
       },
       {
         "code": "067160",
         "name": "SOOP",
-        "open": 41500.0,
+        "open": 42000.0,
         "close": 41500.0,
         "high": 42950.0,
         "low": 41450.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 3.49,
-        "max_loss_pct": -0.12
+        "return_pct": -1.19,
+        "max_gain_pct": 2.26,
+        "max_loss_pct": -1.31
       },
       {
         "code": "214150",
         "name": "클래시스",
-        "open": 37500.0,
+        "open": 39750.0,
         "close": 37500.0,
         "high": 39950.0,
         "low": 37100.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 6.53,
-        "max_loss_pct": -1.07
+        "return_pct": -5.66,
+        "max_gain_pct": 0.5,
+        "max_loss_pct": -6.67
       },
       {
         "code": "279570",
@@ -1529,75 +1529,75 @@
       {
         "code": "001040",
         "name": "CJ",
-        "open": 138100.0,
+        "open": 137700.0,
         "close": 138100.0,
         "high": 139500.0,
         "low": 133400.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 1.01,
-        "max_loss_pct": -3.4
+        "return_pct": 0.29,
+        "max_gain_pct": 1.31,
+        "max_loss_pct": -3.12
       },
       {
         "code": "259960",
         "name": "크래프톤",
-        "open": 238000.0,
+        "open": 234500.0,
         "close": 238000.0,
         "high": 239000.0,
         "low": 234000.0,
-        "return_pct": 0.0,
-        "max_gain_pct": 0.42,
-        "max_loss_pct": -1.68
+        "return_pct": 1.49,
+        "max_gain_pct": 1.92,
+        "max_loss_pct": -0.21
       }
     ],
-    "avg_return_pct": -0.14,
-    "excess_pct": 0.11,
-    "win_count": 0,
+    "avg_return_pct": -0.48,
+    "excess_pct": -0.22,
+    "win_count": 5,
     "total_count": 10,
     "best": {
-      "code": "383220",
-      "name": "F&F",
-      "open": 67000.0,
-      "close": 67000.0,
-      "high": 69600.0,
-      "low": 66200.0,
-      "return_pct": 0.0,
-      "max_gain_pct": 3.88,
-      "max_loss_pct": -1.19
+      "code": "111770",
+      "name": "영원무역",
+      "open": 83700.0,
+      "close": 85900.0,
+      "high": 86200.0,
+      "low": 82200.0,
+      "return_pct": 2.63,
+      "max_gain_pct": 2.99,
+      "max_loss_pct": -1.79
     },
     "worst": {
-      "code": "279570",
-      "name": "케이뱅크",
-      "open": 5800.0,
-      "close": 5720.0,
-      "high": 5800.0,
-      "low": 5620.0,
-      "return_pct": -1.38,
-      "max_gain_pct": 0.0,
-      "max_loss_pct": -3.1
+      "code": "214150",
+      "name": "클래시스",
+      "open": 39750.0,
+      "close": 37500.0,
+      "high": 39950.0,
+      "low": 37100.0,
+      "return_pct": -5.66,
+      "max_gain_pct": 0.5,
+      "max_loss_pct": -6.67
     },
     "variants": {
       "reversal": {
         "label": "역추세 (발행본)",
         "traded": true,
-        "avg_return_pct": -0.14,
-        "excess_pct": 0.11,
-        "win_count": 0,
+        "avg_return_pct": -0.48,
+        "excess_pct": -0.22,
+        "win_count": 5,
         "total_count": 10
       },
       "momentum": {
         "label": "추세추종 (대조군)",
         "traded": true,
-        "avg_return_pct": 0.48,
-        "excess_pct": 0.73,
-        "win_count": 2,
+        "avg_return_pct": 1.26,
+        "excess_pct": 1.51,
+        "win_count": 7,
         "total_count": 10
       },
       "oversold": {
         "label": "과매도 단일팩터",
         "traded": true,
-        "avg_return_pct": 0.0,
-        "excess_pct": 0.25,
-        "win_count": 0,
+        "avg_return_pct": 0.17,
+        "excess_pct": 0.42,
+        "win_count": 6,
         "total_count": 10
       },
       "reversal_timed": {
@@ -1608,6 +1608,7 @@
         "win_count": 0,
         "total_count": 0
       }
-    }
+    },
+    "stale_open_dropped": 0
   }
 }
