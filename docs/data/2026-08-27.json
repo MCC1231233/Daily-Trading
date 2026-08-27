@@ -2,7 +2,7 @@
   "date": "2026-08-27",
   "trade_date": "2026-08-27",
   "asof_date": "2026-08-26",
-  "generated_at": "2026-08-27 08:50:23 KST",
+  "generated_at": "2026-08-27 12:31:57 KST",
   "session_complete": false,
   "regime": {
     "regime": "risk_on",
@@ -10,26 +10,26 @@
     "notes": [
       "S&P 500 -0.02% 하락",
       "나스닥 -0.08% 하락",
-      "원/달러 1,384.3 (+0.21%)"
+      "원/달러 1,381.3 (-0.01%)"
     ]
   },
   "macro": {
     "domestic": {
       "KOSPI": {
         "label": "코스피",
-        "close": 6808.21,
-        "change_pct": 0.0,
-        "ma20": 6499.6,
+        "close": 6938.85,
+        "change_pct": 1.92,
+        "ma20": 6563.38,
         "above_ma20": true,
-        "ma20_gap_pct": 4.75
+        "ma20_gap_pct": 5.72
       },
       "KOSDAQ": {
         "label": "코스닥",
-        "close": 826.87,
-        "change_pct": 0.0,
-        "ma20": 800.57,
+        "close": 838.02,
+        "change_pct": 1.35,
+        "ma20": 809.34,
         "above_ma20": true,
-        "ma20_gap_pct": 3.28
+        "ma20_gap_pct": 3.54
       }
     },
     "global": {
@@ -47,8 +47,8 @@
       },
       "USD/KRW": {
         "label": "원/달러",
-        "close": 1384.33,
-        "change_pct": 0.21,
+        "close": 1381.31,
+        "change_pct": -0.01,
         "above_ma20": false
       },
       "VIX": {
@@ -79,10 +79,10 @@
     "RSI 10.0 이상 (추세적 붕괴 제외)": 279,
     "ATR 상위 20% 배제 (>9.1%)": 223,
     "재무제표 수집 성공": 223,
-    "보고 ROE 5.0% 이상 (TTM 우선)": 154,
-    "매출 CAGR 0.0% 이상 (실적 3개 연도, 2년 환산)": 130
+    "보고 ROE 5.0% 이상 (TTM 우선)": 155,
+    "매출 CAGR 0.0% 이상 (실적 3개 연도, 2년 환산)": 131
   },
-  "scored_count": 130,
+  "scored_count": 131,
   "picks": [
     {
       "rank": 1,
@@ -91,7 +91,7 @@
       "market": "KOSDAQ",
       "industry": "건강관리장비와용품",
       "roe_source": "TTM",
-      "score": 2.424,
+      "score": 2.422,
       "percentile": 100.0,
       "last_close": 31850.0,
       "marcap_bn": 20778.0,
@@ -106,7 +106,7 @@
         "volume_surge": 0.994,
         "ret_5d": -4.6407,
         "ret_20d": -26.2731,
-        "relative_strength": -39.2976,
+        "relative_strength": -48.8519,
         "drawdown_52w": -58.9562,
         "lower_shadow": 0.1538,
         "down_streak": 2,
@@ -123,12 +123,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 15.36,
-        "forward_per": 13.44,
-        "pbr": 3.98,
+        "per": 15.68,
+        "forward_per": 13.72,
+        "pbr": 4.06,
         "roe": 25.8834,
         "eps": 2073.0,
-        "dividend_yield": 3.14,
+        "dividend_yield": 3.08,
         "roe_reported": 27.42,
         "roe_ttm": 27.42,
         "roe_annual": 26.21,
@@ -165,7 +165,7 @@
       "market": "KOSPI",
       "industry": "백화점과일반상점",
       "roe_source": "TTM",
-      "score": 1.929,
+      "score": 1.926,
       "percentile": 99.2,
       "last_close": 95500.0,
       "marcap_bn": 20594.0,
@@ -180,7 +180,7 @@
         "volume_surge": 0.9676,
         "ret_5d": 0.7384,
         "ret_20d": -25.0392,
-        "relative_strength": -38.0637,
+        "relative_strength": -47.618,
         "drawdown_52w": -56.982,
         "lower_shadow": 0.7742,
         "down_streak": 0,
@@ -197,12 +197,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 9.25,
-        "forward_per": 7.68,
-        "pbr": 0.44,
+        "per": 9.1,
+        "forward_per": 7.55,
+        "pbr": 0.43,
         "roe": 4.7354,
         "eps": 10322.0,
-        "dividend_yield": 2.25,
+        "dividend_yield": 2.29,
         "roe_reported": 5.09,
         "roe_ttm": 5.09,
         "roe_annual": 4.64,
@@ -239,7 +239,7 @@
       "market": "KOSDAQ",
       "industry": "방송과엔터테인먼트",
       "roe_source": "TTM",
-      "score": 1.665,
+      "score": 1.662,
       "percentile": 98.5,
       "last_close": 40050.0,
       "marcap_bn": 14231.0,
@@ -254,7 +254,7 @@
         "volume_surge": 0.6759,
         "ret_5d": 0.2503,
         "ret_20d": -11.0,
-        "relative_strength": -24.0245,
+        "relative_strength": -33.5788,
         "drawdown_52w": -61.8934,
         "lower_shadow": 0.8095,
         "down_streak": 0,
@@ -271,12 +271,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 13.1,
-        "forward_per": 11.79,
-        "pbr": 2.05,
+        "per": 13.0,
+        "forward_per": 11.7,
+        "pbr": 2.03,
         "roe": 15.6169,
         "eps": 3057.0,
-        "dividend_yield": 2.19,
+        "dividend_yield": 2.21,
         "roe_reported": 17.89,
         "roe_ttm": 17.89,
         "roe_annual": 29.21,
@@ -313,7 +313,7 @@
       "market": "KOSPI",
       "industry": "섬유,의류,신발,호화품",
       "roe_source": "TTM",
-      "score": 1.646,
+      "score": 1.642,
       "percentile": 97.7,
       "last_close": 75900.0,
       "marcap_bn": 33632.0,
@@ -328,7 +328,7 @@
         "volume_surge": 0.9196,
         "ret_5d": -1.5564,
         "ret_20d": -12.1528,
-        "relative_strength": -25.1773,
+        "relative_strength": -34.7316,
         "drawdown_52w": -36.6972,
         "lower_shadow": 0.25,
         "down_streak": 0,
@@ -345,12 +345,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 5.69,
-        "forward_per": 5.56,
-        "pbr": 0.72,
+        "per": 5.5,
+        "forward_per": 5.37,
+        "pbr": 0.69,
         "roe": 12.5642,
         "eps": 13333.0,
-        "dividend_yield": 2.77,
+        "dividend_yield": 2.87,
         "roe_reported": 14.56,
         "roe_ttm": 14.56,
         "roe_annual": 12.66,
@@ -361,7 +361,7 @@
         "op_margin": 12.66,
         "debt_ratio": 39.25,
         "op_positive_years": 3,
-        "cons_op_growth": 24.514,
+        "cons_op_growth": 24.9028,
         "eps_growth_fwd": 2.3626,
         "target_upside": 61.8669,
         "target_price": 122857.0,
@@ -387,7 +387,7 @@
       "market": "KOSPI",
       "industry": "자동차부품",
       "roe_source": "TTM",
-      "score": 1.445,
+      "score": 1.442,
       "percentile": 96.9,
       "last_close": 464000.0,
       "marcap_bn": 416768.0,
@@ -402,7 +402,7 @@
         "volume_surge": 1.9647,
         "ret_5d": -8.8409,
         "ret_20d": 5.4545,
-        "relative_strength": -7.57,
+        "relative_strength": -17.1243,
         "drawdown_52w": -43.5523,
         "lower_shadow": 0.0238,
         "down_streak": 2,
@@ -419,12 +419,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 11.64,
-        "forward_per": 10.15,
-        "pbr": 0.79,
+        "per": 11.39,
+        "forward_per": 9.93,
+        "pbr": 0.78,
         "roe": 6.8296,
         "eps": 39873.0,
-        "dividend_yield": 1.4,
+        "dividend_yield": 1.43,
         "roe_reported": 7.39,
         "roe_ttm": 7.39,
         "roe_annual": 7.68,
@@ -461,7 +461,7 @@
       "market": "KOSPI",
       "industry": "조선",
       "roe_source": "TTM",
-      "score": 1.295,
+      "score": 1.291,
       "percentile": 96.2,
       "last_close": 464500.0,
       "marcap_bn": 487545.0,
@@ -476,7 +476,7 @@
         "volume_surge": 0.6599,
         "ret_5d": -2.0042,
         "ret_20d": 2.9933,
-        "relative_strength": -10.0312,
+        "relative_strength": -19.5855,
         "drawdown_52w": -39.5182,
         "lower_shadow": 0.7083,
         "down_streak": 0,
@@ -493,12 +493,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 18.12,
-        "forward_per": 14.86,
-        "pbr": 4.62,
+        "per": 18.24,
+        "forward_per": 14.96,
+        "pbr": 4.65,
         "roe": 25.5103,
         "eps": 25631.0,
-        "dividend_yield": 1.22,
+        "dividend_yield": 1.21,
         "roe_reported": 30.09,
         "roe_ttm": 30.09,
         "roe_annual": 18.82,
@@ -535,7 +535,7 @@
       "market": "KOSPI",
       "industry": "은행",
       "roe_source": "TTM",
-      "score": 1.21,
+      "score": 1.206,
       "percentile": 95.4,
       "last_close": 14880.0,
       "marcap_bn": 46177.0,
@@ -550,7 +550,7 @@
         "volume_surge": 0.3823,
         "ret_5d": 1.5007,
         "ret_20d": -13.839,
-        "relative_strength": -26.8635,
+        "relative_strength": -36.4178,
         "drawdown_52w": -35.8621,
         "lower_shadow": 0.4167,
         "down_streak": 0,
@@ -567,12 +567,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 5.45,
-        "forward_per": 5.83,
+        "per": 5.47,
+        "forward_per": 5.86,
         "pbr": 0.43,
         "roe": 7.8439,
         "eps": 2731.0,
-        "dividend_yield": 4.94,
+        "dividend_yield": 4.92,
         "roe_reported": 8.07,
         "roe_ttm": 8.07,
         "roe_annual": 7.58,
@@ -609,8 +609,8 @@
       "market": "KOSPI",
       "industry": "화학",
       "roe_source": "TTM",
-      "score": 1.167,
-      "percentile": 94.6,
+      "score": 1.163,
+      "percentile": 94.7,
       "last_close": 202500.0,
       "marcap_bn": 21858.0,
       "amount_bn": 91.0,
@@ -624,7 +624,7 @@
         "volume_surge": 0.9805,
         "ret_5d": 0.0,
         "ret_20d": 1.8612,
-        "relative_strength": -11.1633,
+        "relative_strength": -20.7176,
         "drawdown_52w": -41.5584,
         "lower_shadow": 0.6032,
         "down_streak": 1,
@@ -641,12 +641,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 14.82,
-        "forward_per": 13.26,
-        "pbr": 1.98,
+        "per": 15.04,
+        "forward_per": 13.46,
+        "pbr": 2.01,
         "roe": 13.3853,
         "eps": 13662.0,
-        "dividend_yield": 1.28,
+        "dividend_yield": 1.27,
         "roe_reported": 14.52,
         "roe_ttm": 14.52,
         "roe_annual": 14.34,
@@ -683,8 +683,8 @@
       "market": "KOSPI",
       "industry": "우주항공과국방",
       "roe_source": "TTM",
-      "score": 1.167,
-      "percentile": 93.8,
+      "score": 1.163,
+      "percentile": 93.9,
       "last_close": 136400.0,
       "marcap_bn": 148870.0,
       "amount_bn": 310.0,
@@ -698,7 +698,7 @@
         "volume_surge": 0.5136,
         "ret_5d": 0.0734,
         "ret_20d": 11.2561,
-        "relative_strength": -1.7684,
+        "relative_strength": -11.3227,
         "drawdown_52w": -51.6312,
         "lower_shadow": 0.9138,
         "down_streak": 0,
@@ -715,12 +715,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 18.43,
-        "forward_per": 16.63,
-        "pbr": 4.37,
+        "per": 18.81,
+        "forward_per": 16.97,
+        "pbr": 4.46,
         "roe": 23.7096,
         "eps": 7400.0,
-        "dividend_yield": 0.44,
+        "dividend_yield": 0.43,
         "roe_reported": 26.45,
         "roe_ttm": 26.45,
         "roe_annual": 30.05,
@@ -757,7 +757,7 @@
       "market": "KOSPI",
       "industry": "IT서비스",
       "roe_source": "TTM",
-      "score": 1.144,
+      "score": 1.139,
       "percentile": 93.1,
       "last_close": 414500.0,
       "marcap_bn": 113672.0,
@@ -772,7 +772,7 @@
         "volume_surge": 2.4807,
         "ret_5d": -5.0401,
         "ret_20d": 21.3763,
-        "relative_strength": 8.3518,
+        "relative_strength": -1.2025,
         "drawdown_52w": -61.1163,
         "lower_shadow": 0.0738,
         "down_streak": 2,
@@ -789,9 +789,9 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 59.58,
-        "forward_per": 53.42,
-        "pbr": 6.01,
+        "per": 59.29,
+        "forward_per": 53.16,
+        "pbr": 5.98,
         "roe": 10.0833,
         "eps": 6957.0,
         "dividend_yield": 0.46,
@@ -825,200 +825,15 @@
       ]
     }
   ],
-  "previous_result": {
-    "date": "2026-08-26",
-    "trade_date": "2026-08-26",
-    "benchmark_pct": 1.2,
-    "results": [
-      {
-        "code": "069960",
-        "name": "현대백화점",
-        "open": 94400.0,
-        "close": 95500.0,
-        "high": 96200.0,
-        "low": 93100.0,
-        "return_pct": 1.17,
-        "max_gain_pct": 1.91,
-        "max_loss_pct": -1.38
-      },
-      {
-        "code": "214150",
-        "name": "클래시스",
-        "open": 32200.0,
-        "close": 31850.0,
-        "high": 32400.0,
-        "low": 31750.0,
-        "return_pct": -1.09,
-        "max_gain_pct": 0.62,
-        "max_loss_pct": -1.4
-      },
-      {
-        "code": "035900",
-        "name": "JYP Ent.",
-        "open": 39300.0,
-        "close": 40050.0,
-        "high": 40250.0,
-        "low": 39200.0,
-        "return_pct": 1.91,
-        "max_gain_pct": 2.42,
-        "max_loss_pct": -0.25
-      },
-      {
-        "code": "014680",
-        "name": "한솔케미칼",
-        "open": 205000.0,
-        "close": 202500.0,
-        "high": 205000.0,
-        "low": 198700.0,
-        "return_pct": -1.22,
-        "max_gain_pct": 0.0,
-        "max_loss_pct": -3.07
-      },
-      {
-        "code": "259960",
-        "name": "크래프톤",
-        "open": 224000.0,
-        "close": 228000.0,
-        "high": 230000.0,
-        "low": 223000.0,
-        "return_pct": 1.79,
-        "max_gain_pct": 2.68,
-        "max_loss_pct": -0.45
-      },
-      {
-        "code": "010140",
-        "name": "삼성중공업",
-        "open": 20500.0,
-        "close": 20700.0,
-        "high": 20700.0,
-        "low": 20200.0,
-        "return_pct": 0.98,
-        "max_gain_pct": 0.98,
-        "max_loss_pct": -1.46
-      },
-      {
-        "code": "138930",
-        "name": "BNK금융지주",
-        "open": 14930.0,
-        "close": 14880.0,
-        "high": 15020.0,
-        "low": 14780.0,
-        "return_pct": -0.33,
-        "max_gain_pct": 0.6,
-        "max_loss_pct": -1.0
-      },
-      {
-        "code": "329180",
-        "name": "HD현대중공업",
-        "open": 467500.0,
-        "close": 464500.0,
-        "high": 468000.0,
-        "low": 456000.0,
-        "return_pct": -0.64,
-        "max_gain_pct": 0.11,
-        "max_loss_pct": -2.46
-      },
-      {
-        "code": "016360",
-        "name": "삼성증권",
-        "open": 88400.0,
-        "close": 88500.0,
-        "high": 88900.0,
-        "low": 87500.0,
-        "return_pct": 0.11,
-        "max_gain_pct": 0.57,
-        "max_loss_pct": -1.02
-      },
-      {
-        "code": "271560",
-        "name": "오리온",
-        "open": 127600.0,
-        "close": 129000.0,
-        "high": 130000.0,
-        "low": 126900.0,
-        "return_pct": 1.1,
-        "max_gain_pct": 1.88,
-        "max_loss_pct": -0.55
-      }
-    ],
-    "avg_return_pct": 0.38,
-    "excess_pct": -0.82,
-    "win_count": 6,
-    "total_count": 10,
-    "best": {
-      "code": "035900",
-      "name": "JYP Ent.",
-      "open": 39300.0,
-      "close": 40050.0,
-      "high": 40250.0,
-      "low": 39200.0,
-      "return_pct": 1.91,
-      "max_gain_pct": 2.42,
-      "max_loss_pct": -0.25
-    },
-    "worst": {
-      "code": "014680",
-      "name": "한솔케미칼",
-      "open": 205000.0,
-      "close": 202500.0,
-      "high": 205000.0,
-      "low": 198700.0,
-      "return_pct": -1.22,
-      "max_gain_pct": 0.0,
-      "max_loss_pct": -3.07
-    },
-    "variants": {
-      "reversal": {
-        "label": "역추세 (대조군)",
-        "traded": true,
-        "avg_return_pct": 1.04,
-        "excess_pct": -0.16,
-        "win_count": 7,
-        "total_count": 10
-      },
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "traded": true,
-        "avg_return_pct": 0.19,
-        "excess_pct": -1.01,
-        "win_count": 6,
-        "total_count": 10
-      },
-      "oversold": {
-        "label": "과매도 단일팩터 (대조군)",
-        "traded": true,
-        "avg_return_pct": 1.63,
-        "excess_pct": 0.43,
-        "win_count": 6,
-        "total_count": 10
-      },
-      "quality_oversold": {
-        "label": "우량 과매도 (2단계, 발행본)",
-        "traded": true,
-        "avg_return_pct": 0.38,
-        "excess_pct": -0.82,
-        "win_count": 6,
-        "total_count": 10
-      },
-      "reversal_timed": {
-        "label": "역추세 + 시장 타이밍",
-        "traded": false,
-        "avg_return_pct": 0.0,
-        "excess_pct": 0.0,
-        "win_count": 0,
-        "total_count": 0
-      }
-    },
-    "stale_open_dropped": 0
-  },
+  "previous_result": null,
   "data_warnings": [],
   "strategy": "우량 과매도 (2단계, 발행본)",
   "strategy_detail": "1단계 펀더멘털 게이트(보고 ROE 5% 이상 · 매출 CAGR 0% 이상)로 기업을 거른 뒤, 2단계로 RSI(14) 단일 순위. 점수 규칙은 oversold와 완전히 동일하고 차이는 게이트뿐이다. 이 게이트에는 검증된 수익 근거가 없다 — 12년 패널 대용 검정에서 10종목 기준 증분 -2.16bp/일(t=-1.39)",
   "single_factor": true,
   "pool_health": {
-    "scored": 130,
+    "scored": 131,
     "picked": 10,
-    "ratio": 13.0,
+    "ratio": 13.1,
     "level": "good",
     "message": null
   },
@@ -1037,14 +852,14 @@
           "code": "214150",
           "name": "클래시스",
           "market": "KOSDAQ",
-          "score": 0.372
+          "score": 0.369
         },
         {
           "rank": 2,
           "code": "035900",
           "name": "JYP Ent.",
           "market": "KOSDAQ",
-          "score": 0.183
+          "score": 0.184
         },
         {
           "rank": 3,
@@ -1058,49 +873,49 @@
           "code": "111770",
           "name": "영원무역",
           "market": "KOSPI",
-          "score": 0.147
+          "score": 0.15
         },
         {
           "rank": 5,
-          "code": "332570",
-          "name": "PS일렉트로닉스",
-          "market": "KOSDAQ",
-          "score": 0.001
-        },
-        {
-          "rank": 6,
           "code": "263750",
           "name": "펄어비스",
           "market": "KOSDAQ",
-          "score": -0.0
+          "score": 0.002
+        },
+        {
+          "rank": 6,
+          "code": "332570",
+          "name": "PS일렉트로닉스",
+          "market": "KOSDAQ",
+          "score": -0.002
         },
         {
           "rank": 7,
           "code": "016360",
           "name": "삼성증권",
           "market": "KOSPI",
-          "score": -0.022
+          "score": -0.023
         },
         {
           "rank": 8,
           "code": "001740",
           "name": "SK네트웍스",
           "market": "KOSPI",
-          "score": -0.044
+          "score": -0.046
         },
         {
           "rank": 9,
           "code": "259960",
           "name": "크래프톤",
           "market": "KOSPI",
-          "score": -0.145
+          "score": -0.141
         },
         {
           "rank": 10,
           "code": "032640",
           "name": "LG유플러스",
           "market": "KOSPI",
-          "score": -0.195
+          "score": -0.194
         }
       ]
     },
@@ -1151,7 +966,7 @@
           "code": "204270",
           "name": "제이앤티씨",
           "market": "KOSDAQ",
-          "score": 0.804
+          "score": 0.805
         },
         {
           "rank": 7,
@@ -1265,7 +1080,7 @@
     "quality_oversold": {
       "label": "우량 과매도 (2단계, 발행본)",
       "description": "1단계 펀더멘털 게이트(보고 ROE 5% 이상 · 매출 CAGR 0% 이상)로 기업을 거른 뒤, 2단계로 RSI(14) 단일 순위. 점수 규칙은 oversold와 완전히 동일하고 차이는 게이트뿐이다. 이 게이트에는 검증된 수익 근거가 없다 — 12년 패널 대용 검정에서 10종목 기준 증분 -2.16bp/일(t=-1.39)",
-      "scored_count": 130,
+      "scored_count": 131,
       "skipped_today": false,
       "skip_reason": null,
       "picks": [
@@ -1274,70 +1089,70 @@
           "code": "214150",
           "name": "클래시스",
           "market": "KOSDAQ",
-          "score": 2.424
+          "score": 2.422
         },
         {
           "rank": 2,
           "code": "069960",
           "name": "현대백화점",
           "market": "KOSPI",
-          "score": 1.929
+          "score": 1.926
         },
         {
           "rank": 3,
           "code": "035900",
           "name": "JYP Ent.",
           "market": "KOSDAQ",
-          "score": 1.665
+          "score": 1.662
         },
         {
           "rank": 4,
           "code": "111770",
           "name": "영원무역",
           "market": "KOSPI",
-          "score": 1.646
+          "score": 1.642
         },
         {
           "rank": 5,
           "code": "012330",
           "name": "현대모비스",
           "market": "KOSPI",
-          "score": 1.445
+          "score": 1.442
         },
         {
           "rank": 6,
           "code": "329180",
           "name": "HD현대중공업",
           "market": "KOSPI",
-          "score": 1.295
+          "score": 1.291
         },
         {
           "rank": 7,
           "code": "138930",
           "name": "BNK금융지주",
           "market": "KOSPI",
-          "score": 1.21
+          "score": 1.206
         },
         {
           "rank": 8,
           "code": "014680",
           "name": "한솔케미칼",
           "market": "KOSPI",
-          "score": 1.167
+          "score": 1.163
         },
         {
           "rank": 9,
           "code": "064350",
           "name": "현대로템",
           "market": "KOSPI",
-          "score": 1.167
+          "score": 1.163
         },
         {
           "rank": 10,
           "code": "307950",
           "name": "현대오토에버",
           "market": "KOSPI",
-          "score": 1.144
+          "score": 1.139
         }
       ]
     },
@@ -1353,14 +1168,14 @@
           "code": "214150",
           "name": "클래시스",
           "market": "KOSDAQ",
-          "score": 0.372
+          "score": 0.369
         },
         {
           "rank": 2,
           "code": "035900",
           "name": "JYP Ent.",
           "market": "KOSDAQ",
-          "score": 0.183
+          "score": 0.184
         },
         {
           "rank": 3,
@@ -1374,49 +1189,49 @@
           "code": "111770",
           "name": "영원무역",
           "market": "KOSPI",
-          "score": 0.147
+          "score": 0.15
         },
         {
           "rank": 5,
-          "code": "332570",
-          "name": "PS일렉트로닉스",
-          "market": "KOSDAQ",
-          "score": 0.001
-        },
-        {
-          "rank": 6,
           "code": "263750",
           "name": "펄어비스",
           "market": "KOSDAQ",
-          "score": -0.0
+          "score": 0.002
+        },
+        {
+          "rank": 6,
+          "code": "332570",
+          "name": "PS일렉트로닉스",
+          "market": "KOSDAQ",
+          "score": -0.002
         },
         {
           "rank": 7,
           "code": "016360",
           "name": "삼성증권",
           "market": "KOSPI",
-          "score": -0.022
+          "score": -0.023
         },
         {
           "rank": 8,
           "code": "001740",
           "name": "SK네트웍스",
           "market": "KOSPI",
-          "score": -0.044
+          "score": -0.046
         },
         {
           "rank": 9,
           "code": "259960",
           "name": "크래프톤",
           "market": "KOSPI",
-          "score": -0.145
+          "score": -0.141
         },
         {
           "rank": 10,
           "code": "032640",
           "name": "LG유플러스",
           "market": "KOSPI",
-          "score": -0.195
+          "score": -0.194
         }
       ]
     }

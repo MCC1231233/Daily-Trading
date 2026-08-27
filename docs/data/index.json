@@ -779,7 +779,7 @@
       }
     }
   ],
-  "updated_at": "2026-08-27 08:50:23 KST",
+  "updated_at": "2026-08-27 12:31:57 KST",
   "performance": {
     "sessions": 19,
     "avg_daily_return_pct": 0.724,
@@ -793,32 +793,6 @@
   "shadow": {
     "sessions": 19,
     "variants": {
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "sessions": 19,
-        "traded_sessions": 19,
-        "avg_daily_pct": 0.557,
-        "cumulative_pct": 10.3,
-        "win_rate_pct": 47.4,
-        "avg_excess_pct": -0.302,
-        "tstat": -0.24,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "표본 18거래일 — 판단하려면 최소 20거래일 필요"
-      },
-      "oversold": {
-        "label": "과매도 단일팩터 (대조군)",
-        "sessions": 19,
-        "traded_sessions": 19,
-        "avg_daily_pct": 1.466,
-        "cumulative_pct": 31.05,
-        "win_rate_pct": 78.9,
-        "avg_excess_pct": 0.543,
-        "tstat": 0.6,
-        "significant": false,
-        "sessions_needed": 199,
-        "confidence_note": "표본 18거래일 — 판단하려면 최소 20거래일 필요"
-      },
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
         "sessions": 19,
@@ -832,15 +806,15 @@
         "sessions_needed": null,
         "confidence_note": "표본 18거래일 — 판단하려면 최소 20거래일 필요"
       },
-      "reversal": {
-        "label": "역추세 (대조군)",
+      "momentum": {
+        "label": "추세추종 (대조군)",
         "sessions": 19,
         "traded_sessions": 19,
-        "avg_daily_pct": 0.778,
-        "cumulative_pct": 15.52,
-        "win_rate_pct": 68.4,
-        "avg_excess_pct": -0.128,
-        "tstat": -0.13,
+        "avg_daily_pct": 0.557,
+        "cumulative_pct": 10.3,
+        "win_rate_pct": 47.4,
+        "avg_excess_pct": -0.302,
+        "tstat": -0.24,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "표본 18거래일 — 판단하려면 최소 20거래일 필요"
@@ -857,6 +831,32 @@
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "표본 5거래일 — 판단하려면 최소 20거래일 필요"
+      },
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
+        "sessions": 19,
+        "traded_sessions": 19,
+        "avg_daily_pct": 1.466,
+        "cumulative_pct": 31.05,
+        "win_rate_pct": 78.9,
+        "avg_excess_pct": 0.543,
+        "tstat": 0.6,
+        "significant": false,
+        "sessions_needed": 199,
+        "confidence_note": "표본 18거래일 — 판단하려면 최소 20거래일 필요"
+      },
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "sessions": 19,
+        "traded_sessions": 19,
+        "avg_daily_pct": 0.778,
+        "cumulative_pct": 15.52,
+        "win_rate_pct": 68.4,
+        "avg_excess_pct": -0.128,
+        "tstat": -0.13,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "표본 18거래일 — 판단하려면 최소 20거래일 필요"
       }
     }
   }
