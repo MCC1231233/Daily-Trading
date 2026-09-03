@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-09-03",
+      "trade_date": "2026-09-03",
+      "regime": "risk_off",
+      "pick_count": 10,
+      "top_names": [
+        "현대모비스",
+        "HD현대중공업",
+        "현대로템"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-09-02",
       "trade_date": "2026-09-02",
       "regime": "neutral",
@@ -10,7 +22,39 @@
         "현대모비스",
         "JYP Ent."
       ],
-      "scored": false
+      "scored": true,
+      "avg_return_pct": 0.19,
+      "excess_pct": 1.14,
+      "benchmark_pct": -0.95,
+      "win_count": 4,
+      "total_count": 10,
+      "variant_returns": {
+        "reversal": {
+          "avg": 0.51,
+          "excess": 1.46,
+          "traded": true
+        },
+        "momentum": {
+          "avg": 0.14,
+          "excess": 1.09,
+          "traded": true
+        },
+        "oversold": {
+          "avg": -0.65,
+          "excess": 0.3,
+          "traded": true
+        },
+        "quality_oversold": {
+          "avg": 0.19,
+          "excess": 1.14,
+          "traded": true
+        },
+        "reversal_timed": {
+          "avg": 0.0,
+          "excess": 0.0,
+          "traded": false
+        }
+      }
     },
     {
       "date": "2026-09-01",
@@ -955,80 +999,80 @@
       }
     }
   ],
-  "updated_at": "2026-09-02 09:29:12 KST",
+  "updated_at": "2026-09-03 09:34:56 KST",
   "performance": {
-    "sessions": 23,
-    "avg_daily_return_pct": 0.689,
-    "cumulative_return_pct": 16.74,
-    "positive_sessions": 15,
-    "session_win_rate_pct": 65.2,
+    "sessions": 24,
+    "avg_daily_return_pct": 0.668,
+    "cumulative_return_pct": 16.97,
+    "positive_sessions": 16,
+    "session_win_rate_pct": 66.7,
     "best_session_pct": 4.43,
     "worst_session_pct": -3.98,
-    "pick_win_rate_pct": 62.9
+    "pick_win_rate_pct": 61.9
   },
   "shadow": {
-    "sessions": 23,
+    "sessions": 24,
     "variants": {
-      "oversold": {
-        "label": "과매도 단일팩터 (대조군)",
-        "sessions": 23,
-        "traded_sessions": 23,
-        "avg_daily_pct": 1.314,
-        "cumulative_pct": 34.16,
-        "win_rate_pct": 78.3,
-        "avg_excess_pct": 0.469,
-        "tstat": 0.63,
-        "significant": false,
-        "sessions_needed": 219,
-        "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 219거래일 필요"
-      },
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "sessions": 23,
-        "traded_sessions": 23,
-        "avg_daily_pct": 0.399,
-        "cumulative_pct": 8.66,
-        "win_rate_pct": 43.5,
-        "avg_excess_pct": -0.395,
-        "tstat": -0.38,
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "sessions": 24,
+        "traded_sessions": 24,
+        "avg_daily_pct": 0.744,
+        "cumulative_pct": 19.04,
+        "win_rate_pct": 70.8,
+        "avg_excess_pct": -0.006,
+        "tstat": -0.01,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
       },
       "quality_oversold": {
         "label": "우량 과매도 (2단계, 발행본)",
-        "sessions": 9,
-        "traded_sessions": 9,
-        "avg_daily_pct": 0.784,
-        "cumulative_pct": 7.25,
-        "win_rate_pct": 77.8,
-        "avg_excess_pct": -0.109,
-        "tstat": -0.21,
+        "sessions": 10,
+        "traded_sessions": 10,
+        "avg_daily_pct": 0.725,
+        "cumulative_pct": 7.46,
+        "win_rate_pct": 80.0,
+        "avg_excess_pct": 0.016,
+        "tstat": 0.03,
         "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "표본 9거래일 — 판단하려면 최소 20거래일 필요"
+        "sessions_needed": 35335,
+        "confidence_note": "표본 10거래일 — 판단하려면 최소 20거래일 필요"
       },
-      "reversal": {
-        "label": "역추세 (대조군)",
-        "sessions": 23,
-        "traded_sessions": 23,
-        "avg_daily_pct": 0.754,
-        "cumulative_pct": 18.44,
-        "win_rate_pct": 69.6,
-        "avg_excess_pct": -0.072,
-        "tstat": -0.09,
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "sessions": 24,
+        "traded_sessions": 24,
+        "avg_daily_pct": 0.388,
+        "cumulative_pct": 8.81,
+        "win_rate_pct": 45.8,
+        "avg_excess_pct": -0.33,
+        "tstat": -0.33,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
       },
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
+        "sessions": 24,
+        "traded_sessions": 24,
+        "avg_daily_pct": 1.232,
+        "cumulative_pct": 33.28,
+        "win_rate_pct": 75.0,
+        "avg_excess_pct": 0.461,
+        "tstat": 0.65,
+        "significant": false,
+        "sessions_needed": 216,
+        "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 216거래일 필요"
+      },
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
-        "sessions": 23,
+        "sessions": 24,
         "traded_sessions": 12,
-        "avg_daily_pct": 0.559,
+        "avg_daily_pct": 0.536,
         "cumulative_pct": 13.35,
-        "win_rate_pct": 39.1,
-        "avg_excess_pct": -0.12,
+        "win_rate_pct": 37.5,
+        "avg_excess_pct": -0.115,
         "tstat": -0.16,
         "significant": false,
         "sessions_needed": null,
