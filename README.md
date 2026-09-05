@@ -216,11 +216,32 @@ scripts/variants.py         전략 변형 정의 (그림자 모드)
 scripts/screen.py           오케스트레이션 + 변형별 채점 + JSON 출력
 scripts/research/           전략 평가용 분석 스크립트 (파이프라인과 독립)
 scripts/build_standalone.py 데이터를 인라인한 단일 HTML 빌드 (Pages 대안)
+scripts/broker/kis.py       한국투자증권 Open API REST 클라이언트
+scripts/trade.py            주문 실행기 (진입/청산/정산) — TRADING.md 참조
+scripts/selftest_trade.py   주문 로직 셀프테스트 (네트워크 불필요)
 docs/index.html             대시보드 (정적, data/*.json을 fetch)
 docs/data/index.json        날짜 목록 + 누적 성과 (사이드바가 읽음)
 docs/data/YYYY-MM-DD.json   그날의 리포트 전문
 .github/workflows/daily.yml 07:40 KST 자동 실행 → 커밋 → Pages 배포
 ```
+
+## 자동 주문 실행
+
+리포트를 한국투자증권(KIS) Open API로 실제 주문에 옮길 수 있습니다.
+설치·스케줄러 등록·안전장치는 **[TRADING.md](TRADING.md)** 를 보세요.
+
+기본값은 **모의투자 + dry-run**입니다. `config.yaml` 의 `trading.enabled` 가
+`false` 인 동안에는 어떤 명령도 동작하지 않습니다.
+
+```bash
+python scripts/selftest_trade.py    # 네트워크 없이 주문 로직 검증
+python scripts/trade.py preflight   # 연결 점검 (주문 없음)
+```
+
+실계좌 전환 기준은 하나입니다 — **모의투자에서 세후 초과수익이 t>2로
+유지될 때.** 현재 발행 전략은 11거래일 t=0.48이고, 필요 표본은 약 191거래일
+입니다. 왕복 비용(거래세 0.20% + 수수료 + 슬리피지 ≈ 0.31%/일)을 넣으면
+현재 신뢰구간은 손실 구간을 포함합니다. 자세한 계산은 TRADING.md 에 있습니다.
 
 ## 직접 돌려보기
 
@@ -257,7 +278,11 @@ python -m http.server 8000 --directory docs
 - 스크리닝은 **전일 종가까지의 정보만** 사용합니다. 당일 갭, 장중 뉴스,
   실적 발표, 공시는 반영되지 않습니다.
 - 실현 수익률은 시가 체결·종가 체결을 가정한 이론값입니다. 실제로는
-  슬리피지와 호가 공백이 발생합니다.
+  슬리피지와 호가 공백이 발생합니다. 그 차이를 실제로 재려면 모의투자
+  주문을 붙여야 합니다 (`scripts/trade.py settle` — [TRADING.md](TRADING.md)).
+- **왕복 비용이 이 전략의 최대 상수입니다.** 거래세 0.20%(2026년부터
+  코스피·코스닥 동일) + 수수료 + 슬리피지 = 하루 약 0.31%. 250거래일이면
+  복리로 -54%입니다. 대시보드의 수익률은 전부 **비용 차감 전** 값입니다.
 - 팩터 가중치는 과거 데이터로 최적화한 값이 아니라 **사전에 정한 값**입니다.
   과최적화는 피했지만, 그만큼 이 가중치가 최선이라는 근거도 없습니다.
 - 임시공휴일·특별 휴장은 `holidayskr` 갱신에 의존합니다.

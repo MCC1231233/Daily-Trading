@@ -6,3 +6,10 @@ __pycache__/
 venv/
 .env
 .DS_Store
+
+# 체결 저널 — 계좌 잔고와 주문번호가 담긴다. 대시보드는 공개 저장소다.
+live/
+
+# KIS 접근토큰 캐시가 저장소 안으로 들어오는 경우 방지
+.kis/
+token_*.json
