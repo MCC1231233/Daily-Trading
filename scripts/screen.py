@@ -25,6 +25,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 import factors as F
 import variants
+import datasource
 from datasource import NaverClient, fetch_macro, fetch_universe
 
 KST = ZoneInfo("Asia/Seoul")
@@ -670,6 +671,7 @@ def build_payload(
             client.failures[:20] + _bias_warnings(gate_bias(prefiltered, frame))
             + ([f"채점 유예 {len(deferred)}건 (시가 미확정) — 다음 실행에서 재시도: "
                 + ", ".join(deferred)] if deferred else [])
+            + _listing_warnings(asof_date)
         ),
         "strategy": variants.PRIMARY.label.replace(" (발행본)", ""),
         "strategy_detail": variants.PRIMARY.description,
@@ -709,6 +711,23 @@ def _blocks_of(row) -> dict:
     if f"block_{BLOCK_NAMES[0]}" not in row.index:
         return {}
     return {"blocks": {b: round(float(row[f"block_{b}"]), 2) for b in BLOCK_NAMES}}
+
+
+def _listing_warnings(asof_date: str) -> list[str]:
+    """상장목록(유니버스) 스냅샷의 신선도.
+
+    datasource 는 캐시 저장소에서 '존재하는 최신 파일'을 쓴다. 평시에는 이
+    날짜가 시세의 기준일과 같지만, 캐시가 밀리면 하루 이상 벌어질 수 있다.
+    그 경우 신규 상장·상장폐지·시총 변동이 반영되지 않은 유니버스로 돌게
+    되므로 리포트에 남긴다. 종목 선정을 막을 정도는 아니라 경고로만 둔다.
+    """
+    asof = datasource.LISTING_ASOF
+    if asof is None:
+        return ["상장목록을 캐시에서 받지 못해 FinanceDataReader 폴백을 사용했습니다"]
+    if asof != asof_date:
+        return [f"상장목록 기준일 {asof} ≠ 시세 기준일 {asof_date} — "
+                "신규 상장·폐지가 반영되지 않았을 수 있습니다"]
+    return []
 
 
 def _bias_warnings(bias: dict) -> list[str]:

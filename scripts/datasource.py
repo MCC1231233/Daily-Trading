@@ -13,10 +13,13 @@ KRX 정보데이터시스템 엔드포인트는 2026년부터 로그인이 필�
 
 from __future__ import annotations
 
+import io
 import re
 import time
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timedelta
 from typing import Any
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
@@ -31,6 +34,69 @@ HEADERS = {
 
 # 네이버 API는 pageSize 60까지만 허용한다 (100은 400을 돌려준다).
 MAX_PAGE_SIZE = 60
+
+KST = ZoneInfo("Asia/Seoul")
+
+# FinanceDataReader.StockListing 이 내부적으로 읽는 캐시 저장소.
+#
+# ■ 왜 fdr.StockListing 을 직접 쓰지 않는가
+# FDR 은 (1) KRX 에 max_work_dt(최종 거래일)를 묻고 (2) 그 날짜의 CSV 를 이
+# 저장소에서 받는다. 그런데 KRX 는 장 시작 전에도 '오늘'을 최종 거래일로
+# 답하는 반면, 캐시 저장소는 장이 끝난 뒤에야 그날 파일을 올린다. 두 시점이
+# 어긋나는 날 fdr.StockListing 은 404 로 죽고, 유니버스가 통째로 비어
+# 스크리닝 전체가 실패한다. 실제로 2026-09-05 와 2026-09-08 두 번 그렇게
+# 리포트가 누락됐다 (Actions run #10, #33).
+#
+# 그래서 max_work_dt 를 묻지 않고 오늘부터 거꾸로 걸어 존재하는 최신 파일을
+# 찾는다. 스크리너는 어차피 **전일 종가**를 쓰므로 최신 가용 파일이 정확히
+# 필요한 데이터다 — 품질 저하가 아니라 오히려 정상 동작이다.
+KRX_LISTING_CACHE = (
+    "https://raw.githubusercontent.com/FinanceData/fdr_krx_data_cache"
+    "/refs/heads/master/data/listing/krx/%s.csv"
+)
+
+# 캐시 CSV 의 Market 값은 4종이다. KOSDAQ GLOBAL 을 KOSDAQ 으로 합쳐야
+# 기존 fdr.StockListing("KOSDAQ") 결과와 종목 수가 정확히 일치한다
+# (2026-09-04 기준 2,527종목으로 실측 대조 완료). KONEX 는 제외한다.
+LISTING_MARKETS = ("KOSPI", "KOSDAQ", "KOSDAQ GLOBAL")
+
+# 마지막으로 성공한 상장목록의 기준일. screen.py 가 신선도 경고에 쓴다.
+LISTING_ASOF: str | None = None
+
+
+def _fetch_listing(max_lookback: int = 10) -> tuple[pd.DataFrame, str]:
+    """상장종목 스냅샷을 캐시에서 받는다. (프레임, 기준일) 을 돌려준다.
+
+    오늘부터 하루씩 거슬러 올라가며 존재하는 첫 파일을 쓴다. 주말·연휴는
+    자연히 건너뛰어지므로 휴장일 계산이 따로 필요 없다.
+    """
+    global LISTING_ASOF
+
+    day = datetime.now(KST).date()
+    for _ in range(max_lookback + 1):
+        url = KRX_LISTING_CACHE % day.isoformat()
+        try:
+            response = requests.get(url, headers=HEADERS, timeout=30)
+        except requests.RequestException:
+            day -= timedelta(days=1)
+            continue
+        if response.status_code == 200:
+            frame = pd.read_csv(io.StringIO(response.text), dtype={"Code": str})
+            LISTING_ASOF = day.isoformat()
+            return frame, LISTING_ASOF
+        day -= timedelta(days=1)
+
+    # 캐시 경로가 통째로 바뀐 경우를 대비한 최후 수단. FDR 이 소스를 옮겼다면
+    # 이쪽이 살아 있을 수 있다.
+    import FinanceDataReader as fdr
+
+    frames = []
+    for market in ("KOSPI", "KOSDAQ"):
+        listing = fdr.StockListing(market)
+        listing["Market"] = market
+        frames.append(listing)
+    LISTING_ASOF = None
+    return pd.concat(frames, ignore_index=True), "unknown"
 
 
 def _to_num(value: Any) -> float | None:
@@ -297,14 +363,18 @@ def fetch_universe() -> pd.DataFrame:
     보통주가 아닌 것(우선주/스팩/리츠/ETF)은 여기서 걸러낸다.
     일중 매매 대상으로 성격이 다르고, 유동성·공시 구조도 다르기 때문이다.
     """
-    import FinanceDataReader as fdr
+    listing, asof = _fetch_listing()
 
-    frames = []
-    for market in ("KOSPI", "KOSDAQ"):
-        listing = fdr.StockListing(market)
-        listing["Market"] = market
-        frames.append(listing)
-    universe = pd.concat(frames, ignore_index=True)
+    if "Market" in listing.columns:
+        universe = listing[listing["Market"].isin(LISTING_MARKETS)].copy()
+        # KOSDAQ GLOBAL 은 별도 시장 라벨이지만 매매 성격은 코스닥과 같다.
+        universe["Market"] = universe["Market"].where(
+            universe["Market"] != "KOSDAQ GLOBAL", "KOSDAQ"
+        )
+    else:
+        universe = listing.copy()  # FDR 폴백 경로 (이미 시장별로 라벨돼 있다)
+    universe = universe.reset_index(drop=True)
+    print(f"      상장목록 기준일 {asof} ({len(universe)}종목)")
 
     universe = universe.rename(
         columns={
