@@ -1131,7 +1131,7 @@
       }
     }
   ],
-  "updated_at": "2026-09-08 13:35:32 KST",
+  "updated_at": "2026-09-08 13:38:53 KST",
   "performance": {
     "sessions": 27,
     "avg_daily_return_pct": 0.671,
@@ -1145,15 +1145,15 @@
   "shadow": {
     "sessions": 27,
     "variants": {
-      "reversal": {
-        "label": "역추세 (대조군)",
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
         "sessions": 27,
-        "traded_sessions": 27,
-        "avg_daily_pct": 0.619,
-        "cumulative_pct": 17.66,
-        "win_rate_pct": 66.7,
-        "avg_excess_pct": -0.073,
-        "tstat": -0.11,
+        "traded_sessions": 14,
+        "avg_daily_pct": 0.457,
+        "cumulative_pct": 12.75,
+        "win_rate_pct": 37.0,
+        "avg_excess_pct": -0.099,
+        "tstat": -0.16,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
@@ -1171,18 +1171,18 @@
         "sessions_needed": 590,
         "confidence_note": "표본 13거래일 — 판단하려면 최소 20거래일 필요"
       },
-      "oversold": {
-        "label": "과매도 단일팩터 (대조군)",
+      "reversal": {
+        "label": "역추세 (대조군)",
         "sessions": 27,
         "traded_sessions": 27,
-        "avg_daily_pct": 1.186,
-        "cumulative_pct": 36.59,
-        "win_rate_pct": 77.8,
-        "avg_excess_pct": 0.478,
-        "tstat": 0.76,
+        "avg_daily_pct": 0.619,
+        "cumulative_pct": 17.66,
+        "win_rate_pct": 66.7,
+        "avg_excess_pct": -0.073,
+        "tstat": -0.11,
         "significant": false,
-        "sessions_needed": 181,
-        "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 181거래일 필요"
+        "sessions_needed": null,
+        "confidence_note": "아직 우연과 구분 안 됨"
       },
       "momentum": {
         "label": "추세추종 (대조군)",
@@ -1197,18 +1197,18 @@
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
       },
-      "reversal_timed": {
-        "label": "역추세 + 시장 타이밍",
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
         "sessions": 27,
-        "traded_sessions": 14,
-        "avg_daily_pct": 0.457,
-        "cumulative_pct": 12.75,
-        "win_rate_pct": 37.0,
-        "avg_excess_pct": -0.099,
-        "tstat": -0.16,
+        "traded_sessions": 27,
+        "avg_daily_pct": 1.186,
+        "cumulative_pct": 36.59,
+        "win_rate_pct": 77.8,
+        "avg_excess_pct": 0.478,
+        "tstat": 0.76,
         "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "아직 우연과 구분 안 됨"
+        "sessions_needed": 181,
+        "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 181거래일 필요"
       }
     }
   }

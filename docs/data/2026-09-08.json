@@ -2,7 +2,7 @@
   "date": "2026-09-08",
   "trade_date": "2026-09-08",
   "asof_date": "2026-09-07",
-  "generated_at": "2026-09-08 13:35:32 KST",
+  "generated_at": "2026-09-08 13:38:53 KST",
   "session_complete": false,
   "regime": {
     "regime": "neutral",
@@ -10,26 +10,26 @@
     "notes": [
       "S&P 500 -0.38% 하락",
       "나스닥 -0.29% 하락",
-      "원/달러 1,342.0 (-0.23%)"
+      "원/달러 1,342.1 (-0.22%)"
     ]
   },
   "macro": {
     "domestic": {
       "KOSPI": {
         "label": "코스피",
-        "close": 7139.78,
-        "change_pct": 2.06,
-        "ma20": 6769.6,
+        "close": 7131.34,
+        "change_pct": 1.94,
+        "ma20": 6769.18,
         "above_ma20": true,
-        "ma20_gap_pct": 5.47
+        "ma20_gap_pct": 5.35
       },
       "KOSDAQ": {
         "label": "코스닥",
-        "close": 828.68,
-        "change_pct": 0.79,
-        "ma20": 830.1,
+        "close": 827.82,
+        "change_pct": 0.68,
+        "ma20": 830.05,
         "above_ma20": false,
-        "ma20_gap_pct": -0.14
+        "ma20_gap_pct": -0.27
       }
     },
     "global": {
@@ -47,8 +47,8 @@
       },
       "USD/KRW": {
         "label": "원/달러",
-        "close": 1341.96,
-        "change_pct": -0.23,
+        "close": 1342.08,
+        "change_pct": -0.22,
         "above_ma20": false
       },
       "VIX": {
@@ -106,7 +106,7 @@
         "volume_surge": 1.1078,
         "ret_5d": -15.1364,
         "ret_20d": -24.1057,
-        "relative_strength": -37.4417,
+        "relative_strength": -37.3886,
         "drawdown_52w": -34.0283,
         "lower_shadow": 0.1356,
         "down_streak": 1,
@@ -123,7 +123,7 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 20.67,
+        "per": 20.68,
         "forward_per": 17.41,
         "pbr": 8.97,
         "roe": 43.376,
@@ -180,7 +180,7 @@
         "volume_surge": 0.8963,
         "ret_5d": -4.3796,
         "ret_20d": -9.7987,
-        "relative_strength": -23.1347,
+        "relative_strength": -23.0816,
         "drawdown_52w": -12.6219,
         "lower_shadow": 0.1957,
         "down_streak": 2,
@@ -197,12 +197,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 13.6,
-        "forward_per": 13.45,
+        "per": 13.62,
+        "forward_per": 13.47,
         "pbr": 1.81,
         "roe": 13.3094,
         "eps": 12405.0,
-        "dividend_yield": 3.56,
+        "dividend_yield": 3.55,
         "roe_reported": 15.22,
         "roe_ttm": 15.22,
         "roe_annual": 11.77,
@@ -254,7 +254,7 @@
         "volume_surge": 0.6678,
         "ret_5d": -4.7409,
         "ret_20d": -12.9909,
-        "relative_strength": -26.3269,
+        "relative_strength": -26.2738,
         "drawdown_52w": -47.4453,
         "lower_shadow": 0.619,
         "down_streak": 0,
@@ -328,7 +328,7 @@
         "volume_surge": 1.1738,
         "ret_5d": -5.3846,
         "ret_20d": -10.6105,
-        "relative_strength": -23.9465,
+        "relative_strength": -23.8934,
         "drawdown_52w": -19.6078,
         "lower_shadow": 0.186,
         "down_streak": 2,
@@ -345,12 +345,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 11.36,
-        "forward_per": 9.97,
+        "per": 11.39,
+        "forward_per": 10.0,
         "pbr": 1.17,
         "roe": 10.3082,
         "eps": 10602.0,
-        "dividend_yield": 2.91,
+        "dividend_yield": 2.9,
         "roe_reported": 11.09,
         "roe_ttm": 11.09,
         "roe_annual": 10.51,
@@ -402,7 +402,7 @@
         "volume_surge": 0.6521,
         "ret_5d": -4.2135,
         "ret_20d": -18.9061,
-        "relative_strength": -32.2421,
+        "relative_strength": -32.189,
         "drawdown_52w": -63.1351,
         "lower_shadow": 0.0549,
         "down_streak": 1,
@@ -419,7 +419,7 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 14.46,
+        "per": 14.43,
         "forward_per": null,
         "pbr": 0.77,
         "roe": 5.3123,
@@ -476,7 +476,7 @@
         "volume_surge": 0.7512,
         "ret_5d": -4.7059,
         "ret_20d": -15.7845,
-        "relative_strength": -29.1205,
+        "relative_strength": -29.0674,
         "drawdown_52w": -32.9066,
         "lower_shadow": 0.4314,
         "down_streak": 0,
@@ -493,7 +493,7 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 11.35,
+        "per": 11.31,
         "forward_per": null,
         "pbr": 1.14,
         "roe": 10.0369,
@@ -550,7 +550,7 @@
         "volume_surge": 1.1052,
         "ret_5d": -6.6079,
         "ret_20d": -13.4105,
-        "relative_strength": -26.7465,
+        "relative_strength": -26.6934,
         "drawdown_52w": -54.8936,
         "lower_shadow": 0.5918,
         "down_streak": 0,
@@ -567,9 +567,9 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 17.26,
-        "forward_per": 15.57,
-        "pbr": 4.09,
+        "per": 17.28,
+        "forward_per": 15.59,
+        "pbr": 4.1,
         "roe": 23.7096,
         "eps": 7400.0,
         "dividend_yield": 0.47,
@@ -624,7 +624,7 @@
         "volume_surge": 0.9796,
         "ret_5d": -0.1112,
         "ret_20d": -11.2648,
-        "relative_strength": -24.6008,
+        "relative_strength": -24.5477,
         "drawdown_52w": -41.5365,
         "lower_shadow": 0.7838,
         "down_streak": 0,
@@ -641,9 +641,9 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 17.58,
-        "forward_per": 14.61,
-        "pbr": 4.48,
+        "per": 17.6,
+        "forward_per": 14.62,
+        "pbr": 4.49,
         "roe": 25.5103,
         "eps": 25631.0,
         "dividend_yield": 1.26,
@@ -698,7 +698,7 @@
         "volume_surge": 0.9479,
         "ret_5d": -3.9648,
         "ret_20d": -9.7308,
-        "relative_strength": -23.0668,
+        "relative_strength": -23.0137,
         "drawdown_52w": -33.4351,
         "lower_shadow": 0.8333,
         "down_streak": 0,
@@ -715,12 +715,12 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 12.12,
-        "forward_per": 10.93,
+        "per": 12.09,
+        "forward_per": 10.9,
         "pbr": 1.29,
         "roe": 10.6653,
         "eps": 17700.0,
-        "dividend_yield": 1.04,
+        "dividend_yield": 1.05,
         "roe_reported": 11.88,
         "roe_ttm": 11.88,
         "roe_annual": 10.6,
@@ -772,7 +772,7 @@
         "volume_surge": 0.8403,
         "ret_5d": -2.4155,
         "ret_20d": -9.2135,
-        "relative_strength": -22.5495,
+        "relative_strength": -22.4964,
         "drawdown_52w": -41.7027,
         "lower_shadow": 0.8193,
         "down_streak": 0,
@@ -789,8 +789,8 @@
         "foreign_buy_days": null,
         "organ_buy_days": null,
         "foreign_ratio_change": null,
-        "per": 14.64,
-        "forward_per": 13.1,
+        "per": 14.63,
+        "forward_per": 13.09,
         "pbr": 1.96,
         "roe": 13.3853,
         "eps": 13662.0,
@@ -825,195 +825,8 @@
       ]
     }
   ],
-  "previous_result": {
-    "date": "2026-09-07",
-    "trade_date": "2026-09-07",
-    "benchmark_pct": 1.22,
-    "results": [
-      {
-        "code": "012330",
-        "name": "현대모비스",
-        "open": 428500.0,
-        "close": 432000.0,
-        "high": 436000.0,
-        "low": 425500.0,
-        "return_pct": 0.82,
-        "max_gain_pct": 1.75,
-        "max_loss_pct": -0.7
-      },
-      {
-        "code": "483650",
-        "name": "달바글로벌",
-        "open": 190800.0,
-        "close": 186700.0,
-        "high": 191800.0,
-        "low": 185900.0,
-        "return_pct": -2.15,
-        "max_gain_pct": 0.52,
-        "max_loss_pct": -2.57
-      },
-      {
-        "code": "035900",
-        "name": "JYP Ent.",
-        "open": 39350.0,
-        "close": 39500.0,
-        "high": 39750.0,
-        "low": 39150.0,
-        "return_pct": 0.38,
-        "max_gain_pct": 1.02,
-        "max_loss_pct": -0.51
-      },
-      {
-        "code": "069960",
-        "name": "현대백화점",
-        "open": 97000.0,
-        "close": 97700.0,
-        "high": 98400.0,
-        "low": 95600.0,
-        "return_pct": 0.72,
-        "max_gain_pct": 1.44,
-        "max_loss_pct": -1.44
-      },
-      {
-        "code": "014680",
-        "name": "한솔케미칼",
-        "open": 198500.0,
-        "close": 202000.0,
-        "high": 203500.0,
-        "low": 195200.0,
-        "return_pct": 1.76,
-        "max_gain_pct": 2.52,
-        "max_loss_pct": -1.66
-      },
-      {
-        "code": "064350",
-        "name": "현대로템",
-        "open": 129100.0,
-        "close": 127200.0,
-        "high": 129200.0,
-        "low": 124300.0,
-        "return_pct": -1.47,
-        "max_gain_pct": 0.08,
-        "max_loss_pct": -3.72
-      },
-      {
-        "code": "032820",
-        "name": "우리기술",
-        "open": 10850.0,
-        "close": 10920.0,
-        "high": 11100.0,
-        "low": 10510.0,
-        "return_pct": 0.65,
-        "max_gain_pct": 2.3,
-        "max_loss_pct": -3.13
-      },
-      {
-        "code": "000250",
-        "name": "삼천당제약",
-        "open": 160100.0,
-        "close": 163000.0,
-        "high": 166500.0,
-        "low": 157700.0,
-        "return_pct": 1.81,
-        "max_gain_pct": 4.0,
-        "max_loss_pct": -1.5
-      },
-      {
-        "code": "259960",
-        "name": "크래프톤",
-        "open": 216500.0,
-        "close": 218000.0,
-        "high": 219000.0,
-        "low": 213000.0,
-        "return_pct": 0.69,
-        "max_gain_pct": 1.15,
-        "max_loss_pct": -1.62
-      },
-      {
-        "code": "166090",
-        "name": "하나머티리얼즈",
-        "open": 51800.0,
-        "close": 52400.0,
-        "high": 53600.0,
-        "low": 50900.0,
-        "return_pct": 1.16,
-        "max_gain_pct": 3.47,
-        "max_loss_pct": -1.74
-      }
-    ],
-    "avg_return_pct": 0.44,
-    "excess_pct": -0.78,
-    "win_count": 8,
-    "total_count": 10,
-    "best": {
-      "code": "000250",
-      "name": "삼천당제약",
-      "open": 160100.0,
-      "close": 163000.0,
-      "high": 166500.0,
-      "low": 157700.0,
-      "return_pct": 1.81,
-      "max_gain_pct": 4.0,
-      "max_loss_pct": -1.5
-    },
-    "worst": {
-      "code": "483650",
-      "name": "달바글로벌",
-      "open": 190800.0,
-      "close": 186700.0,
-      "high": 191800.0,
-      "low": 185900.0,
-      "return_pct": -2.15,
-      "max_gain_pct": 0.52,
-      "max_loss_pct": -2.57
-    },
-    "variants": {
-      "reversal": {
-        "label": "역추세 (대조군)",
-        "traded": true,
-        "avg_return_pct": -0.63,
-        "excess_pct": -1.85,
-        "win_count": 4,
-        "total_count": 10
-      },
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "traded": true,
-        "avg_return_pct": 0.89,
-        "excess_pct": -0.33,
-        "win_count": 5,
-        "total_count": 10
-      },
-      "oversold": {
-        "label": "과매도 단일팩터 (대조군)",
-        "traded": true,
-        "avg_return_pct": 0.29,
-        "excess_pct": -0.93,
-        "win_count": 6,
-        "total_count": 10
-      },
-      "quality_oversold": {
-        "label": "우량 과매도 (2단계, 발행본)",
-        "traded": true,
-        "avg_return_pct": 0.44,
-        "excess_pct": -0.78,
-        "win_count": 8,
-        "total_count": 10
-      },
-      "reversal_timed": {
-        "label": "역추세 + 시장 타이밍",
-        "traded": false,
-        "avg_return_pct": 0.0,
-        "excess_pct": 0.0,
-        "win_count": 0,
-        "total_count": 0
-      }
-    },
-    "stale_open_dropped": 0
-  },
-  "data_warnings": [
-    "게이트 편향 경고: marcap q_equiv=+0.208 > 0.2 (중앙값비 +154%) — 선행연구가 유의하게 해롭다고 판정한 '하위 20% 배제'급에 근접합니다"
-  ],
+  "previous_result": null,
+  "data_warnings": [],
   "strategy": "우량 과매도 (2단계, 발행본)",
   "strategy_detail": "1단계 펀더멘털 게이트(보고 ROE 5% 이상 · 매출 CAGR 0% 이상)로 기업을 거른 뒤, 2단계로 RSI(14) 단일 순위. 점수 규칙은 oversold와 완전히 동일하고 차이는 게이트뿐이다. 이 게이트에는 검증된 수익 근거가 없다 — 12년 패널 대용 검정에서 10종목 기준 증분 -2.16bp/일(t=-1.39)",
   "single_factor": true,
@@ -1024,20 +837,7 @@
     "level": "good",
     "message": null
   },
-  "gate_bias": {
-    "marcap": {
-      "rb": 0.357,
-      "p": 0.0,
-      "q_equiv": 0.208,
-      "median_ratio": 1.542
-    },
-    "amount": {
-      "rb": 0.196,
-      "p": 0.006,
-      "q_equiv": 0.116,
-      "median_ratio": 0.231
-    }
-  },
+  "gate_bias": {},
   "primary_variant": "quality_oversold",
   "variants": {
     "reversal": {
@@ -1052,7 +852,7 @@
           "code": "144960",
           "name": "뉴파워프라즈마",
           "market": "KOSDAQ",
-          "score": 0.384
+          "score": 0.385
         },
         {
           "rank": 2,
@@ -1066,14 +866,14 @@
           "code": "332570",
           "name": "PS일렉트로닉스",
           "market": "KOSDAQ",
-          "score": 0.263
+          "score": 0.264
         },
         {
           "rank": 4,
           "code": "005940",
           "name": "NH투자증권",
           "market": "KOSPI",
-          "score": 0.22
+          "score": 0.219
         },
         {
           "rank": 5,
@@ -1098,24 +898,24 @@
         },
         {
           "rank": 8,
-          "code": "119850",
-          "name": "지엔씨에너지",
-          "market": "KOSDAQ",
-          "score": 0.161
-        },
-        {
-          "rank": 9,
           "code": "006800",
           "name": "미래에셋증권",
           "market": "KOSPI",
           "score": 0.159
         },
         {
+          "rank": 9,
+          "code": "119850",
+          "name": "지엔씨에너지",
+          "market": "KOSDAQ",
+          "score": 0.158
+        },
+        {
           "rank": 10,
           "code": "213420",
           "name": "덕산네오룩스",
           "market": "KOSDAQ",
-          "score": 0.103
+          "score": 0.104
         }
       ]
     },
@@ -1368,7 +1168,7 @@
           "code": "144960",
           "name": "뉴파워프라즈마",
           "market": "KOSDAQ",
-          "score": 0.384
+          "score": 0.385
         },
         {
           "rank": 2,
@@ -1382,14 +1182,14 @@
           "code": "332570",
           "name": "PS일렉트로닉스",
           "market": "KOSDAQ",
-          "score": 0.263
+          "score": 0.264
         },
         {
           "rank": 4,
           "code": "005940",
           "name": "NH투자증권",
           "market": "KOSPI",
-          "score": 0.22
+          "score": 0.219
         },
         {
           "rank": 5,
@@ -1414,24 +1214,24 @@
         },
         {
           "rank": 8,
-          "code": "119850",
-          "name": "지엔씨에너지",
-          "market": "KOSDAQ",
-          "score": 0.161
-        },
-        {
-          "rank": 9,
           "code": "006800",
           "name": "미래에셋증권",
           "market": "KOSPI",
           "score": 0.159
         },
         {
+          "rank": 9,
+          "code": "119850",
+          "name": "지엔씨에너지",
+          "market": "KOSDAQ",
+          "score": 0.158
+        },
+        {
           "rank": 10,
           "code": "213420",
           "name": "덕산네오룩스",
           "market": "KOSDAQ",
-          "score": 0.103
+          "score": 0.104
         }
       ]
     }
