@@ -160,8 +160,9 @@ trading:
 
 ### 윈도우 작업 스케줄러
 
-작업 4개를 만들고 각각 `python C:\...\Daily-Trading\scripts\trade.py entry` 형태로
-등록한다. 트리거는 평일 08:50 / 09:05 / 15:20 / 15:40.
+작업 5개를 만들고 각각 `python C:\...\Daily-Trading\scripts\trade.py entry` 형태로
+등록한다. 트리거는 평일 08:30(prepare) / 08:50(entry) / 09:05(sweep) /
+15:20(exit) / 15:40(settle).
 
 ### 청산 실패 감시 — 이것만은 꼭
 

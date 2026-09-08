@@ -13,3 +13,6 @@ live/
 # KIS 접근토큰 캐시가 저장소 안으로 들어오는 경우 방지
 .kis/
 token_*.json
+
+# 커밋 메시지 임시 파일
+.commitmsg
