@@ -1,6 +1,7 @@
 """주문 실행기 — 스크리닝 리포트를 실제 주문으로 옮긴다.
 
     python scripts/trade.py preflight   자격증명·계좌·시세 연결 점검 (주문 없음)
+    python scripts/trade.py prepare     08:30 리포트 없으면 스크리너 직접 실행
     python scripts/trade.py entry       08:50 진입 (지정가 매수)
     python scripts/trade.py sweep       09:05 미체결 취소
     python scripts/trade.py exit        15:20 청산 (시장가 → 종가 단일가 체결)
@@ -196,6 +197,50 @@ def cmd_status(args, config) -> int:
     for phase in ("entry", "exit", "settle"):
         record = journal.get(phase)
         log("  저널 %-6s: %s" % (phase, record["at"] if record else "-"))
+    return 0
+
+
+def cmd_prepare(args, config) -> int:
+    """오늘 리포트가 없으면 스크리너를 직접 돌린다. 진입 20분 전에 실행한다.
+
+    ■ 왜 필요한가
+    리포트는 원래 GitHub Actions 가 새벽에 만들어 커밋한다. 그런데 예약
+    워크플로 지연은 통제할 수 없다 — 2026-08-31~09-07 실측에서 6/6 일이
+    98~162분 밀려 장 시작 뒤에 도착했다. 그 상태로는 08:50 진입이 매일
+    빈손으로 끝난다.
+
+    그래서 매매 서버가 스스로 만들 수 있게 해둔다. 리포트가 이미 있으면
+    아무것도 하지 않으므로(스크리너는 2~4분 걸린다) 매일 걸어둬도 된다.
+    """
+    today = now_kst().date()
+
+    if not is_trading_day(today):
+        log("휴장일 — 준비할 것이 없다.")
+        return 0
+
+    if load_report(today):
+        log("오늘(%s) 리포트가 이미 있다 — 스크리너를 돌리지 않는다." % today)
+        return 0
+
+    log("오늘(%s) 리포트가 없다 — 스크리너를 직접 실행한다." % today)
+    # 서브프로세스로 띄운다. screen.py 는 전역 상태를 꽤 쓰고 실행이 길어서
+    # 같은 프로세스에서 import 해 돌리면 실패 시 정리가 어렵다.
+    import subprocess
+
+    result = subprocess.run(
+        [sys.executable, str(Path(__file__).parent / "screen.py")],
+        cwd=str(ROOT),
+    )
+    if result.returncode != 0:
+        log("스크리너 실패 (종료코드 %d) — 오늘은 진입할 수 없다." % result.returncode)
+        return 1
+
+    if not load_report(today):
+        # 휴장일 판정이나 데이터 부족으로 리포트를 만들지 않고 끝난 경우다.
+        log("스크리너는 성공했지만 오늘자 리포트가 생기지 않았다.")
+        return 1
+
+    log("리포트 준비 완료.")
     return 0
 
 
@@ -555,6 +600,7 @@ def _publish_summary(day: date, env: str, gross_pct: float, net_pct: float, coun
 COMMANDS = {
     "preflight": cmd_preflight,
     "status": cmd_status,
+    "prepare": cmd_prepare,
     "entry": cmd_entry,
     "sweep": cmd_sweep,
     "exit": cmd_exit,

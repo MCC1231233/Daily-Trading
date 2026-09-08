@@ -37,7 +37,8 @@ KIS는 둘 다 만족하고 공식 파이썬 샘플 저장소가 있다.
 
 | 시각 | 명령 | 하는 일 |
 |---|---|---|
-| 07:40 | (GitHub Actions) | 스크리닝 → `docs/data/YYYY-MM-DD.json` |
+| 03:00 | (GitHub Actions) | 스크리닝 → `docs/data/YYYY-MM-DD.json` |
+| 08:30 | `trade.py prepare` | 리포트가 없으면 스크리너를 직접 실행 |
 | 08:50 | `trade.py entry` | 지정가 매수 접수 → 09:00 시가 체결 |
 | 09:05 | `trade.py sweep` | 미체결 잔량 취소 |
 | 15:20 | `trade.py exit` | 시장가 매도 접수 → 15:30 종가 체결 |
@@ -58,10 +59,36 @@ KIS는 둘 다 만족하고 공식 파이썬 샘플 저장소가 있다.
 "오후 3시 매도"로 알고 있었다면 여기서 정의가 한 번 조정된 것이다.
 15:00에 팔면 채점 기준(종가)과 실행이 매일 어긋난다.
 
-### GitHub Actions를 쓰지 않는 이유
+### GitHub Actions를 쓰지 않는 이유 — 그리고 `prepare` 가 필요한 이유
 
-예약 워크플로는 러너 부하에 따라 10~30분씩 밀린다. 스크리닝(07:40)은 80분
-여유가 있어 괜찮지만 08:50 진입과 15:20 청산은 분 단위로 맞아야 한다.
+예약 워크플로 지연은 통제할 수 없다. 08:50 진입과 15:20 청산은 분 단위로
+맞아야 하므로 애초에 Actions 로 할 수 없다.
+
+문제는 스크리닝도 안전하지 않다는 것이다. 2026-09-08 에 `generated_at` 을
+15일치 세어보니 이렇다.
+
+| 매매일 | 생성 시각(KST) | 07:40 대비 |
+|---|---|---|
+| 08-19 | 07:55 | +15분 |
+| 08-24 | 07:53 | +13분 |
+| 08-31 | 09:48 | +128분 |
+| 09-01 | 10:22 | +162분 |
+| 09-02 | 09:29 | +109분 |
+| 09-03 | 09:34 | +114분 |
+| 09-04 | 09:19 | +99분 |
+| 09-07 | 09:18 | +98분 |
+
+**08-31 이후 예약 실행 6/6 일이 09:00 이후에 끝났다** — 장이 열린 뒤에
+리포트가 나온 것이다. 그 상태로는 08:50 진입이 매일 빈손으로 끝난다.
+
+대응은 둘이다.
+
+1. cron 을 **03:00 KST** 로 당겼다. 파이프라인은 전일 종가만 쓰므로 전날
+   밤에 돌려도 결과가 같다. 관측된 최대 지연(162분)이 그대로 나도 05:45 에
+   끝나 08:50 까지 3시간이 남는다.
+2. 그래도 못 미더우면 매매 서버가 **직접 만든다**. `trade.py prepare` 는
+   리포트가 있으면 아무것도 하지 않고, 없으면 스크리너를 돌린다(2~4분).
+   매일 08:30 에 걸어두면 Actions 가 실패한 날에도 매매가 이어진다.
 
 ---
 
@@ -122,6 +149,7 @@ trading:
 ### 리눅스 VM (권장 — 오라클 클라우드 무료티어 등)
 
 ```
+30 8  * * 1-5 cd /opt/Daily-Trading && git pull -q && . .env && python scripts/trade.py prepare >> live/trade.log 2>&1
 50 8  * * 1-5 cd /opt/Daily-Trading && . .env && python scripts/trade.py entry  >> live/trade.log 2>&1
 5  9  * * 1-5 cd /opt/Daily-Trading && . .env && python scripts/trade.py sweep  >> live/trade.log 2>&1
 20 15 * * 1-5 cd /opt/Daily-Trading && . .env && python scripts/trade.py exit   >> live/trade.log 2>&1
@@ -205,6 +233,7 @@ KOSPI를 t>2로 이긴 롱온리 전략은 0개였고, 데일리 매매 2,352설
 python scripts/selftest_trade.py           # 네트워크 없이 주문 로직 검증
 python scripts/trade.py preflight          # 연결 점검 (주문 없음)
 python scripts/trade.py status             # 계좌 현황
+python scripts/trade.py prepare            # 리포트 없으면 스크리너 실행
 python scripts/trade.py entry              # 진입
 python scripts/trade.py sweep              # 미체결 취소
 python scripts/trade.py exit               # 청산

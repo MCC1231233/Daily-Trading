@@ -222,7 +222,7 @@ scripts/selftest_trade.py   주문 로직 셀프테스트 (네트워크 불필�
 docs/index.html             대시보드 (정적, data/*.json을 fetch)
 docs/data/index.json        날짜 목록 + 누적 성과 (사이드바가 읽음)
 docs/data/YYYY-MM-DD.json   그날의 리포트 전문
-.github/workflows/daily.yml 07:40 KST 자동 실행 → 커밋 → Pages 배포
+.github/workflows/daily.yml 03:00 KST 자동 실행 → 커밋 → Pages 배포
 ```
 
 ## 자동 주문 실행
@@ -237,6 +237,10 @@ docs/data/YYYY-MM-DD.json   그날의 리포트 전문
 python scripts/selftest_trade.py    # 네트워크 없이 주문 로직 검증
 python scripts/trade.py preflight   # 연결 점검 (주문 없음)
 ```
+
+예약 워크플로 지연이 2026-08-31 이후 98~162분으로 늘어 리포트가 장 시작 뒤에
+도착하고 있었습니다. cron 을 03:00 KST 로 당겼고, 그래도 없을 때를 대비해
+매매 서버가 직접 만드는 `trade.py prepare` 를 두었습니다.
 
 실계좌 전환 기준은 하나입니다 — **모의투자에서 세후 초과수익이 t>2로
 유지될 때.** 현재 발행 전략은 11거래일 t=0.48이고, 필요 표본은 약 191거래일
