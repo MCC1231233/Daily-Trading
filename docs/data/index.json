@@ -1307,7 +1307,7 @@
       }
     }
   ],
-  "updated_at": "2026-09-15 11:12:07 KST",
+  "updated_at": "2026-09-15 11:15:18 KST",
   "performance": {
     "sessions": 31,
     "avg_daily_return_pct": 0.581,
@@ -1334,6 +1334,19 @@
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
       },
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "sessions": 17,
+        "traded_sessions": 17,
+        "avg_daily_pct": 0.543,
+        "cumulative_pct": 9.54,
+        "win_rate_pct": 70.6,
+        "avg_excess_pct": 0.009,
+        "tstat": 0.03,
+        "significant": false,
+        "sessions_needed": 83669,
+        "confidence_note": "표본 17거래일 — 판단하려면 최소 20거래일 필요"
+      },
       "oversold": {
         "label": "과매도 단일팩터 (대조군)",
         "sessions": 31,
@@ -1346,19 +1359,6 @@
         "significant": false,
         "sessions_needed": 270,
         "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 270거래일 필요"
-      },
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "sessions": 31,
-        "traded_sessions": 31,
-        "avg_daily_pct": 0.375,
-        "cumulative_pct": 11.31,
-        "win_rate_pct": 51.6,
-        "avg_excess_pct": -0.242,
-        "tstat": -0.31,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "아직 우연과 구분 안 됨"
       },
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
@@ -1373,18 +1373,18 @@
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
       },
-      "quality_oversold": {
-        "label": "우량 과매도 (2단계, 발행본)",
-        "sessions": 17,
-        "traded_sessions": 17,
-        "avg_daily_pct": 0.543,
-        "cumulative_pct": 9.54,
-        "win_rate_pct": 70.6,
-        "avg_excess_pct": 0.009,
-        "tstat": 0.03,
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "sessions": 31,
+        "traded_sessions": 31,
+        "avg_daily_pct": 0.375,
+        "cumulative_pct": 11.31,
+        "win_rate_pct": 51.6,
+        "avg_excess_pct": -0.242,
+        "tstat": -0.31,
         "significant": false,
-        "sessions_needed": 83669,
-        "confidence_note": "표본 17거래일 — 판단하려면 최소 20거래일 필요"
+        "sessions_needed": null,
+        "confidence_note": "아직 우연과 구분 안 됨"
       }
     }
   }
