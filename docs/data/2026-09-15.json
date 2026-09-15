@@ -156,7 +156,18 @@
         "[참고] 컨센서스 목표주가 대비 +56%",
         "[참고] ROE 10.3%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "271560",
+        "name": "오리온",
+        "open": 115700.0,
+        "close": 115200.0,
+        "high": 116300.0,
+        "low": 113600.0,
+        "return_pct": -0.43,
+        "max_gain_pct": 0.52,
+        "max_loss_pct": -1.82
+      }
     },
     {
       "rank": 2,
@@ -230,7 +241,18 @@
         "[참고] 컨센서스 목표주가 대비 +85%",
         "[참고] ROE 6.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "012330",
+        "name": "현대모비스",
+        "open": 393000.0,
+        "close": 398000.0,
+        "high": 404000.0,
+        "low": 392000.0,
+        "return_pct": 1.27,
+        "max_gain_pct": 2.8,
+        "max_loss_pct": -0.25
+      }
     },
     {
       "rank": 3,
@@ -304,7 +326,18 @@
         "[참고] 컨센서스 목표주가 대비 +82%",
         "[참고] ROE 43.4%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "483650",
+        "name": "달바글로벌",
+        "open": 167600.0,
+        "close": 163400.0,
+        "high": 168000.0,
+        "low": 162800.0,
+        "return_pct": -2.51,
+        "max_gain_pct": 0.24,
+        "max_loss_pct": -2.86
+      }
     },
     {
       "rank": 4,
@@ -378,7 +411,18 @@
         "[참고] 컨센서스 목표주가 대비 +159%",
         "[참고] ROE 26.0%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "089970",
+        "name": "브이엠",
+        "open": 47000.0,
+        "close": 49650.0,
+        "high": 50600.0,
+        "low": 46450.0,
+        "return_pct": 5.64,
+        "max_gain_pct": 7.66,
+        "max_loss_pct": -1.17
+      }
     },
     {
       "rank": 5,
@@ -452,7 +496,18 @@
         "[참고] 컨센서스 목표주가 대비 +91%",
         "[참고] ROE 6.6%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "005380",
+        "name": "현대차",
+        "open": 367500.0,
+        "close": 369500.0,
+        "high": 374500.0,
+        "low": 364500.0,
+        "return_pct": 0.54,
+        "max_gain_pct": 1.9,
+        "max_loss_pct": -0.82
+      }
     },
     {
       "rank": 6,
@@ -526,7 +581,18 @@
         "[참고] 컨센서스 목표주가 대비 +48%",
         "[참고] ROE 8.9%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "161390",
+        "name": "한국타이어앤테크놀로지",
+        "open": 60700.0,
+        "close": 59000.0,
+        "high": 60900.0,
+        "low": 58100.0,
+        "return_pct": -2.8,
+        "max_gain_pct": 0.33,
+        "max_loss_pct": -4.28
+      }
     },
     {
       "rank": 7,
@@ -600,7 +666,18 @@
         "[참고] 컨센서스 목표주가 대비 +55%",
         "[참고] ROE 8.4%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "068270",
+        "name": "셀트리온",
+        "open": 178800.0,
+        "close": 178000.0,
+        "high": 180300.0,
+        "low": 177300.0,
+        "return_pct": -0.45,
+        "max_gain_pct": 0.84,
+        "max_loss_pct": -0.84
+      }
     },
     {
       "rank": 8,
@@ -674,7 +751,18 @@
         "[참고] 컨센서스 목표주가 대비 +91%",
         "[참고] ROE 17.4%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "007810",
+        "name": "코리아써키트",
+        "open": 49200.0,
+        "close": 50100.0,
+        "high": 51100.0,
+        "low": 48450.0,
+        "return_pct": 1.83,
+        "max_gain_pct": 3.86,
+        "max_loss_pct": -1.52
+      }
     },
     {
       "rank": 9,
@@ -748,7 +836,18 @@
         "[참고] 컨센서스 목표주가 대비 +116%",
         "[참고] ROE 12.5%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "489790",
+        "name": "한화비전",
+        "open": 44500.0,
+        "close": 44700.0,
+        "high": 45200.0,
+        "low": 43200.0,
+        "return_pct": 0.45,
+        "max_gain_pct": 1.57,
+        "max_loss_pct": -2.92
+      }
     },
     {
       "rank": 10,
@@ -821,7 +920,18 @@
         "[참고] 52주 고점 대비 -56.1%",
         "[참고] ROE 14.9%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "019210",
+        "name": "와이지-원",
+        "open": 12500.0,
+        "close": 12660.0,
+        "high": 12840.0,
+        "low": 12460.0,
+        "return_pct": 1.28,
+        "max_gain_pct": 2.72,
+        "max_loss_pct": -0.32
+      }
     }
   ],
   "previous_result": null,
@@ -1263,5 +1373,191 @@
       "min_oc_after_down_samples": 10
     },
     "max_per_sector": 3
+  },
+  "realized": {
+    "date": "2026-09-15",
+    "trade_date": "2026-09-15",
+    "benchmark_pct": -0.48,
+    "results": [
+      {
+        "code": "271560",
+        "name": "오리온",
+        "open": 115700.0,
+        "close": 115200.0,
+        "high": 116300.0,
+        "low": 113600.0,
+        "return_pct": -0.43,
+        "max_gain_pct": 0.52,
+        "max_loss_pct": -1.82
+      },
+      {
+        "code": "012330",
+        "name": "현대모비스",
+        "open": 393000.0,
+        "close": 398000.0,
+        "high": 404000.0,
+        "low": 392000.0,
+        "return_pct": 1.27,
+        "max_gain_pct": 2.8,
+        "max_loss_pct": -0.25
+      },
+      {
+        "code": "483650",
+        "name": "달바글로벌",
+        "open": 167600.0,
+        "close": 163400.0,
+        "high": 168000.0,
+        "low": 162800.0,
+        "return_pct": -2.51,
+        "max_gain_pct": 0.24,
+        "max_loss_pct": -2.86
+      },
+      {
+        "code": "089970",
+        "name": "브이엠",
+        "open": 47000.0,
+        "close": 49650.0,
+        "high": 50600.0,
+        "low": 46450.0,
+        "return_pct": 5.64,
+        "max_gain_pct": 7.66,
+        "max_loss_pct": -1.17
+      },
+      {
+        "code": "005380",
+        "name": "현대차",
+        "open": 367500.0,
+        "close": 369500.0,
+        "high": 374500.0,
+        "low": 364500.0,
+        "return_pct": 0.54,
+        "max_gain_pct": 1.9,
+        "max_loss_pct": -0.82
+      },
+      {
+        "code": "161390",
+        "name": "한국타이어앤테크놀로지",
+        "open": 60700.0,
+        "close": 59000.0,
+        "high": 60900.0,
+        "low": 58100.0,
+        "return_pct": -2.8,
+        "max_gain_pct": 0.33,
+        "max_loss_pct": -4.28
+      },
+      {
+        "code": "068270",
+        "name": "셀트리온",
+        "open": 178800.0,
+        "close": 178000.0,
+        "high": 180300.0,
+        "low": 177300.0,
+        "return_pct": -0.45,
+        "max_gain_pct": 0.84,
+        "max_loss_pct": -0.84
+      },
+      {
+        "code": "007810",
+        "name": "코리아써키트",
+        "open": 49200.0,
+        "close": 50100.0,
+        "high": 51100.0,
+        "low": 48450.0,
+        "return_pct": 1.83,
+        "max_gain_pct": 3.86,
+        "max_loss_pct": -1.52
+      },
+      {
+        "code": "489790",
+        "name": "한화비전",
+        "open": 44500.0,
+        "close": 44700.0,
+        "high": 45200.0,
+        "low": 43200.0,
+        "return_pct": 0.45,
+        "max_gain_pct": 1.57,
+        "max_loss_pct": -2.92
+      },
+      {
+        "code": "019210",
+        "name": "와이지-원",
+        "open": 12500.0,
+        "close": 12660.0,
+        "high": 12840.0,
+        "low": 12460.0,
+        "return_pct": 1.28,
+        "max_gain_pct": 2.72,
+        "max_loss_pct": -0.32
+      }
+    ],
+    "avg_return_pct": 0.48,
+    "excess_pct": 0.96,
+    "win_count": 6,
+    "total_count": 10,
+    "best": {
+      "code": "089970",
+      "name": "브이엠",
+      "open": 47000.0,
+      "close": 49650.0,
+      "high": 50600.0,
+      "low": 46450.0,
+      "return_pct": 5.64,
+      "max_gain_pct": 7.66,
+      "max_loss_pct": -1.17
+    },
+    "worst": {
+      "code": "161390",
+      "name": "한국타이어앤테크놀로지",
+      "open": 60700.0,
+      "close": 59000.0,
+      "high": 60900.0,
+      "low": 58100.0,
+      "return_pct": -2.8,
+      "max_gain_pct": 0.33,
+      "max_loss_pct": -4.28
+    },
+    "variants": {
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "traded": true,
+        "avg_return_pct": 0.19,
+        "excess_pct": 0.67,
+        "win_count": 6,
+        "total_count": 9
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "traded": true,
+        "avg_return_pct": 1.72,
+        "excess_pct": 2.2,
+        "win_count": 6,
+        "total_count": 10
+      },
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
+        "traded": true,
+        "avg_return_pct": 1.08,
+        "excess_pct": 1.56,
+        "win_count": 5,
+        "total_count": 10
+      },
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "traded": true,
+        "avg_return_pct": 0.48,
+        "excess_pct": 0.96,
+        "win_count": 6,
+        "total_count": 10
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "traded": true,
+        "avg_return_pct": 0.19,
+        "excess_pct": 0.67,
+        "win_count": 6,
+        "total_count": 9
+      }
+    },
+    "stale_open_dropped": 1
   }
 }
