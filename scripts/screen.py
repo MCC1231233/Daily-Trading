@@ -431,6 +431,19 @@ def main() -> int:
     pool, filter_counts = prefilter(universe, cfg)
     print(f"      {filter_counts['전체']}종목 → 후보 {len(pool)}종목")
 
+    # 퍼널이 0으로 끝나면 규칙 문제가 아니라 데이터 문제다. 어느 단계에서
+    # 사라졌는지 찍어두지 않으면 로그만 보고는 원인을 못 찾는다 — 실제로
+    # 2026-09-14·15 에 상장목록이 가격 없는 껍데기라 '전체 0' 이 됐는데,
+    # 그때 메시지가 "데이터 수집 실패"여서 엉뚱한 곳을 보게 했다.
+    if len(pool) == 0:
+        print("      후보 0종목 — 아래 퍼널에서 어느 단계가 끊겼는지 확인해라")
+        for stage, count in filter_counts.items():
+            print(f"        {stage}: {count}")
+        if filter_counts.get("전체", 0) == 0:
+            print(f"      상장목록(기준일 {datasource.LISTING_ASOF})에 유효한 종목이 없다 — "
+                  "캐시 파일이 비었거나 형식이 바뀌었을 가능성이 높다")
+        return 1
+
     codes = pool["code"].tolist()
     print(f"[4/6] 상세 데이터 수집 ({len(codes)}종목 x 3개 엔드포인트)")
     histories = client.bulk(codes, "price_history", days=60)
@@ -486,7 +499,8 @@ def main() -> int:
         )
 
     if not records:
-        print("      후보 없음 — 데이터 수집 실패로 판단하고 중단")
+        print(f"      후보 {len(codes)}종목 중 유효 레코드 0 — 네이버 상세 데이터 수집 실패")
+        print(f"      수집 실패 {len(client.failures)}건: {'; '.join(client.failures[:5])}")
         return 1
 
     enriched = ensure_columns(pd.DataFrame(records))

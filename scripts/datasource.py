@@ -64,15 +64,49 @@ LISTING_MARKETS = ("KOSPI", "KOSDAQ", "KOSDAQ GLOBAL")
 LISTING_ASOF: str | None = None
 
 
+# 장 마감 + 데이터 반영 여유. 이 시각 이전에는 '오늘' 파일을 쓰지 않는다.
+# screen.py 의 SESSION_COMPLETE_HOUR 와 같은 값이지만, datasource 가 screen 을
+# import 하면 순환이 되므로 여기 따로 둔다.
+LISTING_SESSION_COMPLETE_HOUR = 16
+
+
+def _listing_is_usable(frame: pd.DataFrame) -> bool:
+    """가격이 실제로 채워진 파일인지.
+
+    ■ 이 검사가 없으면 무슨 일이 나는가 (2026-09-14, 09-15 실측)
+    캐시 저장소는 장 마감 전에 **종목 목록만 담긴 껍데기 파일**을 먼저 올린다.
+    2026-09-15.csv 는 2,871행이 전부 있는데 Close/Amount/Marcap 이 100% 결측
+    이었다. 파일 존재만 확인하고 집어오면 prefilter 의 dropna 에서 전 종목이
+    날아가 '0종목'이 되고 스크리닝이 통째로 실패한다. 이틀 연속 그렇게 죽었다
+    (Actions run #38, #39).
+
+    정상 파일은 Close>0 비율이 100% 다. 껍데기는 0% 다. 0.5 는 넉넉한 해자다.
+    """
+    if frame.empty or "Close" not in frame.columns:
+        return False
+    close = pd.to_numeric(frame["Close"], errors="coerce")
+    return bool((close > 0).mean() >= 0.5)
+
+
 def _fetch_listing(max_lookback: int = 10) -> tuple[pd.DataFrame, str]:
     """상장종목 스냅샷을 캐시에서 받는다. (프레임, 기준일) 을 돌려준다.
 
-    오늘부터 하루씩 거슬러 올라가며 존재하는 첫 파일을 쓴다. 주말·연휴는
+    하루씩 거슬러 올라가며 **가격이 채워진** 첫 파일을 쓴다. 주말·연휴는
     자연히 건너뛰어지므로 휴장일 계산이 따로 필요 없다.
+
+    시작점은 오늘이 아니라 '마지막으로 마감된 세션'이다. 장중(16시 이전)에
+    돌리면 오늘 파일은 미완성이라, 있더라도 당일 누적 거래대금으로 유동성
+    필터가 걸려 후보가 과소 선정된다. 스크리너는 전일 종가 기준이므로
+    애초에 오늘 파일이 필요 없다.
     """
     global LISTING_ASOF
 
-    day = datetime.now(KST).date()
+    now = datetime.now(KST)
+    day = now.date()
+    if now.hour < LISTING_SESSION_COMPLETE_HOUR:
+        day -= timedelta(days=1)
+
+    skipped: list[str] = []
     for _ in range(max_lookback + 1):
         url = KRX_LISTING_CACHE % day.isoformat()
         try:
@@ -82,8 +116,12 @@ def _fetch_listing(max_lookback: int = 10) -> tuple[pd.DataFrame, str]:
             continue
         if response.status_code == 200:
             frame = pd.read_csv(io.StringIO(response.text), dtype={"Code": str})
-            LISTING_ASOF = day.isoformat()
-            return frame, LISTING_ASOF
+            if _listing_is_usable(frame):
+                LISTING_ASOF = day.isoformat()
+                if skipped:
+                    print(f"      상장목록: 가격 미반영 파일 건너뜀 ({', '.join(skipped)})")
+                return frame, LISTING_ASOF
+            skipped.append(day.isoformat())
         day -= timedelta(days=1)
 
     # 캐시 경로가 통째로 바뀐 경우를 대비한 최후 수단. FDR 이 소스를 옮겼다면
