@@ -156,7 +156,18 @@
         "[참고] 컨센서스 목표주가 대비 +41%",
         "[참고] ROE 12.0%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "030000",
+        "name": "제일기획",
+        "open": 17460.0,
+        "close": 17500.0,
+        "high": 17510.0,
+        "low": 17300.0,
+        "return_pct": 0.23,
+        "max_gain_pct": 0.29,
+        "max_loss_pct": -0.92
+      }
     },
     {
       "rank": 2,
@@ -230,7 +241,18 @@
         "[참고] 컨센서스 목표주가 대비 +92%",
         "[참고] ROE 6.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "012330",
+        "name": "현대모비스",
+        "open": 382500.0,
+        "close": 374500.0,
+        "high": 382500.0,
+        "low": 370500.0,
+        "return_pct": -2.09,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -3.14
+      }
     },
     {
       "rank": 3,
@@ -304,7 +326,18 @@
         "[참고] 컨센서스 목표주가 대비 +44%",
         "[참고] ROE 8.2%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "323410",
+        "name": "카카오뱅크",
+        "open": 20550.0,
+        "close": 20300.0,
+        "high": 20600.0,
+        "low": 20050.0,
+        "return_pct": -1.22,
+        "max_gain_pct": 0.24,
+        "max_loss_pct": -2.43
+      }
     },
     {
       "rank": 4,
@@ -378,7 +411,18 @@
         "[참고] 컨센서스 목표주가 대비 +66%",
         "[참고] ROE 11.9%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "081660",
+        "name": "미스토홀딩스",
+        "open": 38050.0,
+        "close": 38850.0,
+        "high": 39100.0,
+        "low": 38000.0,
+        "return_pct": 2.1,
+        "max_gain_pct": 2.76,
+        "max_loss_pct": -0.13
+      }
     },
     {
       "rank": 5,
@@ -452,7 +496,18 @@
         "[참고] 컨센서스 목표주가 대비 +57%",
         "[참고] ROE 10.3%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "271560",
+        "name": "오리온",
+        "open": 112600.0,
+        "close": 111400.0,
+        "high": 112600.0,
+        "low": 110500.0,
+        "return_pct": -1.07,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -1.87
+      }
     },
     {
       "rank": 6,
@@ -526,7 +581,18 @@
         "[참고] 컨센서스 목표주가 대비 +83%",
         "[참고] ROE 13.1%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 215000.0,
+        "close": 207500.0,
+        "high": 216000.0,
+        "low": 205000.0,
+        "return_pct": -3.49,
+        "max_gain_pct": 0.47,
+        "max_loss_pct": -4.65
+      }
     },
     {
       "rank": 7,
@@ -600,7 +666,18 @@
         "[참고] 컨센서스 목표주가 대비 +51%",
         "[참고] ROE 6.4%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "029780",
+        "name": "삼성카드",
+        "open": 44000.0,
+        "close": 43650.0,
+        "high": 44050.0,
+        "low": 43150.0,
+        "return_pct": -0.8,
+        "max_gain_pct": 0.11,
+        "max_loss_pct": -1.93
+      }
     },
     {
       "rank": 8,
@@ -674,7 +751,18 @@
         "[참고] 컨센서스 목표주가 대비 +76%",
         "[참고] ROE 35.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "196170",
+        "name": "알테오젠",
+        "open": 255500.0,
+        "close": 256000.0,
+        "high": 260000.0,
+        "low": 253500.0,
+        "return_pct": 0.2,
+        "max_gain_pct": 1.76,
+        "max_loss_pct": -0.78
+      }
     },
     {
       "rank": 9,
@@ -822,7 +910,18 @@
         "[참고] 컨센서스 목표주가 대비 +61%",
         "[참고] ROE 14.7%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "005940",
+        "name": "NH투자증권",
+        "open": 25550.0,
+        "close": 26450.0,
+        "high": 26450.0,
+        "low": 25400.0,
+        "return_pct": 3.52,
+        "max_gain_pct": 3.52,
+        "max_loss_pct": -0.59
+      }
     }
   ],
   "previous_result": {
@@ -1449,5 +1548,180 @@
       "min_oc_after_down_samples": 10
     },
     "max_per_sector": 3
+  },
+  "realized": {
+    "date": "2026-09-21",
+    "trade_date": "2026-09-21",
+    "benchmark_pct": 1.0,
+    "results": [
+      {
+        "code": "030000",
+        "name": "제일기획",
+        "open": 17460.0,
+        "close": 17500.0,
+        "high": 17510.0,
+        "low": 17300.0,
+        "return_pct": 0.23,
+        "max_gain_pct": 0.29,
+        "max_loss_pct": -0.92
+      },
+      {
+        "code": "012330",
+        "name": "현대모비스",
+        "open": 382500.0,
+        "close": 374500.0,
+        "high": 382500.0,
+        "low": 370500.0,
+        "return_pct": -2.09,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -3.14
+      },
+      {
+        "code": "323410",
+        "name": "카카오뱅크",
+        "open": 20550.0,
+        "close": 20300.0,
+        "high": 20600.0,
+        "low": 20050.0,
+        "return_pct": -1.22,
+        "max_gain_pct": 0.24,
+        "max_loss_pct": -2.43
+      },
+      {
+        "code": "081660",
+        "name": "미스토홀딩스",
+        "open": 38050.0,
+        "close": 38850.0,
+        "high": 39100.0,
+        "low": 38000.0,
+        "return_pct": 2.1,
+        "max_gain_pct": 2.76,
+        "max_loss_pct": -0.13
+      },
+      {
+        "code": "271560",
+        "name": "오리온",
+        "open": 112600.0,
+        "close": 111400.0,
+        "high": 112600.0,
+        "low": 110500.0,
+        "return_pct": -1.07,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -1.87
+      },
+      {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 215000.0,
+        "close": 207500.0,
+        "high": 216000.0,
+        "low": 205000.0,
+        "return_pct": -3.49,
+        "max_gain_pct": 0.47,
+        "max_loss_pct": -4.65
+      },
+      {
+        "code": "029780",
+        "name": "삼성카드",
+        "open": 44000.0,
+        "close": 43650.0,
+        "high": 44050.0,
+        "low": 43150.0,
+        "return_pct": -0.8,
+        "max_gain_pct": 0.11,
+        "max_loss_pct": -1.93
+      },
+      {
+        "code": "196170",
+        "name": "알테오젠",
+        "open": 255500.0,
+        "close": 256000.0,
+        "high": 260000.0,
+        "low": 253500.0,
+        "return_pct": 0.2,
+        "max_gain_pct": 1.76,
+        "max_loss_pct": -0.78
+      },
+      {
+        "code": "005940",
+        "name": "NH투자증권",
+        "open": 25550.0,
+        "close": 26450.0,
+        "high": 26450.0,
+        "low": 25400.0,
+        "return_pct": 3.52,
+        "max_gain_pct": 3.52,
+        "max_loss_pct": -0.59
+      }
+    ],
+    "avg_return_pct": -0.29,
+    "excess_pct": -1.29,
+    "win_count": 4,
+    "total_count": 9,
+    "best": {
+      "code": "005940",
+      "name": "NH투자증권",
+      "open": 25550.0,
+      "close": 26450.0,
+      "high": 26450.0,
+      "low": 25400.0,
+      "return_pct": 3.52,
+      "max_gain_pct": 3.52,
+      "max_loss_pct": -0.59
+    },
+    "worst": {
+      "code": "145020",
+      "name": "휴젤",
+      "open": 215000.0,
+      "close": 207500.0,
+      "high": 216000.0,
+      "low": 205000.0,
+      "return_pct": -3.49,
+      "max_gain_pct": 0.47,
+      "max_loss_pct": -4.65
+    },
+    "variants": {
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "traded": true,
+        "avg_return_pct": 0.14,
+        "excess_pct": -0.86,
+        "win_count": 4,
+        "total_count": 9
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "traded": true,
+        "avg_return_pct": 2.33,
+        "excess_pct": 1.33,
+        "win_count": 5,
+        "total_count": 10
+      },
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
+        "traded": true,
+        "avg_return_pct": -1.11,
+        "excess_pct": -2.11,
+        "win_count": 3,
+        "total_count": 10
+      },
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "traded": true,
+        "avg_return_pct": -0.29,
+        "excess_pct": -1.29,
+        "win_count": 4,
+        "total_count": 9
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "traded": false,
+        "avg_return_pct": 0.0,
+        "excess_pct": 0.0,
+        "win_count": 0,
+        "total_count": 0
+      }
+    },
+    "stale_open_dropped": 1
   }
 }
