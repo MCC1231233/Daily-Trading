@@ -156,7 +156,18 @@
         "[참고] 컨센서스 목표주가 대비 +93%",
         "[참고] ROE 6.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "012330",
+        "name": "현대모비스",
+        "open": 375000.0,
+        "close": 373500.0,
+        "high": 384500.0,
+        "low": 371000.0,
+        "return_pct": -0.4,
+        "max_gain_pct": 2.53,
+        "max_loss_pct": -1.07
+      }
     },
     {
       "rank": 2,
@@ -230,7 +241,18 @@
         "[참고] 컨센서스 목표주가 대비 +90%",
         "[참고] ROE 13.1%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 208500.0,
+        "close": 190300.0,
+        "high": 208500.0,
+        "low": 188200.0,
+        "return_pct": -8.73,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -9.74
+      }
     },
     {
       "rank": 3,
@@ -304,7 +326,18 @@
         "[참고] 컨센서스 목표주가 대비 +58%",
         "[참고] ROE 10.3%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "271560",
+        "name": "오리온",
+        "open": 112000.0,
+        "close": 110700.0,
+        "high": 112000.0,
+        "low": 109800.0,
+        "return_pct": -1.16,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -1.96
+      }
     },
     {
       "rank": 4,
@@ -452,7 +485,18 @@
         "[참고] 컨센서스 목표주가 대비 +59%",
         "[참고] ROE 24.6%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "214450",
+        "name": "파마리서치",
+        "open": 329500.0,
+        "close": 323500.0,
+        "high": 330500.0,
+        "low": 322000.0,
+        "return_pct": -1.82,
+        "max_gain_pct": 0.3,
+        "max_loss_pct": -2.28
+      }
     },
     {
       "rank": 6,
@@ -526,7 +570,18 @@
         "[참고] 컨센서스 목표주가 대비 +53%",
         "[참고] ROE 8.9%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "161390",
+        "name": "한국타이어앤테크놀로지",
+        "open": 59500.0,
+        "close": 57900.0,
+        "high": 59600.0,
+        "low": 57100.0,
+        "return_pct": -2.69,
+        "max_gain_pct": 0.17,
+        "max_loss_pct": -4.03
+      }
     },
     {
       "rank": 7,
@@ -600,7 +655,18 @@
         "[참고] 컨센서스 목표주가 대비 +80%",
         "[참고] ROE 10.7%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "259960",
+        "name": "크래프톤",
+        "open": 202500.0,
+        "close": 202000.0,
+        "high": 204000.0,
+        "low": 200000.0,
+        "return_pct": -0.25,
+        "max_gain_pct": 0.74,
+        "max_loss_pct": -1.23
+      }
     },
     {
       "rank": 8,
@@ -748,7 +814,18 @@
         "[참고] 컨센서스 목표주가 대비 +77%",
         "[참고] ROE 10.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "000270",
+        "name": "기아",
+        "open": 120800.0,
+        "close": 119000.0,
+        "high": 122000.0,
+        "low": 118200.0,
+        "return_pct": -1.49,
+        "max_gain_pct": 0.99,
+        "max_loss_pct": -2.15
+      }
     },
     {
       "rank": 10,
@@ -822,7 +899,18 @@
         "[참고] 컨센서스 목표주가 대비 +75%",
         "[참고] ROE 35.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "196170",
+        "name": "알테오젠",
+        "open": 257500.0,
+        "close": 249500.0,
+        "high": 259500.0,
+        "low": 247500.0,
+        "return_pct": -3.11,
+        "max_gain_pct": 0.78,
+        "max_loss_pct": -3.88
+      }
     }
   ],
   "previous_result": {
@@ -1438,5 +1526,169 @@
       "min_oc_after_down_samples": 10
     },
     "max_per_sector": 3
+  },
+  "realized": {
+    "date": "2026-09-22",
+    "trade_date": "2026-09-22",
+    "benchmark_pct": -2.01,
+    "results": [
+      {
+        "code": "012330",
+        "name": "현대모비스",
+        "open": 375000.0,
+        "close": 373500.0,
+        "high": 384500.0,
+        "low": 371000.0,
+        "return_pct": -0.4,
+        "max_gain_pct": 2.53,
+        "max_loss_pct": -1.07
+      },
+      {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 208500.0,
+        "close": 190300.0,
+        "high": 208500.0,
+        "low": 188200.0,
+        "return_pct": -8.73,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -9.74
+      },
+      {
+        "code": "271560",
+        "name": "오리온",
+        "open": 112000.0,
+        "close": 110700.0,
+        "high": 112000.0,
+        "low": 109800.0,
+        "return_pct": -1.16,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -1.96
+      },
+      {
+        "code": "214450",
+        "name": "파마리서치",
+        "open": 329500.0,
+        "close": 323500.0,
+        "high": 330500.0,
+        "low": 322000.0,
+        "return_pct": -1.82,
+        "max_gain_pct": 0.3,
+        "max_loss_pct": -2.28
+      },
+      {
+        "code": "161390",
+        "name": "한국타이어앤테크놀로지",
+        "open": 59500.0,
+        "close": 57900.0,
+        "high": 59600.0,
+        "low": 57100.0,
+        "return_pct": -2.69,
+        "max_gain_pct": 0.17,
+        "max_loss_pct": -4.03
+      },
+      {
+        "code": "259960",
+        "name": "크래프톤",
+        "open": 202500.0,
+        "close": 202000.0,
+        "high": 204000.0,
+        "low": 200000.0,
+        "return_pct": -0.25,
+        "max_gain_pct": 0.74,
+        "max_loss_pct": -1.23
+      },
+      {
+        "code": "000270",
+        "name": "기아",
+        "open": 120800.0,
+        "close": 119000.0,
+        "high": 122000.0,
+        "low": 118200.0,
+        "return_pct": -1.49,
+        "max_gain_pct": 0.99,
+        "max_loss_pct": -2.15
+      },
+      {
+        "code": "196170",
+        "name": "알테오젠",
+        "open": 257500.0,
+        "close": 249500.0,
+        "high": 259500.0,
+        "low": 247500.0,
+        "return_pct": -3.11,
+        "max_gain_pct": 0.78,
+        "max_loss_pct": -3.88
+      }
+    ],
+    "avg_return_pct": -2.46,
+    "excess_pct": -0.45,
+    "win_count": 0,
+    "total_count": 8,
+    "best": {
+      "code": "259960",
+      "name": "크래프톤",
+      "open": 202500.0,
+      "close": 202000.0,
+      "high": 204000.0,
+      "low": 200000.0,
+      "return_pct": -0.25,
+      "max_gain_pct": 0.74,
+      "max_loss_pct": -1.23
+    },
+    "worst": {
+      "code": "145020",
+      "name": "휴젤",
+      "open": 208500.0,
+      "close": 190300.0,
+      "high": 208500.0,
+      "low": 188200.0,
+      "return_pct": -8.73,
+      "max_gain_pct": 0.0,
+      "max_loss_pct": -9.74
+    },
+    "variants": {
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "traded": true,
+        "avg_return_pct": -1.76,
+        "excess_pct": 0.25,
+        "win_count": 2,
+        "total_count": 10
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "traded": true,
+        "avg_return_pct": -2.39,
+        "excess_pct": -0.38,
+        "win_count": 0,
+        "total_count": 10
+      },
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
+        "traded": true,
+        "avg_return_pct": -1.9,
+        "excess_pct": 0.11,
+        "win_count": 0,
+        "total_count": 9
+      },
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "traded": true,
+        "avg_return_pct": -2.46,
+        "excess_pct": -0.45,
+        "win_count": 0,
+        "total_count": 8
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "traded": false,
+        "avg_return_pct": 0.0,
+        "excess_pct": 0.0,
+        "win_count": 0,
+        "total_count": 0
+      }
+    },
+    "stale_open_dropped": 2
   }
 }
