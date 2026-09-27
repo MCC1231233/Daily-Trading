@@ -156,7 +156,18 @@
         "[참고] 컨센서스 목표주가 대비 +95%",
         "[참고] ROE 13.1%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 192600.0,
+        "close": 186800.0,
+        "high": 193000.0,
+        "low": 185900.0,
+        "return_pct": -3.01,
+        "max_gain_pct": 0.21,
+        "max_loss_pct": -3.48
+      }
     },
     {
       "rank": 2,
@@ -230,7 +241,18 @@
         "[참고] 컨센서스 목표주가 대비 +94%",
         "[참고] ROE 6.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "012330",
+        "name": "현대모비스",
+        "open": 375000.0,
+        "close": 369000.0,
+        "high": 379500.0,
+        "low": 365000.0,
+        "return_pct": -1.6,
+        "max_gain_pct": 1.2,
+        "max_loss_pct": -2.67
+      }
     },
     {
       "rank": 3,
@@ -304,7 +326,18 @@
         "[참고] 컨센서스 목표주가 대비 +46%",
         "[참고] ROE 8.2%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "323410",
+        "name": "카카오뱅크",
+        "open": 20300.0,
+        "close": 20000.0,
+        "high": 20450.0,
+        "low": 19900.0,
+        "return_pct": -1.48,
+        "max_gain_pct": 0.74,
+        "max_loss_pct": -1.97
+      }
     },
     {
       "rank": 4,
@@ -378,7 +411,18 @@
         "[참고] 컨센서스 목표주가 대비 +59%",
         "[참고] ROE 10.3%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "271560",
+        "name": "오리온",
+        "open": 111700.0,
+        "close": 110200.0,
+        "high": 111700.0,
+        "low": 109600.0,
+        "return_pct": -1.34,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -1.88
+      }
     },
     {
       "rank": 5,
@@ -600,7 +644,18 @@
         "[참고] 컨센서스 목표주가 대비 +55%",
         "[참고] ROE 8.9%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "161390",
+        "name": "한국타이어앤테크놀로지",
+        "open": 58700.0,
+        "close": 57300.0,
+        "high": 58800.0,
+        "low": 56900.0,
+        "return_pct": -2.39,
+        "max_gain_pct": 0.17,
+        "max_loss_pct": -3.07
+      }
     },
     {
       "rank": 8,
@@ -674,7 +729,18 @@
         "[참고] 컨센서스 목표주가 대비 +125%",
         "[참고] ROE 23.7%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "064350",
+        "name": "현대로템",
+        "open": 117900.0,
+        "close": 116700.0,
+        "high": 119100.0,
+        "low": 114700.0,
+        "return_pct": -1.02,
+        "max_gain_pct": 1.02,
+        "max_loss_pct": -2.71
+      }
     },
     {
       "rank": 9,
@@ -748,7 +814,18 @@
         "[참고] 컨센서스 목표주가 대비 +76%",
         "[참고] ROE 35.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "196170",
+        "name": "알테오젠",
+        "open": 251000.0,
+        "close": 251500.0,
+        "high": 257500.0,
+        "low": 248500.0,
+        "return_pct": 0.2,
+        "max_gain_pct": 2.59,
+        "max_loss_pct": -1.0
+      }
     },
     {
       "rank": 10,
@@ -822,7 +899,18 @@
         "[참고] 컨센서스 목표주가 대비 +89%",
         "[참고] ROE 39.2%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "326030",
+        "name": "SK바이오팜",
+        "open": 76900.0,
+        "close": 76200.0,
+        "high": 77500.0,
+        "low": 75300.0,
+        "return_pct": -0.91,
+        "max_gain_pct": 0.78,
+        "max_loss_pct": -2.08
+      }
     }
   ],
   "previous_result": {
@@ -1427,5 +1515,169 @@
       "min_oc_after_down_samples": 10
     },
     "max_per_sector": 3
+  },
+  "realized": {
+    "date": "2026-09-23",
+    "trade_date": "2026-09-23",
+    "benchmark_pct": -1.02,
+    "results": [
+      {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 192600.0,
+        "close": 186800.0,
+        "high": 193000.0,
+        "low": 185900.0,
+        "return_pct": -3.01,
+        "max_gain_pct": 0.21,
+        "max_loss_pct": -3.48
+      },
+      {
+        "code": "012330",
+        "name": "현대모비스",
+        "open": 375000.0,
+        "close": 369000.0,
+        "high": 379500.0,
+        "low": 365000.0,
+        "return_pct": -1.6,
+        "max_gain_pct": 1.2,
+        "max_loss_pct": -2.67
+      },
+      {
+        "code": "323410",
+        "name": "카카오뱅크",
+        "open": 20300.0,
+        "close": 20000.0,
+        "high": 20450.0,
+        "low": 19900.0,
+        "return_pct": -1.48,
+        "max_gain_pct": 0.74,
+        "max_loss_pct": -1.97
+      },
+      {
+        "code": "271560",
+        "name": "오리온",
+        "open": 111700.0,
+        "close": 110200.0,
+        "high": 111700.0,
+        "low": 109600.0,
+        "return_pct": -1.34,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -1.88
+      },
+      {
+        "code": "161390",
+        "name": "한국타이어앤테크놀로지",
+        "open": 58700.0,
+        "close": 57300.0,
+        "high": 58800.0,
+        "low": 56900.0,
+        "return_pct": -2.39,
+        "max_gain_pct": 0.17,
+        "max_loss_pct": -3.07
+      },
+      {
+        "code": "064350",
+        "name": "현대로템",
+        "open": 117900.0,
+        "close": 116700.0,
+        "high": 119100.0,
+        "low": 114700.0,
+        "return_pct": -1.02,
+        "max_gain_pct": 1.02,
+        "max_loss_pct": -2.71
+      },
+      {
+        "code": "196170",
+        "name": "알테오젠",
+        "open": 251000.0,
+        "close": 251500.0,
+        "high": 257500.0,
+        "low": 248500.0,
+        "return_pct": 0.2,
+        "max_gain_pct": 2.59,
+        "max_loss_pct": -1.0
+      },
+      {
+        "code": "326030",
+        "name": "SK바이오팜",
+        "open": 76900.0,
+        "close": 76200.0,
+        "high": 77500.0,
+        "low": 75300.0,
+        "return_pct": -0.91,
+        "max_gain_pct": 0.78,
+        "max_loss_pct": -2.08
+      }
+    ],
+    "avg_return_pct": -1.44,
+    "excess_pct": -0.42,
+    "win_count": 1,
+    "total_count": 8,
+    "best": {
+      "code": "196170",
+      "name": "알테오젠",
+      "open": 251000.0,
+      "close": 251500.0,
+      "high": 257500.0,
+      "low": 248500.0,
+      "return_pct": 0.2,
+      "max_gain_pct": 2.59,
+      "max_loss_pct": -1.0
+    },
+    "worst": {
+      "code": "145020",
+      "name": "휴젤",
+      "open": 192600.0,
+      "close": 186800.0,
+      "high": 193000.0,
+      "low": 185900.0,
+      "return_pct": -3.01,
+      "max_gain_pct": 0.21,
+      "max_loss_pct": -3.48
+    },
+    "variants": {
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "traded": true,
+        "avg_return_pct": -1.99,
+        "excess_pct": -0.97,
+        "win_count": 1,
+        "total_count": 10
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "traded": true,
+        "avg_return_pct": -0.16,
+        "excess_pct": 0.86,
+        "win_count": 5,
+        "total_count": 10
+      },
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
+        "traded": true,
+        "avg_return_pct": -0.1,
+        "excess_pct": 0.92,
+        "win_count": 3,
+        "total_count": 8
+      },
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "traded": true,
+        "avg_return_pct": -1.44,
+        "excess_pct": -0.42,
+        "win_count": 1,
+        "total_count": 8
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "traded": true,
+        "avg_return_pct": -1.99,
+        "excess_pct": -0.97,
+        "win_count": 1,
+        "total_count": 10
+      }
+    },
+    "stale_open_dropped": 2
   }
 }
