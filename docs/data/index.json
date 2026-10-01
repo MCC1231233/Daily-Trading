@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-10-02",
+      "trade_date": "2026-10-02",
+      "regime": "risk_on",
+      "pick_count": 10,
+      "top_names": [
+        "휴젤",
+        "효성티앤씨",
+        "기아"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-10-01",
       "trade_date": "2026-10-01",
       "regime": "neutral",
@@ -1747,7 +1759,7 @@
       }
     }
   ],
-  "updated_at": "2026-10-01 07:00:07 KST",
+  "updated_at": "2026-10-02 07:28:11 KST",
   "performance": {
     "sessions": 41,
     "avg_daily_return_pct": 0.329,
@@ -1781,24 +1793,11 @@
         "avg_daily_pct": 0.315,
         "cumulative_pct": 13.13,
         "win_rate_pct": 61.0,
-        "avg_excess_pct": -0.046,
+        "avg_excess_pct": -0.045,
         "tstat": -0.1,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
-      },
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "sessions": 41,
-        "traded_sessions": 41,
-        "avg_daily_pct": 0.34,
-        "cumulative_pct": 13.72,
-        "win_rate_pct": 53.7,
-        "avg_excess_pct": 0.007,
-        "tstat": 0.01,
-        "significant": false,
-        "sessions_needed": 1287568,
-        "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 1287568거래일 필요"
       },
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
@@ -1825,6 +1824,19 @@
         "significant": false,
         "sessions_needed": 342,
         "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 342거래일 필요"
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "sessions": 41,
+        "traded_sessions": 41,
+        "avg_daily_pct": 0.34,
+        "cumulative_pct": 13.72,
+        "win_rate_pct": 53.7,
+        "avg_excess_pct": 0.007,
+        "tstat": 0.01,
+        "significant": false,
+        "sessions_needed": 1287568,
+        "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 1287568거래일 필요"
       }
     }
   }
