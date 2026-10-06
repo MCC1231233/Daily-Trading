@@ -156,7 +156,18 @@
         "[참고] 컨센서스 목표주가 대비 +95%",
         "[참고] ROE 13.1%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 181500.0,
+        "close": 182000.0,
+        "high": 182900.0,
+        "low": 178900.0,
+        "return_pct": 0.28,
+        "max_gain_pct": 0.77,
+        "max_loss_pct": -1.43
+      }
     },
     {
       "rank": 2,
@@ -230,7 +241,18 @@
         "[참고] 컨센서스 목표주가 대비 +67%",
         "[참고] ROE 10.3%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "271560",
+        "name": "오리온",
+        "open": 106500.0,
+        "close": 106400.0,
+        "high": 106600.0,
+        "low": 104900.0,
+        "return_pct": -0.09,
+        "max_gain_pct": 0.09,
+        "max_loss_pct": -1.5
+      }
     },
     {
       "rank": 3,
@@ -304,7 +326,18 @@
         "[참고] 컨센서스 목표주가 대비 +102%",
         "[참고] ROE 14.0%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "032350",
+        "name": "롯데관광개발",
+        "open": 10900.0,
+        "close": 10920.0,
+        "high": 11000.0,
+        "low": 10220.0,
+        "return_pct": 0.18,
+        "max_gain_pct": 0.92,
+        "max_loss_pct": -6.24
+      }
     },
     {
       "rank": 4,
@@ -378,7 +411,18 @@
         "[참고] 컨센서스 목표주가 대비 +87%",
         "[참고] ROE 10.8%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "000270",
+        "name": "기아",
+        "open": 112600.0,
+        "close": 112800.0,
+        "high": 114300.0,
+        "low": 111800.0,
+        "return_pct": 0.18,
+        "max_gain_pct": 1.51,
+        "max_loss_pct": -0.71
+      }
     },
     {
       "rank": 5,
@@ -452,7 +496,18 @@
         "[참고] 컨센서스 목표주가 대비 +92%",
         "[참고] ROE 6.4%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "298020",
+        "name": "효성티앤씨",
+        "open": 289500.0,
+        "close": 291500.0,
+        "high": 296000.0,
+        "low": 270000.0,
+        "return_pct": 0.69,
+        "max_gain_pct": 2.25,
+        "max_loss_pct": -6.74
+      }
     },
     {
       "rank": 6,
@@ -526,7 +581,18 @@
         "[참고] 컨센서스 목표주가 대비 +50%",
         "[참고] ROE 8.2%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "323410",
+        "name": "카카오뱅크",
+        "open": 20100.0,
+        "close": 20050.0,
+        "high": 20100.0,
+        "low": 19710.0,
+        "return_pct": -0.25,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -1.94
+      }
     },
     {
       "rank": 7,
@@ -600,7 +666,18 @@
         "[참고] 컨센서스 목표주가 대비 +74%",
         "[참고] ROE 15.6%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "035900",
+        "name": "JYP Ent.",
+        "open": 37850.0,
+        "close": 38150.0,
+        "high": 38700.0,
+        "low": 37500.0,
+        "return_pct": 0.79,
+        "max_gain_pct": 2.25,
+        "max_loss_pct": -0.92
+      }
     },
     {
       "rank": 8,
@@ -748,7 +825,18 @@
         "[참고] 컨센서스 목표주가 대비 +100%",
         "[참고] ROE 6.6%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "005380",
+        "name": "현대차",
+        "open": 348000.0,
+        "close": 348500.0,
+        "high": 353000.0,
+        "low": 345000.0,
+        "return_pct": 0.14,
+        "max_gain_pct": 1.44,
+        "max_loss_pct": -0.86
+      }
     },
     {
       "rank": 10,
@@ -822,7 +910,18 @@
         "[참고] 컨센서스 목표주가 대비 +59%",
         "[참고] ROE 32.0%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "257720",
+        "name": "실리콘투",
+        "open": 36750.0,
+        "close": 36650.0,
+        "high": 37500.0,
+        "low": 35900.0,
+        "return_pct": -0.27,
+        "max_gain_pct": 2.04,
+        "max_loss_pct": -2.31
+      }
     }
   ],
   "previous_result": {
@@ -1449,5 +1548,180 @@
       "min_oc_after_down_samples": 10
     },
     "max_per_sector": 3
+  },
+  "realized": {
+    "date": "2026-10-06",
+    "trade_date": "2026-10-06",
+    "benchmark_pct": -1.47,
+    "results": [
+      {
+        "code": "145020",
+        "name": "휴젤",
+        "open": 181500.0,
+        "close": 182000.0,
+        "high": 182900.0,
+        "low": 178900.0,
+        "return_pct": 0.28,
+        "max_gain_pct": 0.77,
+        "max_loss_pct": -1.43
+      },
+      {
+        "code": "271560",
+        "name": "오리온",
+        "open": 106500.0,
+        "close": 106400.0,
+        "high": 106600.0,
+        "low": 104900.0,
+        "return_pct": -0.09,
+        "max_gain_pct": 0.09,
+        "max_loss_pct": -1.5
+      },
+      {
+        "code": "032350",
+        "name": "롯데관광개발",
+        "open": 10900.0,
+        "close": 10920.0,
+        "high": 11000.0,
+        "low": 10220.0,
+        "return_pct": 0.18,
+        "max_gain_pct": 0.92,
+        "max_loss_pct": -6.24
+      },
+      {
+        "code": "000270",
+        "name": "기아",
+        "open": 112600.0,
+        "close": 112800.0,
+        "high": 114300.0,
+        "low": 111800.0,
+        "return_pct": 0.18,
+        "max_gain_pct": 1.51,
+        "max_loss_pct": -0.71
+      },
+      {
+        "code": "298020",
+        "name": "효성티앤씨",
+        "open": 289500.0,
+        "close": 291500.0,
+        "high": 296000.0,
+        "low": 270000.0,
+        "return_pct": 0.69,
+        "max_gain_pct": 2.25,
+        "max_loss_pct": -6.74
+      },
+      {
+        "code": "323410",
+        "name": "카카오뱅크",
+        "open": 20100.0,
+        "close": 20050.0,
+        "high": 20100.0,
+        "low": 19710.0,
+        "return_pct": -0.25,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -1.94
+      },
+      {
+        "code": "035900",
+        "name": "JYP Ent.",
+        "open": 37850.0,
+        "close": 38150.0,
+        "high": 38700.0,
+        "low": 37500.0,
+        "return_pct": 0.79,
+        "max_gain_pct": 2.25,
+        "max_loss_pct": -0.92
+      },
+      {
+        "code": "005380",
+        "name": "현대차",
+        "open": 348000.0,
+        "close": 348500.0,
+        "high": 353000.0,
+        "low": 345000.0,
+        "return_pct": 0.14,
+        "max_gain_pct": 1.44,
+        "max_loss_pct": -0.86
+      },
+      {
+        "code": "257720",
+        "name": "실리콘투",
+        "open": 36750.0,
+        "close": 36650.0,
+        "high": 37500.0,
+        "low": 35900.0,
+        "return_pct": -0.27,
+        "max_gain_pct": 2.04,
+        "max_loss_pct": -2.31
+      }
+    ],
+    "avg_return_pct": 0.18,
+    "excess_pct": 1.65,
+    "win_count": 6,
+    "total_count": 9,
+    "best": {
+      "code": "035900",
+      "name": "JYP Ent.",
+      "open": 37850.0,
+      "close": 38150.0,
+      "high": 38700.0,
+      "low": 37500.0,
+      "return_pct": 0.79,
+      "max_gain_pct": 2.25,
+      "max_loss_pct": -0.92
+    },
+    "worst": {
+      "code": "257720",
+      "name": "실리콘투",
+      "open": 36750.0,
+      "close": 36650.0,
+      "high": 37500.0,
+      "low": 35900.0,
+      "return_pct": -0.27,
+      "max_gain_pct": 2.04,
+      "max_loss_pct": -2.31
+    },
+    "variants": {
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "traded": true,
+        "avg_return_pct": -0.17,
+        "excess_pct": 1.3,
+        "win_count": 4,
+        "total_count": 9
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "traded": true,
+        "avg_return_pct": 0.65,
+        "excess_pct": 2.12,
+        "win_count": 6,
+        "total_count": 10
+      },
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
+        "traded": true,
+        "avg_return_pct": 0.19,
+        "excess_pct": 1.66,
+        "win_count": 6,
+        "total_count": 9
+      },
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "traded": true,
+        "avg_return_pct": 0.18,
+        "excess_pct": 1.65,
+        "win_count": 6,
+        "total_count": 9
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "traded": false,
+        "avg_return_pct": 0.0,
+        "excess_pct": 0.0,
+        "win_count": 0,
+        "total_count": 0
+      }
+    },
+    "stale_open_dropped": 1
   }
 }
