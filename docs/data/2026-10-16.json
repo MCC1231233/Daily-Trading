@@ -156,7 +156,18 @@
         "[참고] 컨센서스 목표주가 대비 +117%",
         "[참고] ROE 4.7%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "069960",
+        "name": "현대백화점",
+        "open": 76600.0,
+        "close": 80000.0,
+        "high": 81300.0,
+        "low": 76000.0,
+        "return_pct": 4.44,
+        "max_gain_pct": 6.14,
+        "max_loss_pct": -0.78
+      }
     },
     {
       "rank": 2,
@@ -230,7 +241,18 @@
         "[참고] 컨센서스 목표주가 대비 +111%",
         "[참고] ROE 6.6%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "005380",
+        "name": "현대차",
+        "open": 291500.0,
+        "close": 314000.0,
+        "high": 320500.0,
+        "low": 291500.0,
+        "return_pct": 7.72,
+        "max_gain_pct": 9.95,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 3,
@@ -304,7 +326,18 @@
         "[참고] 컨센서스 목표주가 대비 +115%",
         "[참고] ROE 27.6%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "042660",
+        "name": "한화오션",
+        "open": 62500.0,
+        "close": 64600.0,
+        "high": 67000.0,
+        "low": 62400.0,
+        "return_pct": 3.36,
+        "max_gain_pct": 7.2,
+        "max_loss_pct": -0.16
+      }
     },
     {
       "rank": 4,
@@ -378,7 +411,18 @@
         "[참고] 컨센서스 목표주가 대비 +156%",
         "[참고] ROE 23.7%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "064350",
+        "name": "현대로템",
+        "open": 93000.0,
+        "close": 97500.0,
+        "high": 99400.0,
+        "low": 92200.0,
+        "return_pct": 4.84,
+        "max_gain_pct": 6.88,
+        "max_loss_pct": -0.86
+      }
     },
     {
       "rank": 5,
@@ -452,7 +496,18 @@
         "[참고] 컨센서스 목표주가 대비 +128%",
         "[참고] ROE 37.7%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "267260",
+        "name": "HD현대일렉트릭",
+        "open": 489500.0,
+        "close": 513000.0,
+        "high": 534000.0,
+        "low": 489500.0,
+        "return_pct": 4.8,
+        "max_gain_pct": 9.09,
+        "max_loss_pct": 0.0
+      }
     },
     {
       "rank": 6,
@@ -526,7 +581,18 @@
         "[참고] 컨센서스 목표주가 대비 +106%",
         "[참고] ROE 24.6%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "214450",
+        "name": "파마리서치",
+        "open": 262000.0,
+        "close": 279000.0,
+        "high": 285000.0,
+        "low": 260500.0,
+        "return_pct": 6.49,
+        "max_gain_pct": 8.78,
+        "max_loss_pct": -0.57
+      }
     },
     {
       "rank": 7,
@@ -600,7 +666,18 @@
         "[참고] 컨센서스 목표주가 대비 +97%",
         "[참고] ROE 22.2%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "039490",
+        "name": "키움증권",
+        "open": 213000.0,
+        "close": 223000.0,
+        "high": 225500.0,
+        "low": 212500.0,
+        "return_pct": 4.69,
+        "max_gain_pct": 5.87,
+        "max_loss_pct": -0.23
+      }
     },
     {
       "rank": 8,
@@ -748,7 +825,18 @@
         "[참고] 컨센서스 목표주가 대비 +84%",
         "[참고] ROE 17.1%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "004800",
+        "name": "효성",
+        "open": 119500.0,
+        "close": 123600.0,
+        "high": 126700.0,
+        "low": 117700.0,
+        "return_pct": 3.43,
+        "max_gain_pct": 6.03,
+        "max_loss_pct": -1.51
+      }
     },
     {
       "rank": 10,
@@ -822,7 +910,18 @@
         "[참고] 컨센서스 목표주가 대비 +114%",
         "[참고] ROE 23.2%",
         "참고 지표는 선정에 사용되지 않았습니다 — 점수는 RSI 하나로만 계산됩니다."
-      ]
+      ],
+      "realized": {
+        "code": "009540",
+        "name": "HD한국조선해양",
+        "open": 273000.0,
+        "close": 264500.0,
+        "high": 273000.0,
+        "low": 262500.0,
+        "return_pct": -3.11,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -3.85
+      }
     }
   ],
   "previous_result": {
@@ -1449,5 +1548,180 @@
       "min_oc_after_down_samples": 10
     },
     "max_per_sector": 3
+  },
+  "realized": {
+    "date": "2026-10-16",
+    "trade_date": "2026-10-16",
+    "benchmark_pct": 0.25,
+    "results": [
+      {
+        "code": "069960",
+        "name": "현대백화점",
+        "open": 76600.0,
+        "close": 80000.0,
+        "high": 81300.0,
+        "low": 76000.0,
+        "return_pct": 4.44,
+        "max_gain_pct": 6.14,
+        "max_loss_pct": -0.78
+      },
+      {
+        "code": "005380",
+        "name": "현대차",
+        "open": 291500.0,
+        "close": 314000.0,
+        "high": 320500.0,
+        "low": 291500.0,
+        "return_pct": 7.72,
+        "max_gain_pct": 9.95,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "042660",
+        "name": "한화오션",
+        "open": 62500.0,
+        "close": 64600.0,
+        "high": 67000.0,
+        "low": 62400.0,
+        "return_pct": 3.36,
+        "max_gain_pct": 7.2,
+        "max_loss_pct": -0.16
+      },
+      {
+        "code": "064350",
+        "name": "현대로템",
+        "open": 93000.0,
+        "close": 97500.0,
+        "high": 99400.0,
+        "low": 92200.0,
+        "return_pct": 4.84,
+        "max_gain_pct": 6.88,
+        "max_loss_pct": -0.86
+      },
+      {
+        "code": "267260",
+        "name": "HD현대일렉트릭",
+        "open": 489500.0,
+        "close": 513000.0,
+        "high": 534000.0,
+        "low": 489500.0,
+        "return_pct": 4.8,
+        "max_gain_pct": 9.09,
+        "max_loss_pct": 0.0
+      },
+      {
+        "code": "214450",
+        "name": "파마리서치",
+        "open": 262000.0,
+        "close": 279000.0,
+        "high": 285000.0,
+        "low": 260500.0,
+        "return_pct": 6.49,
+        "max_gain_pct": 8.78,
+        "max_loss_pct": -0.57
+      },
+      {
+        "code": "039490",
+        "name": "키움증권",
+        "open": 213000.0,
+        "close": 223000.0,
+        "high": 225500.0,
+        "low": 212500.0,
+        "return_pct": 4.69,
+        "max_gain_pct": 5.87,
+        "max_loss_pct": -0.23
+      },
+      {
+        "code": "004800",
+        "name": "효성",
+        "open": 119500.0,
+        "close": 123600.0,
+        "high": 126700.0,
+        "low": 117700.0,
+        "return_pct": 3.43,
+        "max_gain_pct": 6.03,
+        "max_loss_pct": -1.51
+      },
+      {
+        "code": "009540",
+        "name": "HD한국조선해양",
+        "open": 273000.0,
+        "close": 264500.0,
+        "high": 273000.0,
+        "low": 262500.0,
+        "return_pct": -3.11,
+        "max_gain_pct": 0.0,
+        "max_loss_pct": -3.85
+      }
+    ],
+    "avg_return_pct": 4.07,
+    "excess_pct": 3.82,
+    "win_count": 8,
+    "total_count": 9,
+    "best": {
+      "code": "005380",
+      "name": "현대차",
+      "open": 291500.0,
+      "close": 314000.0,
+      "high": 320500.0,
+      "low": 291500.0,
+      "return_pct": 7.72,
+      "max_gain_pct": 9.95,
+      "max_loss_pct": 0.0
+    },
+    "worst": {
+      "code": "009540",
+      "name": "HD한국조선해양",
+      "open": 273000.0,
+      "close": 264500.0,
+      "high": 273000.0,
+      "low": 262500.0,
+      "return_pct": -3.11,
+      "max_gain_pct": 0.0,
+      "max_loss_pct": -3.85
+    },
+    "variants": {
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "traded": true,
+        "avg_return_pct": 1.84,
+        "excess_pct": 1.59,
+        "win_count": 9,
+        "total_count": 10
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "traded": true,
+        "avg_return_pct": -0.58,
+        "excess_pct": -0.83,
+        "win_count": 4,
+        "total_count": 10
+      },
+      "oversold": {
+        "label": "과매도 단일팩터 (대조군)",
+        "traded": true,
+        "avg_return_pct": 4.96,
+        "excess_pct": 4.71,
+        "win_count": 9,
+        "total_count": 9
+      },
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "traded": true,
+        "avg_return_pct": 4.07,
+        "excess_pct": 3.82,
+        "win_count": 8,
+        "total_count": 9
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "traded": true,
+        "avg_return_pct": 1.84,
+        "excess_pct": 1.59,
+        "win_count": 9,
+        "total_count": 10
+      }
+    },
+    "stale_open_dropped": 1
   }
 }
