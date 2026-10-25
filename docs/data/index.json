@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-10-26",
+      "trade_date": "2026-10-26",
+      "regime": "risk_off",
+      "pick_count": 10,
+      "top_names": [
+        "HD현대",
+        "한화오션",
+        "신한지주"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-10-23",
       "trade_date": "2026-10-23",
       "regime": "risk_off",
@@ -2363,7 +2375,7 @@
       }
     }
   ],
-  "updated_at": "2026-10-23 06:19:22 KST",
+  "updated_at": "2026-10-26 05:33:42 KST",
   "performance": {
     "sessions": 55,
     "avg_daily_return_pct": -0.027,
@@ -2377,32 +2389,6 @@
   "shadow": {
     "sessions": 55,
     "variants": {
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "sessions": 55,
-        "traded_sessions": 55,
-        "avg_daily_pct": -0.071,
-        "cumulative_pct": -6.08,
-        "win_rate_pct": 47.3,
-        "avg_excess_pct": -0.156,
-        "tstat": -0.33,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "아직 우연과 구분 안 됨"
-      },
-      "reversal_timed": {
-        "label": "역추세 + 시장 타이밍",
-        "sessions": 55,
-        "traded_sessions": 31,
-        "avg_daily_pct": 0.059,
-        "cumulative_pct": 2.75,
-        "win_rate_pct": 27.3,
-        "avg_excess_pct": -0.083,
-        "tstat": -0.25,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "아직 우연과 구분 안 됨"
-      },
       "quality_oversold": {
         "label": "우량 과매도 (2단계, 발행본)",
         "sessions": 41,
@@ -2438,6 +2424,32 @@
         "win_rate_pct": 49.1,
         "avg_excess_pct": -0.106,
         "tstat": -0.29,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "아직 우연과 구분 안 됨"
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "sessions": 55,
+        "traded_sessions": 55,
+        "avg_daily_pct": -0.071,
+        "cumulative_pct": -6.08,
+        "win_rate_pct": 47.3,
+        "avg_excess_pct": -0.156,
+        "tstat": -0.33,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "아직 우연과 구분 안 됨"
+      },
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "sessions": 55,
+        "traded_sessions": 31,
+        "avg_daily_pct": 0.059,
+        "cumulative_pct": 2.75,
+        "win_rate_pct": 27.3,
+        "avg_excess_pct": -0.083,
+        "tstat": -0.25,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
