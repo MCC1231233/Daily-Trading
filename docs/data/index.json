@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-11-04",
+      "trade_date": "2026-11-04",
+      "regime": "risk_off",
+      "pick_count": 10,
+      "top_names": [
+        "LIG디펜스앤에어로스페이스",
+        "신한지주",
+        "HL만도"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-11-03",
       "trade_date": "2026-11-03",
       "regime": "risk_off",
@@ -10,7 +22,39 @@
         "기아",
         "LIG디펜스앤에어로스페이스"
       ],
-      "scored": false
+      "scored": true,
+      "avg_return_pct": -0.38,
+      "excess_pct": null,
+      "benchmark_pct": null,
+      "win_count": 4,
+      "total_count": 10,
+      "variant_returns": {
+        "reversal": {
+          "avg": -1.78,
+          "excess": null,
+          "traded": true
+        },
+        "momentum": {
+          "avg": -1.74,
+          "excess": null,
+          "traded": true
+        },
+        "oversold": {
+          "avg": -0.38,
+          "excess": null,
+          "traded": true
+        },
+        "quality_oversold": {
+          "avg": -0.38,
+          "excess": null,
+          "traded": true
+        },
+        "reversal_timed": {
+          "avg": 0.0,
+          "excess": 0.0,
+          "traded": false
+        }
+      }
     },
     {
       "date": "2026-11-02",
@@ -2671,66 +2715,53 @@
       }
     }
   ],
-  "updated_at": "2026-11-03 09:43:51 KST",
+  "updated_at": "2026-11-04 08:00:22 KST",
   "performance": {
-    "sessions": 62,
-    "avg_daily_return_pct": -0.04,
-    "cumulative_return_pct": -3.99,
+    "sessions": 63,
+    "avg_daily_return_pct": -0.045,
+    "cumulative_return_pct": -4.35,
     "positive_sessions": 33,
-    "session_win_rate_pct": 53.2,
+    "session_win_rate_pct": 52.4,
     "best_session_pct": 5.92,
     "worst_session_pct": -7.7,
-    "pick_win_rate_pct": 49.7
+    "pick_win_rate_pct": 49.5
   },
   "shadow": {
-    "sessions": 62,
+    "sessions": 63,
     "variants": {
-      "quality_oversold": {
-        "label": "우량 과매도 (2단계, 발행본)",
-        "sessions": 48,
-        "traded_sessions": 48,
-        "avg_daily_pct": -0.235,
-        "cumulative_pct": -11.79,
-        "win_rate_pct": 52.1,
-        "avg_excess_pct": -0.295,
-        "tstat": -1.03,
+      "reversal_timed": {
+        "label": "역추세 + 시장 타이밍",
+        "sessions": 63,
+        "traded_sessions": 36,
+        "avg_daily_pct": 0.117,
+        "cumulative_pct": 6.92,
+        "win_rate_pct": 28.6,
+        "avg_excess_pct": -0.168,
+        "tstat": -0.56,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
       },
       "momentum": {
         "label": "추세추종 (대조군)",
-        "sessions": 62,
-        "traded_sessions": 62,
-        "avg_daily_pct": -0.138,
-        "cumulative_pct": -10.56,
-        "win_rate_pct": 46.8,
+        "sessions": 63,
+        "traded_sessions": 63,
+        "avg_daily_pct": -0.163,
+        "cumulative_pct": -12.12,
+        "win_rate_pct": 46.0,
         "avg_excess_pct": -0.349,
         "tstat": -0.79,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
       },
-      "reversal_timed": {
-        "label": "역추세 + 시장 타이밍",
-        "sessions": 62,
-        "traded_sessions": 36,
-        "avg_daily_pct": 0.119,
-        "cumulative_pct": 6.92,
-        "win_rate_pct": 29.0,
-        "avg_excess_pct": -0.171,
-        "tstat": -0.56,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "아직 우연과 구분 안 됨"
-      },
       "reversal": {
         "label": "역추세 (대조군)",
-        "sessions": 62,
-        "traded_sessions": 62,
-        "avg_daily_pct": 0.016,
-        "cumulative_pct": -0.13,
-        "win_rate_pct": 48.4,
+        "sessions": 63,
+        "traded_sessions": 63,
+        "avg_daily_pct": -0.012,
+        "cumulative_pct": -1.91,
+        "win_rate_pct": 47.6,
         "avg_excess_pct": -0.21,
         "tstat": -0.63,
         "significant": false,
@@ -2739,16 +2770,29 @@
       },
       "oversold": {
         "label": "과매도 단일팩터 (대조군)",
-        "sessions": 62,
-        "traded_sessions": 62,
-        "avg_daily_pct": 0.34,
-        "cumulative_pct": 21.1,
-        "win_rate_pct": 54.8,
+        "sessions": 63,
+        "traded_sessions": 63,
+        "avg_daily_pct": 0.329,
+        "cumulative_pct": 20.64,
+        "win_rate_pct": 54.0,
         "avg_excess_pct": 0.103,
         "tstat": 0.3,
         "significant": false,
         "sessions_needed": 2724,
         "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 2724거래일 필요"
+      },
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "sessions": 49,
+        "traded_sessions": 49,
+        "avg_daily_pct": -0.238,
+        "cumulative_pct": -12.13,
+        "win_rate_pct": 51.0,
+        "avg_excess_pct": -0.295,
+        "tstat": -1.03,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "아직 우연과 구분 안 됨"
       }
     }
   }
