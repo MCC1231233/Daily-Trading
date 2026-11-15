@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-11-16",
+      "trade_date": "2026-11-16",
+      "regime": "risk_off",
+      "pick_count": 10,
+      "top_names": [
+        "TKG휴켐스",
+        "씨젠",
+        "현대해상"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-11-13",
       "trade_date": "2026-11-13",
       "regime": "risk_off",
@@ -3023,7 +3035,7 @@
       }
     }
   ],
-  "updated_at": "2026-11-13 08:20:16 KST",
+  "updated_at": "2026-11-16 07:36:43 KST",
   "performance": {
     "sessions": 70,
     "avg_daily_return_pct": -0.034,
@@ -3037,6 +3049,32 @@
   "shadow": {
     "sessions": 70,
     "variants": {
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "sessions": 56,
+        "traded_sessions": 56,
+        "avg_daily_pct": -0.199,
+        "cumulative_pct": -11.77,
+        "win_rate_pct": 50.0,
+        "avg_excess_pct": -0.117,
+        "tstat": -0.41,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "아직 우연과 구분 안 됨"
+      },
+      "reversal": {
+        "label": "역추세 (대조군)",
+        "sessions": 70,
+        "traded_sessions": 70,
+        "avg_daily_pct": -0.085,
+        "cumulative_pct": -6.98,
+        "win_rate_pct": 44.3,
+        "avg_excess_pct": -0.158,
+        "tstat": -0.52,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "아직 우연과 구분 안 됨"
+      },
       "reversal_timed": {
         "label": "역추세 + 시장 타이밍",
         "sessions": 70,
@@ -3063,19 +3101,6 @@
         "sessions_needed": 900,
         "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 900거래일 필요"
       },
-      "quality_oversold": {
-        "label": "우량 과매도 (2단계, 발행본)",
-        "sessions": 56,
-        "traded_sessions": 56,
-        "avg_daily_pct": -0.199,
-        "cumulative_pct": -11.77,
-        "win_rate_pct": 50.0,
-        "avg_excess_pct": -0.117,
-        "tstat": -0.41,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "아직 우연과 구분 안 됨"
-      },
       "momentum": {
         "label": "추세추종 (대조군)",
         "sessions": 70,
@@ -3085,19 +3110,6 @@
         "win_rate_pct": 47.1,
         "avg_excess_pct": -0.244,
         "tstat": -0.57,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "아직 우연과 구분 안 됨"
-      },
-      "reversal": {
-        "label": "역추세 (대조군)",
-        "sessions": 70,
-        "traded_sessions": 70,
-        "avg_daily_pct": -0.085,
-        "cumulative_pct": -6.98,
-        "win_rate_pct": 44.3,
-        "avg_excess_pct": -0.158,
-        "tstat": -0.52,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
