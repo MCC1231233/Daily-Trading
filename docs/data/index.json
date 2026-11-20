@@ -1,6 +1,18 @@
 {
   "reports": [
     {
+      "date": "2026-11-20",
+      "trade_date": "2026-11-20",
+      "regime": "risk_off",
+      "pick_count": 10,
+      "top_names": [
+        "현대해상",
+        "HD현대",
+        "클래시스"
+      ],
+      "scored": false
+    },
+    {
       "date": "2026-11-19",
       "trade_date": "2026-11-19",
       "regime": "risk_off",
@@ -3199,7 +3211,7 @@
       }
     }
   ],
-  "updated_at": "2026-11-19 09:01:06 KST",
+  "updated_at": "2026-11-20 09:24:18 KST",
   "performance": {
     "sessions": 74,
     "avg_daily_return_pct": -0.083,
@@ -3213,15 +3225,15 @@
   "shadow": {
     "sessions": 74,
     "variants": {
-      "momentum": {
-        "label": "추세추종 (대조군)",
-        "sessions": 74,
-        "traded_sessions": 74,
-        "avg_daily_pct": -0.219,
-        "cumulative_pct": -17.67,
-        "win_rate_pct": 48.6,
-        "avg_excess_pct": -0.163,
-        "tstat": -0.4,
+      "quality_oversold": {
+        "label": "우량 과매도 (2단계, 발행본)",
+        "sessions": 60,
+        "traded_sessions": 60,
+        "avg_daily_pct": -0.248,
+        "cumulative_pct": -15.08,
+        "win_rate_pct": 48.3,
+        "avg_excess_pct": -0.034,
+        "tstat": -0.12,
         "significant": false,
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
@@ -3252,19 +3264,6 @@
         "sessions_needed": null,
         "confidence_note": "아직 우연과 구분 안 됨"
       },
-      "quality_oversold": {
-        "label": "우량 과매도 (2단계, 발행본)",
-        "sessions": 60,
-        "traded_sessions": 60,
-        "avg_daily_pct": -0.248,
-        "cumulative_pct": -15.08,
-        "win_rate_pct": 48.3,
-        "avg_excess_pct": -0.034,
-        "tstat": -0.12,
-        "significant": false,
-        "sessions_needed": null,
-        "confidence_note": "아직 우연과 구분 안 됨"
-      },
       "oversold": {
         "label": "과매도 단일팩터 (대조군)",
         "sessions": 74,
@@ -3277,6 +3276,19 @@
         "significant": false,
         "sessions_needed": 480,
         "confidence_note": "아직 우연과 구분 안 됨. 이 효과크기가 유지되면 약 480거래일 필요"
+      },
+      "momentum": {
+        "label": "추세추종 (대조군)",
+        "sessions": 74,
+        "traded_sessions": 74,
+        "avg_daily_pct": -0.219,
+        "cumulative_pct": -17.67,
+        "win_rate_pct": 48.6,
+        "avg_excess_pct": -0.163,
+        "tstat": -0.4,
+        "significant": false,
+        "sessions_needed": null,
+        "confidence_note": "아직 우연과 구분 안 됨"
       }
     }
   }
